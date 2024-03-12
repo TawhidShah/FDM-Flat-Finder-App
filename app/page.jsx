@@ -15,14 +15,14 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       {/* EXAMPLE HEADER EXTRACT TO COMPONENT */}
-      <div className="flex justify-between items-center w-full bg-gray-500 h-16">
-        <h1 className="font-bold text-2xl">Flat Finder App</h1>
-        <h1 className="font-bold text-2xl">Sign-in</h1>
+      <div className="flex h-16 w-full items-center justify-between bg-gray-500">
+        <h1 className="text-2xl font-bold">Flat Finder App</h1>
+        <h1 className="text-2xl font-bold">Sign-in</h1>
       </div>
       {mockListings.map((listing) => (
         <div
           key={listing.id}
-          className="flex flex-col items-center justify-center p-8 m-8 bg-white rounded-lg shadow-lg border border-gray-900"
+          className="m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg"
         >
           <Carousel className="w-full max-w-xs">
             <CarouselContent>
