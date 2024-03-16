@@ -1,15 +1,198 @@
+// MADE UP BY CHATGPT
+
 const mockListings = [
-    {
-      id: 1,
-      title: 'Luxury Apartment',
-      description: 'Spacious luxury apartment with stunning views',
-      price: 2000,
-      images: [
-        '/images/apartment1.jpg',
-        '/images/apartment2.jpg',
-        '/images/apartment3.jpg',
-      ],
-    },
-  ];
-  
-  export default mockListings;
+  {
+    id: 0,
+    title: "Luxury London Flat",
+    description:
+      "Spacious and luxurious flat with breathtaking views of the London skyline, located in the heart of the city.",
+    price: 2000,
+    propertyType: "Flat",
+    ownerType: "External Provider",
+    city: "London",
+    address:
+      "Flat 21, The Vision Building, 15 Argyle Street, Camden, London, WC1H 8EJ",
+    nearbyStations: [
+      "King's Cross St Pancras",
+      "Euston",
+      "Mornington Crescent",
+    ],
+    bedrooms: 2,
+    bathrooms: 2,
+    area: "900 sqft",
+    images: [
+      "/images/0_0.jpg",
+      "/images/0_1.jpg",
+      "/images/0_2.jpg",
+      "/images/0_3.jpg",
+      "/images/0_4.jpg",
+      "/images/0_5.jpg",
+      "/images/0_6.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=3678912&search_id=1285309264&city_id=9&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285309264%26&",
+  },
+  {
+    id: 1,
+    title: "Charming Flat in Notting Hill",
+    description:
+      "Quaint flat with a rustic charm, featuring hardwood floors and a fireplace, perfect for cozy evenings.",
+    price: 1500,
+    propertyType: "Flat",
+    ownerType: "Internal Employee",
+    city: "London",
+    address: "33 Westbourne Grove, London W2 4UA, UK",
+    nearbyStations: ["Notting Hill Gate", "Bayswater"],
+    bedrooms: 1,
+    bathrooms: 1,
+    area: "700 sqft",
+    images: [
+      "/images/1_0.jpg",
+      "/images/1_1.jpg",
+      "/images/1_2.jpg",
+      "/images/1_3.jpg",
+      "/images/1_4.jpg",
+      "/images/1_5.jpg",
+      "/images/1_6.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=17187895&search_id=1285310783&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285310783%26&",
+  },
+  {
+    id: 2,
+    title: "Modern Shared Room in Camden",
+    description:
+      "Join a vibrant flatshare in an up-and-coming area, with each room sporting a unique artistic design.",
+    price: 800,
+    propertyType: "Shared Room",
+    ownerType: "External Provider",
+    city: "London",
+    address: "15 Camden High St, London NW1 7JE, UK",
+    nearbyStations: ["Camden Town", "Mornington Crescent"],
+    bedrooms: 1,
+    bathrooms: 2,
+    area: "500 sqft",
+    images: [
+      "/images/2_0.jpg",
+      "/images/2_1.jpg",
+      "/images/2_2.jpg",
+      "/images/2_3.jpg",
+      "/images/2_4.jpg",
+      "/images/2_5.jpg",
+      "/images/2_6.jpg",
+      "/images/2_7.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=16580808&search_id=1285312224&city_id=9&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285312224&",
+  },
+  {
+    id: 3,
+    title: "Detached House in Manchester",
+    description:
+      "Spacious family home in a quiet neighbourhood, with a large garden and driveway parking.",
+    price: 2000,
+    propertyType: "House",
+    ownerType: "External Provider",
+    city: "Manchester",
+    address: "42 Didsbury Park, Manchester M20 5LH, UK",
+    nearbyStations: ["East Didsbury", "Burnage"],
+    bedrooms: 3,
+    bathrooms: 2,
+    area: "1200 sqft",
+    images: [
+      "/images/3_0.jpg",
+      "/images/3_1.jpg",
+      "/images/3_2.jpg",
+      "/images/3_3.jpg",
+      "/images/3_4.jpg",
+      "/images/3_5.jpg",
+      "/images/3_6.jpg",
+      "/images/3_7.jpg",
+      "/images/3_8.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=15977661&search_id=1285312893&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285312893&",
+  },
+  {
+    id: 4,
+    title: "Stylish Flat in Leeds",
+    description:
+      "Urban loft with high ceilings and large windows offering panoramic views of the city.",
+    price: 1100,
+    propertyType: "Flat",
+    ownerType: "Internal Employee",
+    city: "Leeds",
+    address: "88 Headrow, Leeds LS1 8EQ, UK",
+    nearbyStations: ["Leeds Station"],
+    bedrooms: 2,
+    bathrooms: 1,
+    area: "800 sqft",
+    images: [
+      "/images/4_0.jpg",
+      "/images/4_1.jpg",
+      "/images/4_2.jpg",
+      "/images/4_3.jpg",
+      "/images/4_4.jpg",
+      "/images/4_5.jpg",
+      "/images/4_6.jpg",
+      "/images/4_7.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=17199545&search_id=1285315296&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285315296&",
+  },
+  {
+    id: 5,
+    title: "Luxurious penthouse in Edinburgh",
+    description:
+      "Fully renovated townhouse with period features and a modern kitchen, situated in the heart of the city.",
+    price: 1800,
+    propertyType: "Flat",
+    ownerType: "External Provider",
+    city: "Edinburgh",
+    address: "17 Royal Terrace, Edinburgh EH7 5AB, UK",
+    nearbyStations: ["Edinburgh Waverley"],
+    bedrooms: 2,
+    bathrooms: 2,
+    area: "950 sqft",
+    images: [
+      "/images/5_0.jpg",
+      "/images/5_1.jpg",
+      "/images/5_2.jpg",
+      "/images/5_3.jpg",
+      "/images/5_4.jpg",
+      "/images/5_5.jpg",
+      "/images/5_6.jpg",
+      "/images/5_7.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=16427645&search_id=1285316006&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Foffset%3D10%26search_id%3D1285316006%26sort_by%3Dby_day%26mode%3Dlist&",
+  },
+  {
+    id: 6,
+    title: "Contemporary Studio in Birmingham",
+    description:
+      "Compact and efficient studio with cutting-edge technology and a sleek design, perfect for young professionals.",
+    price: 1500,
+    propertyType: "Studio",
+    ownerType: "Internal Employee",
+    address: "5 New St, Birmingham B2 4RQ, UK",
+    city: "Birmingham",
+    nearbyStations: ["Birmingham New Street", "Birmingham Moor Street"],
+    bedrooms: 1,
+    bathrooms: 1,
+    area: "450 sqft",
+    images: [
+      "/images/6_0.jpg",
+      "/images/6_1.jpg",
+      "/images/6_2.jpg",
+      "/images/6_3.jpg",
+      "/images/6_4.jpg",
+      "/images/6_5.jpg",
+      "/images/6_6.jpg",
+    ],
+    IMAGES_FROM:
+      "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=16558437&search_id=1285316631&city_id=&flatshare_type=offered&search_results=%2Fflatshare%2F%3Fsearch_id%3D1285316631&",
+  },
+];
+
+export default mockListings;
