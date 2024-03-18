@@ -14,7 +14,7 @@ const Header = () => {
           <h1 className="text-xl font-bold">FDM Flat Finder</h1>
         </Link>
 
-        <h1 className="font-bold text-xl text-white">NEEDS WORK</h1>
+        <h1 className="text-xl font-bold text-white">NEEDS WORK</h1>
 
         <div className="z-[100000] lg:hidden">
           <button onClick={() => setShowNav(!showNav)}>
