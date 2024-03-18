@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         )}
       >
         <Header />
-        <main className="flex h-full flex-1 flex-col overflow-scroll">
+        <main className="flex h-full flex-1 flex-col overflow-auto">
           {children}
         </main>
       </body>
