@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import Header from "../components/Header";
+import { cn } from "@/lib/utils";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +14,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          inter.className,
+          " h-screen  min-h-screen overflow-hidden",
+        )}
+      >
+        <Header />
+        <main className="flex h-full flex-1 flex-col overflow-scroll">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

@@ -13,12 +13,7 @@ import {
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
-      {/* EXAMPLE HEADER EXTRACT TO COMPONENT */}
-      <div className="flex h-16 w-full items-center justify-between bg-gray-500">
-        <h1 className="text-2xl font-bold">Flat Finder App</h1>
-        <h1 className="text-2xl font-bold">Sign-in</h1>
-      </div>
+    <main className="flex flex-1 flex-col">
       {mockListings.map((listing) => (
         <div
           key={listing.id}
