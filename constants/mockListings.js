@@ -329,7 +329,7 @@ const mockListings = [
     title: "Luxury Condo in Singapore",
     description:
       "Sophisticated condo in the heart of Singapore, offering breathtaking views of the city skyline and premium amenities.",
-    price: 2000,
+    price: 5000,
     propertyType: "Condo",
     ownerType: "Internal Employee",
     city: "Singapore",
@@ -348,7 +348,7 @@ const mockListings = [
       "/images/12_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/singapore-listing",
+      "https://www.thereserveresidences.com.sg/en/gallery",
   },
   {
     id: 13,
@@ -374,20 +374,20 @@ const mockListings = [
       "/images/13_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/sydney-listing",
+      "https://www.domain.com.au/ryde-nsw-2112-2017521955?utm_source=Lifull-connect&utm_medium=CPC&utm_campaign=regions-sale",
   },
   {
     id: 14,
     title: "Artistic Loft in Shanghai",
     description:
       "Unique loft space showcasing modern art and design, offering an inspiring environment for creative minds.",
-    price: 5500,
+    price: 1500,
     propertyType: "Loft",
     ownerType: "Internal",
     city: "Shanghai",
     address: "123 Huaihai Middle Rd, Huangpu District, Shanghai, China",
     nearbyStations: ["South Huangpi Road", "Xintiandi"],
-    bedrooms: 1,
+    bedrooms: 2,
     bathrooms: 1,
     area: "1000 sqft",
     images: [
@@ -400,7 +400,7 @@ const mockListings = [
       "/images/14_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/shanghai-listing-3",
+      "https://www.agoda.com/zemu-liangju-solid-wood-loft-artistic-home/hotel/shanghai-cn.html?cid=1844104&ds=yrMCG3DBc8TR201Z",
   },
   {
     id: 15,
@@ -426,7 +426,7 @@ const mockListings = [
       "/images/15_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/toronto-listing-3",
+      "https://www.booking.com/hotel/ca/1-bedroom-condo-executive-suite.en-gb.html?aid=356980&label=gog235jc-1DCAsoJ0IfMS1iZWRyb29tLWNvbmRvLWV4ZWN1dGl2ZS1zdWl0ZUgzWANoRogBAZgBCbgBF8gBDNgBA-gBAYgCAagCA7gC74HzrwbAAgHSAiQxZjBmNjMwZC01OGIwLTRkNTctYjg3MS1lYzkzZWU2YjI2MDDYAgTgAgE&sid=461f62bc885b914bcd5e172a1142b6f7&dist=0&group_adults=2&keep_landing=1&sb_price_type=total&type=total&activeTab=photosGallery",
   },
   {
     id: 16,
@@ -452,7 +452,7 @@ const mockListings = [
       "/images/16_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/sydney-listing-3",
+      "https://www.booking.com/hotel/au/chic-east-sydney-pad.en-gb.html?aid=356980&label=gog235jc-1FCAsoD0IvdHJhbnF1aWwtMmJyLXJldHJlYXQtYmVhdXRpZnVsLXZpZXdzLW5lYXItYm9uZGlIM1gDaEaIAQGYAQm4ARfIAQzYAQHoAQH4AQyIAgGoAgO4AsOD868GwAIB0gIkZDU3OTFlODYtNWYzMS00ZWZmLTk4YTgtOTFmMjFhMmFiNzkz2AIG4AIB&sid=461f62bc885b914bcd5e172a1142b6f7&age=0&all_sr_blocks=326638202_350203618_6_0_0&checkin=2024-04-18&checkout=2024-04-28&dest_id=-1603135&dest_type=city&dist=0&group_adults=2&group_children=1&hapos=1&highlighted_blocks=326638202_350203618_6_0_0&hpos=1&matching_block_id=326638202_350203618_6_0_0&nflt=ht_id%3D220&no_rooms=1&req_adults=2&req_age=0&req_children=1&room1=A%2CA%2C0&sb_price_type=total&sr_order=popularity&sr_pri_blocks=326638202_350203618_6_0_0__568000&srepoch=1711063562&srpvid=2062a4bd0ceb0132&type=total&ucfs=1&activeTab=main",
   },
   {
     id: 17,
