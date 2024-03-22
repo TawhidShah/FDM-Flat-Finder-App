@@ -1,0 +1,47 @@
+/* internal.css */
+
+.filter-container {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .input {
+    margin-bottom: 10px; /* Add margin bottom */
+    border: 1px solid #ccc; /* Add border */
+    
+  }
+  
+  .label {
+    margin-left: 67px; /* Add margin right for labels */
+
+  }
+  
+  
+  .main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+  
+  .listing-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+  }
+  
+  .carousel-control {
+    cursor: pointer;
+  }
+  
+  .carousel-item {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+  .form{
+    border: 1px black;
+  }
+  
+  

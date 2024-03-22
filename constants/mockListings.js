@@ -511,7 +511,7 @@ const mockListings = [
     title: "Riverfront Condo in Frankfurt",
     description:
       "Luxurious condo with panoramic views of the Main River in Frankfurt, offering exclusive waterfront living.",
-    price: 5500,
+    price: 1500,
     propertyType: "Condo",
     ownerType: "Internal",
     city: "Frankfurt",
