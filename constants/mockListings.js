@@ -459,7 +459,7 @@ const mockListings = [
     title: "Elegant Condo in Singapore",
     description:
       "Sophisticated condo in the prestigious district of Singapore, offering luxury living with panoramic city views.",
-    price: 9000,
+    price: 2500,
     propertyType: "Condo",
     ownerType: "Internal",
     city: "Singapore",
@@ -478,14 +478,14 @@ const mockListings = [
       "/images/17_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/singapore-listing-3",
+      "https://www.99.co/singapore/sale/property/the-skywoods-condo-jBcW3xvPyC8gHictKJkR79.com",
   },
   {
     id: 18,
     title: "Chic Urban Oasis in Hong Kong",
     description:
       "Chic and stylish apartment serving as an urban oasis in the heart of Hong Kong, offering a serene escape from the city buzz.",
-    price: 7500,
+    price: 3000,
     propertyType: "Apartment",
     ownerType: "Internal",
     city: "Hong Kong",
@@ -504,7 +504,7 @@ const mockListings = [
       "/images/18_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/hongkong-listing-3",
+      "https://www.dash.co/en/listings/hong-kong?arrivalDate=2024-03-22&budgetFrom=20050&budgetTo=38600&departureDate=2024-04-21&isFlexibleDate=false&language=en&listingCategories=two_bedrooms,one_bedroom&locations=1,10,12,7,11,2,9,3&onlyPromotion=false&page=1&sortBy=%7B%22field%22%3A%22longStayPrice%22%2C%22order%22%3A%22asc%22%7D",
   },
   {
     id: 19,
@@ -530,7 +530,7 @@ const mockListings = [
       "/images/19_6.jpg",
     ],
     IMAGES_FROM:
-      "https://www.example.com/frankfurt-listing-3",
+      "https://www.fantasticfrank.com/for-sale/frankfurt/frankfurt-hattersheim/riverside-loft",
   },
 ];
 export default mockListings;
