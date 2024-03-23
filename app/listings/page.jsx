@@ -19,7 +19,7 @@ const Listings = () => {
   const fetchLocation = async (inputLocation) => {
     const headers =
     {
-      'X-RapidAPI-Key': `${process.env.RAPID_API_KEY}`,
+      'X-RapidAPI-Key': 'd3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd',
       'X-RapidAPI-Host': 'zoopla4.p.rapidapi.com'
     }
     const params =
@@ -40,7 +40,7 @@ const Listings = () => {
   const fetchPropertyData = (location) => {
     const headers =
     {
-      'X-RapidAPI-Key': `${process.env.RAPID_API_KEY}`,
+      'X-RapidAPI-Key': 'd3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd',
       'X-RapidAPI-Host': 'zoopla4.p.rapidapi.com'
     }
     const parameters =
