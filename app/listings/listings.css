@@ -1,0 +1,36 @@
+#mainContainer input,
+#mainContainer button {
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    margin: 0.5rem;
+}
+
+#mainContainer input {
+    padding-left: 7.2rem;
+    padding-right: 7.2rem;
+}
+
+#mainContainer button {
+    padding-left: 3.6rem;
+    padding-right: 3.6rem;
+}
+
+#infoText {
+    font-size: 2.5rem;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#emptyInputWarning {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin: 0.75rem;
+}
