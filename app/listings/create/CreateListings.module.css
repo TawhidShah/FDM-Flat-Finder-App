@@ -1,0 +1,15 @@
+.container {
+    margin: 20px;
+}
+  
+.container input,
+.container select,
+.container button {
+    margin: 5px 0;
+}
+  
+.container label {
+    display: block;
+    margin-bottom: 5px;
+}
+  
