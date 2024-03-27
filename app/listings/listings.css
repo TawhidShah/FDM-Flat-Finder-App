@@ -1,5 +1,6 @@
 #mainContainer input,
-#mainContainer button {
+#mainContainer button,
+#mainContainer label {
     border: 0.1rem solid black;
     border-radius: 0.3rem;
     padding-top: 0.6rem;
@@ -25,6 +26,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 #emptyInputWarning {
@@ -33,4 +35,30 @@
     font-weight: bold;
     font-size: 1.25rem;
     margin: 0.75rem;
+}
+
+#properties {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+#properties h1 {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+#mainInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+#price {
+    justify-self: flex-end;
+}
+
+#propertyCard {
+    display: flex;
 }
