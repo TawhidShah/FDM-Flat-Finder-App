@@ -76,7 +76,7 @@ const listingSchema = new Schema(
     },
     // for now just keep names of tenants
     tenants: {
-      type: [string],
+      type: [String],
     },
 
     // Ownership details
