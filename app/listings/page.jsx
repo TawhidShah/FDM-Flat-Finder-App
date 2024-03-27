@@ -53,7 +53,8 @@ const Listings = () => {
     const params =
     {
       identifier: `${location}`,
-      property_type: 'Flat'
+      property_type: 'Flat',
+      do_not_show_retirement_home: 'true'
     }
     try {
       const response = await axios.get('https://uk-real-estate-rightmove.p.rapidapi.com/rent/property-to-rent', { headers, params });
