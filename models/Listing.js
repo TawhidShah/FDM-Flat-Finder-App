@@ -74,9 +74,9 @@ const listingSchema = new Schema(
     images: {
       type: [String],
     },
+    // for now just keep names of tenants
     tenants: {
-      type: [Schema.Types.ObjectId],
-      ref: "UserProfile",
+      type: [string],
     },
 
     // Ownership details
