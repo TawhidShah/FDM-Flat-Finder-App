@@ -2,6 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const userProfileSchema = new Schema(
   {
+    // Personal identification
     username: {
       type: String,
       required: true,
@@ -9,6 +10,8 @@ const userProfileSchema = new Schema(
       trim: true,
       minlength: 4,
     },
+
+    // Personal interests and preferences
     hobbies: {
       type: [String],
       default: [],
@@ -17,13 +20,15 @@ const userProfileSchema = new Schema(
       type: [String],
       default: [],
     },
-    country: {
-      type: String,
-      required: true,
-    },
     preferences: {
       type: [String],
       default: [],
+    },
+
+    // Geographic information
+    country: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -31,4 +36,5 @@ const userProfileSchema = new Schema(
   },
 );
 
-export const UserProfile = models.UserProfile || model("UserProfile", userProfileSchema);
+export const UserProfile =
+  models.UserProfile || model("UserProfile", userProfileSchema);
