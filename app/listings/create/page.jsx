@@ -3,22 +3,40 @@
 import React from "react";
 import { useState } from "react";
 import styles from "./CreateListings.module.css";
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
+
+const initialFormData = {
+  title: "",
+  description: "",
+  price: "",
+  propertyType: "",
+  availability: "Available",
+
+  country: "",
+  city: "",
+  addressLine1: "",
+  addressLine2: "",
+  postcode: "",
+  nearbyStations: [],
+
+  numberOfRooms: "",
+  roomsAvailable: "",
+  bathrooms: "",
+  area: "",
+  amenities: [],
+
+  tenants: [],
+};
 
 const CreateListing = () => {
-  const [formData, setFormData] = useState({
-    id: "",
-    description: "",
-    addressLine1: "",
-    addressLine2: "",
-    postcode: "",
-    city: "",
-    county: "",
-    numberOfRooms: "",
-    roomsAvailable: "",
-    availability: "",
-    owner: "",
-    tenants: "",
-  });
+
+  const { user } = useUser();
+  const username = user?.username;
+
+  // owner is set to the username of the logged in user, which is a unique identifier
+  const [formData, setFormData] = useState( { ...initialFormData, owner: username } );
+  console.log(formData);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -28,22 +46,38 @@ const CreateListing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Combining addressLine1, addressLine2, and postcode into one string
+    const combinedAddress = [
+      formData.addressLine1,
+      formData.addressLine2,
+      formData.postcode,
+    ].join("|");
+
+    const submissionData = {
+      title: formData.title,
+      description: formData.description,
+      price: formData.price,
+      propertyType: formData.propertyType,
+      availability: formData.availability,
+
+      country: formData.country,
+      city: formData.city,
+      address: combinedAddress,
+      nearbyStations: formData.nearbyStations,
+
+      bedrooms: formData.numberOfRooms,
+      bedroomsAvailable: formData.roomsAvailable,
+      bathrooms: formData.bathrooms,
+      area: formData.area,
+      amenities: formData.amenities,
+
+      tenants: formData.tenants,
+      owner: formData.owner,
+    };
+
     try {
-      console.log("Form data submitted:", formData);
-      setFormData({
-        id: "",
-        description: "",
-        addressLine1: "",
-        addressLine2: "",
-        postcode: "",
-        city: "",
-        county: "",
-        numberOfRooms: "",
-        roomsAvailable: "",
-        availability: "",
-        owner: "",
-        tenants: "",
-      });
+      axios.post("/api/listings", submissionData);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -54,13 +88,8 @@ const CreateListing = () => {
       <h1>Create Listing</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Property ID:
-          <input
-            type="number"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-          />
+          Title:
+          <input name="title" value={formData.title} onChange={handleChange} />
         </label>
         <label>
           Description:
@@ -68,6 +97,61 @@ const CreateListing = () => {
             type="text"
             name="description"
             value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
+        {/* NEED IMAGES CHECK OUT REACT DROPZONE AND REACT SORTABLE */}
+        <label>
+          Price:
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Property Type:
+          <select
+            name="propertyType"
+            value={formData.propertyType}
+            onChange={handleChange}
+          >
+            <option value="">Select Property Type</option>
+            <option value="Flat">Flat</option>
+            <option value="House">House</option>
+            <option value="Studio">Available</option>
+            <option value="Shared Flat">Shared Flat</option>
+            <option value="Shared House">Shared House</option>
+          </select>
+        </label>
+        <label>
+          Availability:
+          <select
+            name="availability"
+            value={formData.availability}
+            onChange={handleChange}
+          >
+            <option value="">Select Availability</option>
+            <option value="Available">Available</option>
+            <option value="Unavailable">Unavailable</option>
+          </select>
+        </label>
+        <label>
+          Country:
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          City:
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
             onChange={handleChange}
           />
         </label>
@@ -98,24 +182,7 @@ const CreateListing = () => {
             onChange={handleChange}
           />
         </label>
-        <label>
-          City:
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          County:
-          <input
-            type="text"
-            name="county"
-            value={formData.county}
-            onChange={handleChange}
-          />
-        </label>
+        {/* NEED TO ADD NEARBY STATIONS USE REACT-SELECT WITH MULTISELECT */}
         <label>
           Number of Rooms:
           <input
@@ -125,32 +192,32 @@ const CreateListing = () => {
             onChange={handleChange}
           />
         </label>
+        {formData.propertyType === "Shared Flat" ||
+        formData.propertyType === "Shared House" ? (
+          <label>
+            Rooms Available:
+            <input
+              type="number"
+              name="roomsAvailable"
+              value={formData.roomsAvailable}
+              onChange={handleChange}
+            />
+          </label>
+        ) : null}
         <label>
-          Rooms Available:
+          Bathrooms:
           <input
             type="number"
-            name="roomsAvailable"
-            value={formData.roomsAvailable}
+            name="bathrooms"
+            value={formData.bathrooms}
             onChange={handleChange}
           />
         </label>
         <label>
-          Availability:
-          <select
-            name="availability"
-            value={formData.availability}
-            onChange={handleChange}
-          >
-            <option value="Available">Available</option>
-            <option value="Unavailable">Unavailable</option>
-          </select>
-        </label>
-        <label>
-          Owner:
+          Area:
           <input
-            type="text"
-            name="owner"
-            value={formData.owner}
+            name="area"
+            value={formData.area}
             onChange={handleChange}
           />
         </label>
