@@ -23,7 +23,7 @@ const listingSchema = new Schema(
     propertyType: {
       type: String,
       required: true,
-      enum: ["Flat", "House", "Studio", "Shared Room"],
+      enum: ["Flat", "House", "Studio", "Shared Flat", "Shared House"],
     },
 
     // Location details
@@ -39,12 +39,24 @@ const listingSchema = new Schema(
       type: [String],
     },
 
-    // Property specizfications
+    // Property specifications
     bedrooms: {
       type: Number,
       required: true,
       min: 1,
     },
+
+    bedroomsAvailable: {
+      type: Number,
+      min: 0,
+    },
+
+    availability: {
+      type: String,
+      required: true,
+      enum: ["Available", "Unavailable"],
+    },
+
     bathrooms: {
       type: Number,
       required: true,
@@ -59,6 +71,11 @@ const listingSchema = new Schema(
 
     images: {
       type: [String],
+    },
+
+    tenants: {
+      type: [Schema.Types.ObjectId],
+      ref: "UserProfile",
     },
 
     // Ownership details
