@@ -29,7 +29,7 @@ const createProfile = ({ params }) => {
 
   return (
     <div className="createProfile">
-      <h1>Create a profile! {params.id}</h1>
+      <h1>Create a profile! {params.username}</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <span>How old are you?</span>
