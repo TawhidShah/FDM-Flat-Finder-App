@@ -16,15 +16,15 @@ const createProfile = ({ params }) => {
     console.log("submitted");
     console.log(country);
   };
+
   const handleChangeHobbies = (e) => {
-    console.log(e);
-    setHobbies(e);
-    console.log(hobbies);
+    const updatedHobbies = e.map((hobby) => hobby.value);
+    setHobbies(updatedHobbies);
   };
+
   const handleChangePrefrences = (e) => {
-    console.log(e);
-    setPrefrences(e);
-    console.log(prefrences);
+    const updatedPreferences = e.map((prefrence) => prefrence.value);
+    setPrefrences(updatedPreferences);
   };
 
   return (
