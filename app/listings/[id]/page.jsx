@@ -1,13 +1,20 @@
+
 "use client"
 import React,{ useState } from 'react';
 import mockListings from './mockListings';
 import './page.css';
 import { CircleChevronLeft } from 'lucide-react';
 import { CircleChevronRight } from 'lucide-react';
+=======
+import React from 'react';
+import mockListings from './mockListings';
+import './page.css';
+
 
 const Listing = ({ params }) => {
   const { id } = params;
   const listing = mockListings.find(listing => listing.id.toString() === id);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % listing.images.length);
@@ -18,6 +25,7 @@ const Listing = ({ params }) => {
     );
   };
 
+
   if (!listing) {
     return <div>Listing not found</div>;
   }
@@ -25,6 +33,7 @@ const Listing = ({ params }) => {
   return (
     <div className='container'>
       <div className="images">
+
         <img src={listing.images[currentImageIndex]} alt="Listing" />
         <div className="arrows">
           <div className="arrow_left" onClick={prevImage}>
@@ -34,6 +43,9 @@ const Listing = ({ params }) => {
             <CircleChevronRight size="32" />
           </div>
         </div>
+
+        <img src={listing.images[0]} alt="First Image" />
+
       </div>
 
       <form className="booking_form" method="GET" action="">
@@ -41,9 +53,15 @@ const Listing = ({ params }) => {
           <legend id="formtitle">BOOKING FORM</legend>
           <p id="formInfo">
             <label for="name">Name:</label><br />
+
             <input type="text" id="name" name="name" required /><br/>
             <label for="email">Email:</label><br/>
             <input type="email" id="email" name="email" required /><br/>
+
+            <input type="text" id="name" name="name" required /><br />
+            <label for="email">Email:</label><br />
+            <input type="email" id="email" name="email" required /><br />
+
           </p>
         <button id="formButton" type="submit">Submit</button>
         </fieldset>
