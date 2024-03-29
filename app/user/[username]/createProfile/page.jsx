@@ -4,6 +4,8 @@ import { React, useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import ReactFlagsSelect from "react-flags-select";
 
+import { countries } from "@/constants/countries";
+
 const createProfile = ({ params }) => {
   const [age, setAge] = useState(18);
   const [country, setCountry] = useState("");
@@ -11,11 +13,20 @@ const createProfile = ({ params }) => {
   const [hobbies, setHobbies] = useState([]);
   const [prefrences, setPrefrences] = useState([]);
 
+  const [countryCode, setCountryCode] = useState("");
+
+  console.log(country);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
     console.log(country);
   };
+
+  const handleCountryChange = (country) => {
+    setCountryCode(country);
+    setCountry(countries[country]);
+  }
 
   const handleChangeHobbies = (e) => {
     const updatedHobbies = e.map((hobby) => hobby.value);
@@ -44,10 +55,10 @@ const createProfile = ({ params }) => {
         <label>
           <span>Where are you from?</span>
           <ReactFlagsSelect
-            selected={country}
-            onSelect={(code) => setCountry(code)}
+            selected={countryCode}
+            onSelect={handleCountryChange}
             searchable={true}
-            searchPlaceholder="Select a country"
+            searchPlaceholder="Search a country"
           />
         </label>
         <label>
