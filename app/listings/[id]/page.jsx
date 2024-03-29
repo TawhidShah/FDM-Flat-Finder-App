@@ -1,14 +1,22 @@
-import React from 'react';
+"use client"
+import React,{ useState } from 'react';
 import mockListings from './mockListings';
 import './page.css';
-
+import { CircleChevronLeft } from 'lucide-react';
+import { CircleChevronRight } from 'lucide-react';
 
 const Listing = ({ params }) => {
   const { id } = params;
   const listing = mockListings.find(listing => listing.id.toString() === id);
-
-  
-  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % listing.images.length);
+  };
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? listing.images.length - 1 : prevIndex - 1
+    );
+  };
 
   if (!listing) {
     return <div>Listing not found</div>;
@@ -17,7 +25,15 @@ const Listing = ({ params }) => {
   return (
     <div className='container'>
       <div className="images">
-        <img src={listing.images[0]} alt="First Image" />
+        <img src={listing.images[currentImageIndex]} alt="Listing" />
+        <div className="arrows">
+          <div className="arrow_left" onClick={prevImage}>
+            <CircleChevronLeft size="32" />
+          </div>
+          <div className="arrow_right" onClick={nextImage}>
+            <CircleChevronRight size="32" />
+          </div>
+        </div>
       </div>
 
       <form className="booking_form" method="GET" action="">
