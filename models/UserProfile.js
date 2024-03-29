@@ -30,6 +30,13 @@ const userProfileSchema = new Schema(
       type: String,
       required: true,
     },
+    
+    // Listing references
+    listings: {
+      type: [Schema.Types.ObjectId],
+      ref: "Listing",
+      default: [],
+    },
   },
   {
     timestamps: true,
