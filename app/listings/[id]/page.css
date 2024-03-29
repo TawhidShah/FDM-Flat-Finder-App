@@ -12,6 +12,20 @@
     grid-area: images;
 }
 
+.arrows{
+    display: flex;
+    flex-direction: row; 
+}
+
+
+#prev{
+
+}
+
+#next{
+
+}
+
 .booking_form {
     grid-area: booking_form;
     margin-left: 100px;
