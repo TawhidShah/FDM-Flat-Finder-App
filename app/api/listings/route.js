@@ -60,12 +60,17 @@ export async function POST(request) {
     body.bedroomsAvailable = parseInt(body.bedroomsAvailable);
   if (body.bathrooms) body.bathrooms = parseInt(body.bathrooms);
 
-  console.log(body);
-
   try {
     const newListing = new Listing(body);
     await newListing.save();
-    return NextResponse.json(newListing, { status: 201 });
+    await UserProfile.updateOne(
+      { _id: body.owner },
+      { $push: { listings: newListing._id } },
+    );
+    return NextResponse.json(
+      { message: "New listing created" },
+      { status: 201 },
+    );
   } catch (error) {
     console.error(error); // Ensure to log errors for debugging, consider a more sophisticated logging mechanism for production
     return NextResponse.json(
