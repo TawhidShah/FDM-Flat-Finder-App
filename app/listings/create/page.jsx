@@ -35,8 +35,8 @@ const CreateListing = () => {
   const username = user?.username;
 
   // owner is set to the username of the logged in user, which is a unique identifier
-  const [formData, setFormData] = useState( { ...initialFormData, owner: username } );
-  console.log(formData);
+  const [formData, setFormData] = useState(initialFormData);
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -73,7 +73,7 @@ const CreateListing = () => {
       amenities: formData.amenities,
 
       tenants: formData.tenants,
-      owner: formData.owner,
+      owner: username,
     };
 
     try {
