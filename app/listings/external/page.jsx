@@ -1,12 +1,13 @@
 "use client";
 import axios from "axios";
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import './listings.css';
 import Property from './Property.jsx';
 const Listings = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [displayEmptyInputWarning, setDisplayEmptyInputWarning] = useState(false);
   const [displayInvalidInputWarning, setDisplayInvalidInputWarning] = useState(false);
+  const [propertyRequestSubmitted, setPropertyRequestSubmitted] = useState(false);
   const [properties, setProperties] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1500);
@@ -37,12 +38,12 @@ const Listings = () => {
     const maximumBedrooms = maxBedrooms;
     if (locationToSearch != '' && String(minimumPrice) != '' && String(maximumPrice) != '' && String(minimumBedrooms) != '' && String(maximumBedrooms) != '') {
       setDisplayEmptyInputWarning(false);
-      if (minimumPrice < 0 || maximumPrice < 0 || minimumBedrooms < 1 || minimumBedrooms > 5 || maximumBedrooms < 1 || maximumBedrooms > 5 || minPrice > maxPrice || minBedrooms > maxBedrooms) {
+      if (Number(minimumPrice) < 0 || Number(minimumPrice) > 5000 || Number(maximumPrice) < 0 || Number(maximumPrice) > 5000 || Number(minimumBedrooms) < 1 || Number(minimumBedrooms) > 5 || Number(maximumBedrooms) < 1 || Number(maximumBedrooms) > 5 || Number(minimumPrice) > Number(maximumPrice) || Number(minimumBedrooms) > Number(maximumBedrooms)) {
         setDisplayInvalidInputWarning(true);
       }
       else {
         setDisplayInvalidInputWarning(false);
-        fetchLocation(locationToSearch);
+        fetchLocation(locationToSearch, minimumPrice, maximumPrice, minimumBedrooms, maximumBedrooms);
       }
     }
     else {
@@ -50,7 +51,7 @@ const Listings = () => {
     }
   }
 
-  const fetchLocation = async (inputLocation) => {
+  const fetchLocation = async (inputLocation, minPrice, maxPrice, minBed, maxBed) => {
     const headers =
     {
       'X-RapidAPI-Key': '',
@@ -62,16 +63,17 @@ const Listings = () => {
     }
     try {
       const response = await axios.get('https://rightmove4.p.rapidapi.com/locations', { headers, params });
-      console.log(`We are now fetching data with the location ${response.data.data[0].key}`);
-      fetchProperties(response.data.data[0].key); //could be changed to provide a dropdown enabling the user to select a more specific location
+      console.log("Now fetching property data for " + response.data.data[0].key);
+      setPropertyRequestSubmitted(true);
+      fetchProperties(response.data.data[0].key, minPrice, maxPrice, minBed, maxBed); //could be changed to provide a dropdown enabling the user to select a more specific location
     }
     catch
     {
-      console.log("An error has occured while fetching the location that you input.");
+      window.alert("An error has occured while fetching the location that you input.");
     }
   }
 
-  const fetchProperties = async (location) => {
+  const fetchProperties = async (location, minPrice, maxPrice, minBed, maxBed) => {
     const headers =
     {
       'X-RapidAPI-Key': '',
@@ -81,15 +83,20 @@ const Listings = () => {
     {
       identifier: `${location}`,
       property_type: 'Flat',
-      do_not_show_retirement_home: 'true'
+      do_not_show_retirement_home: 'true',
+      min_price: `${minPrice}`,
+      max_price: `${maxPrice}`,
+      min_bedroom: `${minBed}`,
+      max_bedroom: `${maxBed}`
     }
     try {
+      setProperties([]);
       const response = await axios.get('https://uk-real-estate-rightmove.p.rapidapi.com/rent/property-to-rent', { headers, params });
       setProperties(response.data.data);
     }
     catch
     {
-      console.log("An error has occured while fetching property results. Please try again.");
+      window.alert("An error has occured while fetching property results. Please try again");
     }
   }
 
@@ -123,6 +130,9 @@ const Listings = () => {
           address={property.displayAddress} price={property.price.displayPrices[0].displayPrice}
           image={property.propertyImages.mainImageSrc} propertyType={property.propertySubType}
           description={property.propertyTypeFullDescription} summary={property.summary}></Property>)}
+        {properties.length == 0 && propertyRequestSubmitted == true ? <div id="noPropertiesFound"><h1>No results found</h1><p>Try widening
+          your search. </p><img src="https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg" alt="No
+        properties found."></img></div> : console.log("Displaying property information...")}
       </div>
     </div>
   )
