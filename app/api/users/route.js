@@ -16,7 +16,7 @@ export async function POST(request) {
     );
   }
 
-  const requiredFields = ["username", "country"];
+  const requiredFields = ["username", "clerkId", "country"];
 
   const missingFields = requiredFields.filter((field) => !body[field]);
 
