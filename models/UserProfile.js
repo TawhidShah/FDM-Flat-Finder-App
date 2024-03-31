@@ -11,6 +11,12 @@ const userProfileSchema = new Schema(
       minlength: 4,
     },
 
+    clerkId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+
     // Personal interests and preferences
     hobbies: {
       type: [String],
@@ -29,6 +35,13 @@ const userProfileSchema = new Schema(
     country: {
       type: String,
       required: true,
+    },
+    
+    // Listing references
+    listings: {
+      type: [Schema.Types.ObjectId],
+      ref: "Listing",
+      default: [],
     },
   },
   {
