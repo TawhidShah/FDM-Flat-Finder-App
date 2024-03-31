@@ -3,12 +3,11 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import WelcomeMessage from "@/components/WelcomeMessage";
+import WelcomeMessage from "../components/WelcomeMessage";
 import Link from "next/link";
 
 export default function Home() {
   const { user } = useUser();
-
   const [listings, setListings] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const exampleListing = {
