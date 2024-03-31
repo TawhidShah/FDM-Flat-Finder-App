@@ -92,10 +92,13 @@ form {
 
 #propertyCard {
     display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
-    justify-content: end;
+    grid-template-areas: 'picture info';
     border: 0.1rem solid rgba(39, 48, 63, 1);
     border-radius: 0.3rem;
+}
+
+#info {
+    justify-self: start;
 }
 
 #submitButton:hover {

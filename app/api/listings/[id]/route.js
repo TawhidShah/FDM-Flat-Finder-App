@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { mongooseConnect } from "@/lib/mongoose";
-import { Listing } from "@/models/Listing";
+import { mongooseConnect } from "../lib/mongoose";
+import { Listing } from "../models/Listing";
 import { getAuth } from "@clerk/nextjs/server";
 import { UserProfile } from "@/models/UserProfile";
 

@@ -1,4 +1,4 @@
-function Property(props) {
+export default function Property(props) {
     return (<div>
         <div id="propertyCard">
             <div id="picture">
@@ -13,4 +13,3 @@ function Property(props) {
         </div>
     </div>)
 }
-export default Property
