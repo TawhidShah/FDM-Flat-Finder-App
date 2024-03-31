@@ -88,9 +88,7 @@ const CreateListing = () => {
       amenities: formData.amenities,
 
       tenants: formData.tenants,
-      owner: formData.owner,
-
-      images: [],
+      owner: username,
     };
 
     try {

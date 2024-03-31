@@ -1,0 +1,124 @@
+#location input,
+#location button,
+#location label {
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    margin: 0.5rem;
+}
+
+#location {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#location input {
+    padding-left: 7.2rem;
+    padding-right: 7.2rem;
+}
+
+#location button {
+    padding-left: 3.6rem;
+    padding-right: 3.6rem;
+}
+
+
+#infoText {
+    font-size: 2.5rem;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+#propertyPreferences {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+#propertyPreferences input {
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+}
+
+#emptyInputWarning {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin: 0.75rem;
+}
+
+#invalidInputWarning {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin: 0.75rem;
+}
+
+#properties {
+    display: grid;
+    grid-template-columns: auto;
+    margin-top: 2rem;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+#properties h1 {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+#info {
+    margin-left: 2rem;
+}
+
+#propertyCard {
+    display: grid;
+    grid-template-areas: 'picture info';
+    border: 0.1rem solid rgba(39, 48, 63, 1);
+    border-radius: 0.3rem;
+}
+
+#info {
+    justify-self: start;
+}
+
+#submitButton:hover {
+    background-color: rgba(39, 48, 63, 1);
+    color: white;
+}
+
+#submitButton:active {
+    color: orange;
+}
+
+img {
+    max-width: 70vw;
+    max-height: 70vh;
+    border: 0.1rem solid rgba(39, 48, 63, 1);
+    border-radius: 0.3rem;
+}
+
+#noPropertiesFound {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+}

@@ -12,10 +12,8 @@ const Header = () => {
     <header className="bg-[#27303F]">
       <nav className="flex items-center justify-between p-6">
         <Link href="/">
-          <h1 className="text-xl font-bold">FDM Flat Finder</h1>
+          <h1 className="text-xl font-bold text-white hover:scale-[101%]">FDM Flat Finder</h1>
         </Link>
-
-        <h1 className="text-xl font-bold text-white">NEEDS WORK</h1>
 
         <div className="z-[100000] lg:hidden">
           <button onClick={() => setShowNav(!showNav)}>
