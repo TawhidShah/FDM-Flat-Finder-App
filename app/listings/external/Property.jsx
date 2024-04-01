@@ -10,6 +10,8 @@ export default function Property(props) {
           <h1>{props.address}</h1>
           <p>{props.numBath} bathrooms</p>
           <h1>{props.price}</h1>
+          <p>{props.estateAgent}</p>
+          <p id="propertySummary">{props.summary}</p>
         </div>
       </div>
     </div>
