@@ -56,7 +56,7 @@ form {
 }
 
 #emptyInputWarning {
-  <<<<<<< HEAD display: flex;
+  display: flex;
   justify-content: center;
   font-weight: 600;
   font-size: 1.25rem;
@@ -69,11 +69,11 @@ form {
   font-weight: 600;
   font-size: 1.25rem;
   margin: 1.5rem;
-  =======display: flex;
+  display: flex;
   justify-content: center;
   font-weight: bold;
   font-size: 1.25rem;
-  margin: 0.75rem;
+  margin: 1.5rem;
 }
 
 #invalidInputWarning {
@@ -81,8 +81,8 @@ form {
   justify-content: center;
   font-weight: bold;
   font-size: 1.25rem;
-  margin: 0.75rem;
-  >>>>>>>9b774c66f6c5bcd94c9f4dd5919daae7490421c0
+  margin: 1.5rem;
+  /*>>>>>>>9b774c66f6c5bcd94c9f4dd5919daae7490421c0*/
 }
 
 #properties {
