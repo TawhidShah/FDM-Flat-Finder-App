@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mongooseConnect } from "../../../lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import { Listing } from "../../../models/Listing";
 import { UserProfile } from "../../../models/UserProfile";
 
