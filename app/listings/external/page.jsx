@@ -18,6 +18,7 @@ const Listings = () => {
   const [maxPrice, setMaxPrice] = useState(1500);
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
+  const [letType, setLetType] = useState("Don't Mind");
 
   const changeLocationState = (e) => {
     setSearchLocation(e.target.value);
@@ -34,6 +35,10 @@ const Listings = () => {
   const changeMaxBedSate = (e) => {
     setMaxBedrooms(e.target.value);
   };
+  const changeLetType = (e) => {
+    setLetType(e.target.value);
+  };
+
   const handleButtonClick = (event) => {
     event.preventDefault();
     const locationToSearch = searchLocation;
@@ -64,13 +69,25 @@ const Listings = () => {
         setDisplayInvalidInputWarning(true);
       } else {
         setDisplayInvalidInputWarning(false);
-        fetchLocation(
-          locationToSearch,
-          minimumPrice,
-          maximumPrice,
-          minimumBedrooms,
-          maximumBedrooms,
-        );
+        if (letType != "Don't mind") {
+          fetchLocation(
+            locationToSearch,
+            minimumPrice,
+            maximumPrice,
+            minimumBedrooms,
+            maximumBedrooms,
+            letType
+          );
+        }
+        else {
+          fetchLocation(
+            locationToSearch,
+            minimumPrice,
+            maximumPrice,
+            minimumBedrooms,
+            maximumBedrooms
+          );
+        }
       }
     } else {
       setDisplayEmptyInputWarning(true);
@@ -83,6 +100,7 @@ const Listings = () => {
     maxPrice,
     minBed,
     maxBed,
+    letType = "Do not include in request"
   ) => {
     const headers = {
       "X-RapidAPI-Key": "d3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd",
@@ -104,6 +122,7 @@ const Listings = () => {
         maxPrice,
         minBed,
         maxBed,
+        letType
       ); //could be changed to provide a dropdown enabling the user to select a more specific location
     } catch {
       setLoading(false);
@@ -119,6 +138,7 @@ const Listings = () => {
     maxPrice,
     minBed,
     maxBed,
+    letType
   ) => {
     const headers = {
       "X-RapidAPI-Key": "d3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd",
@@ -132,6 +152,7 @@ const Listings = () => {
       max_price: `${maxPrice}`,
       min_bedroom: `${minBed}`,
       max_bedroom: `${maxBed}`,
+      type_of_let: `${letType}`
     };
     try {
       setProperties([]);
@@ -210,6 +231,16 @@ const Listings = () => {
               max="5"
               onChange={changeMaxBedSate}
             ></input>
+            <label htmlFor="longTermShortTerm">Long-Term/Short-Term?</label>
+            <select
+              name="dropdown"
+              id="longTermShortTerm"
+              value={letType}
+              onChange={changeLetType}>
+              <option selected>Don't Mind</option>
+              <option>ShortTerm</option>
+              <option>LongTerm</option>
+            </select>
           </div>
         </form>
       )}
