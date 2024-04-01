@@ -26,7 +26,7 @@ const User = ({ params }) => {
   const hobbies = auser?.hobbies.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
   const langages = auser?.languages.map((language, index) => <div className="tag" key={index}>{language}</div>)
   const prefrences = auser?.preferences.map((preference, index) => <div className="tag" key={index}>{preference}</div>)
-  // const listings = auser.listings.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
+  //a const listings = auser.listings.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
 
   return (
     <div className="profile">
