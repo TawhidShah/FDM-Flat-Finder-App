@@ -148,7 +148,6 @@ const Listings = () => {
       );
     }
   };
-
   return (
     <div id="mainContainer">
       {loading == true ? (
