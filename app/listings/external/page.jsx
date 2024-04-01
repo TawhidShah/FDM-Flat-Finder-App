@@ -251,7 +251,6 @@ const Listings = () => {
               address={property.displayAddress}
               price={property.price.displayPrices[0].displayPrice}
               image={property.propertyImages.mainImageSrc}
-              propertyType={property.propertySubType}
               description={property.propertyTypeFullDescription}
               summary={property.summary}
             ></Property>
