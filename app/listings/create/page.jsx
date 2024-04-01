@@ -34,17 +34,19 @@ const initialFormData = {
 };
 
 const CreateListing = () => {
-
   const { user } = useUser();
   const username = user?.username;
 
   // owner is set to the username of the logged in user, which is a unique identifier
-  const [formData, setFormData] = useState( { ...initialFormData, owner: username } );
-  console.log(formData);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    owner: username,
+  });
 
   // added an if else statement to the handle change that adds the images to the form submission data
   const handleChange = (e) => {
-    if (e.target.name === "image") { // seperately handle the image upload action
+    if (e.target.name === "image") {
+      // seperately handle the image upload action
       const files = e.target.files;
       setFormData({
         ...formData,
@@ -243,7 +245,9 @@ const CreateListing = () => {
             name="nearbyStations"
             isMulti
             options={formData.nearbyStations}
-            onChange={(selectedOptions) => setFormData({ ...formData, nearbyStations: selectedOptions })}
+            onChange={(selectedOptions) =>
+              setFormData({ ...formData, nearbyStations: selectedOptions })
+            }
             onInputChange={(inputValue) => {
               if (inputValue) {
                 // create a new ooption object
@@ -291,11 +295,7 @@ const CreateListing = () => {
         </label>
         <label>
           Area:
-          <input
-            name="area"
-            value={formData.area}
-            onChange={handleChange}
-          />
+          <input name="area" value={formData.area} onChange={handleChange} />
         </label>
         <label>
           Tenants:
