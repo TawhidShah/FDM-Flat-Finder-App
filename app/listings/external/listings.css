@@ -58,18 +58,20 @@ form {
 #emptyInputWarning {
   display: flex;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.25rem;
-  margin: 0.75rem;
+  margin: 1.5rem;
 }
 
 #invalidInputWarning {
   display: flex;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.25rem;
-  margin: 0.75rem;
+  margin: 1.5rem;
 }
+
+/*>>>>>>>9b774c66f6c5bcd94c9f4dd5919daae7490421c0*/
 
 #properties {
   display: grid;
@@ -119,4 +121,12 @@ img {
   display: flex;
   flex-direction: column;
   font-size: 1.25rem;
+}
+
+ul {
+  list-style-type: circle;
+}
+
+#firstLineOfList {
+  list-style-type: none;
 }
