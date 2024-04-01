@@ -8,7 +8,7 @@ export default function Property(props) {
         <div id="info">
           <h1>{props.description}</h1>
           <h1>{props.address}</h1>
-          <p>{props.numBath} bathrooms</p>
+          <p>{props.numBath} bathroom(s)</p>
           <h1>{props.price}</h1>
           <p>{props.estateAgent}</p>
           <br></br>
