@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import mockListings from "@/constants/mockListings";
-import { useState } from 'react';
+import { useState } from "react";
 import Image from "next/image";
 import {
   Carousel,
@@ -16,7 +16,7 @@ export default function Home() {
   const [maxPrice, setMaxPrice] = useState(5000);
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
-  const [cityFilter, setCityFilter] = useState('');
+  const [cityFilter, setCityFilter] = useState("");
 
   const handleMinPriceChange = (e) => {
     setMinPrice(Number(e.target.value));
@@ -38,7 +38,7 @@ export default function Home() {
     setCityFilter(e.target.value);
   };
 
-  const filteredListings = mockListings.filter(listing => {
+  const filteredListings = mockListings.filter((listing) => {
     return (
       listing.price >= minPrice &&
       listing.price <= maxPrice &&
@@ -51,7 +51,9 @@ export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <div className={internalStyles.filterContainer}>
-        <label htmlFor="minPrice" className="label">Min Price:</label>
+        <label htmlFor="minPrice" className="label">
+          Min Price:
+        </label>
         <input
           type="number"
           id="minPrice"
@@ -62,7 +64,9 @@ export default function Home() {
           onChange={handleMinPriceChange}
           className="input"
         />
-        <label htmlFor="maxPrice" className="label" >Max Price:</label>
+        <label htmlFor="maxPrice" className="label">
+          Max Price:
+        </label>
         <input
           type="number"
           id="maxPrice"
@@ -72,7 +76,9 @@ export default function Home() {
           onChange={handleMaxPriceChange}
           className="input"
         />
-        <label htmlFor="minBedrooms" className="label">Min Bedrooms:</label>
+        <label htmlFor="minBedrooms" className="label">
+          Min Bedrooms:
+        </label>
         <input
           type="number"
           id="minBedrooms"
@@ -82,7 +88,9 @@ export default function Home() {
           onChange={handleMinBedroomsChange}
           className="input"
         />
-        <label htmlFor="maxBedrooms" className="label">Max Bedrooms:</label>
+        <label htmlFor="maxBedrooms" className="label">
+          Max Bedrooms:
+        </label>
         <input
           type="number"
           id="maxBedrooms"
@@ -92,7 +100,9 @@ export default function Home() {
           onChange={handleMaxBedroomsChange}
           className="input"
         />
-        <label htmlFor="city" className="label">City:</label>
+        <label htmlFor="city" className="label">
+          City:
+        </label>
         <input
           type="text"
           id="city"
