@@ -1,17 +1,27 @@
 import { NextResponse } from "next/server";
-import { mongooseConnect } from "@/lib/mongoose";
-import { Listing } from "@/models/Listing";
-import { UserProfile } from "@/models/UserProfile";
+import { mongooseConnect } from "../../../lib/mongoose";
+import { Listing } from "../../../models/Listing";
+import { UserProfile } from "../../../models/UserProfile";
 
 export async function GET() {
   await mongooseConnect();
-  const listings = await Listing.find();
+  const listings = await Listing.find().populate("owner");
   return NextResponse.json(listings);
 }
 
 export async function POST(request) {
   await mongooseConnect();
-  const body = await request.json();
+
+  let body;
+
+  try {
+    body = await request.json();
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Error parsing request body" },
+      { status: 400 },
+    );
+  }
 
   // Validate required fields
   const requiredFields = [
@@ -28,7 +38,6 @@ export async function POST(request) {
     "owner",
   ];
   const missingFields = requiredFields.filter((field) => !body[field]);
-  console.log(missingFields);
   if (missingFields.length > 0) {
     return NextResponse.json(
       { error: "Missing required fields", missingFields },
@@ -50,12 +59,17 @@ export async function POST(request) {
     body.bedroomsAvailable = parseInt(body.bedroomsAvailable);
   if (body.bathrooms) body.bathrooms = parseInt(body.bathrooms);
 
-  console.log(body);
-
   try {
     const newListing = new Listing(body);
     await newListing.save();
-    return NextResponse.json(newListing, { status: 201 });
+    await UserProfile.updateOne(
+      { _id: body.owner },
+      { $push: { listings: newListing._id } },
+    );
+    return NextResponse.json(
+      { message: "New listing created" },
+      { status: 201 },
+    );
   } catch (error) {
     console.error(error); // Ensure to log errors for debugging, consider a more sophisticated logging mechanism for production
     return NextResponse.json(

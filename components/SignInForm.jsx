@@ -40,8 +40,6 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(validateForm());
-    
     if (!validateForm()) {
       return;
     }
@@ -57,7 +55,6 @@ const SignInForm = () => {
       });
 
       if (result.status === "complete") {
-        console.log(result);
         await setActive({ session: result.createdSessionId });
         router.push("/");
       } else {
