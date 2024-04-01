@@ -60,17 +60,17 @@ form {
 #emptyInputWarning {
     display: flex;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.25rem;
-    margin: 0.75rem;
+    margin: 1.5rem;
 }
 
 #invalidInputWarning {
     display: flex;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.25rem;
-    margin: 0.75rem;
+    margin: 1.5rem;
 }
 
 #properties {
@@ -121,4 +121,12 @@ img {
     display: flex;
     flex-direction: column;
     font-size: 1.25rem;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+#firstListElement {
+    list-style-type: none;
 }

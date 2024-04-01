@@ -114,9 +114,9 @@ const Listings = () => {
                         <button id="submitButton" onClick={handleButtonClick}>Search</button>
                     </div>
                     <div id="propertyPreferences">
-                        <label htmlFor="minPrice">Min Price: </label>
+                        <label htmlFor="minPrice">Min Price(PCM): </label>
                         <input type="number" step="50" id="minPrice" value={minPrice} min="0" max="5000" onChange={changeMinPriceState}></input>
-                        <label htmlFor="maxPrice">Max Price: </label>
+                        <label htmlFor="maxPrice">Max Price(PCM): </label>
                         <input type="number" step="50" id="maxPrice" value={maxPrice} min="0" max="5000" onChange={changeMaxPriceState}></input>
                         <label htmlFor="minBeds">Min Bedrooms: </label>
                         <input type="number" id="minBeds" value={minBedrooms} min="1" max="5" onChange={changeMinBedState}></input>
@@ -127,10 +127,11 @@ const Listings = () => {
             {loading == true ? <p></p> :
                 <section>
                     {displayEmptyInputWarning == true ? <div id="emptyInputWarning"><p>Please ensure that you fill in the boxes above.</p> </div> : <p></p>}
-                    {displayInvalidInputWarning == true ? <div id="invalidInputWarning"><p>Please ensure that all non-text inputs are valid non-negative numbers,
-                        and that number of bedrooms are between 1 and 5.</p></div> : <p></p>}
+                    {displayInvalidInputWarning == true ? <div id="invalidInputWarning"><ul><li id="firstListElement">Invalid input. Please ensure that:</li><li>All
+                        non-text inputs are not negative numbers</li> <li>The number of bedrooms are between 1 and 5</li>
+                        <li>Prices are between 0 and 1500(Per Calendar Month)</li></ul></div> : <p></p>}
                 </section>}
-            {loading == true ? <p>Loading properties...</p> :
+            {loading == true ? <div><p>Loading Properties...</p><p>This usually takes less than 5 seconds.</p></div> :
                 <div id="properties">
                     {properties.map((property) => <Property key={property.id} numBath={property.bathrooms}
                         numBed={property.bedrooms} estateAgent={property.customer.branchDisplayName}
