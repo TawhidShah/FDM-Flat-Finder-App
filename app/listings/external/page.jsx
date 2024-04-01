@@ -148,7 +148,6 @@ const Listings = () => {
       );
     }
   };
-
   return (
     <div id="mainContainer">
       {loading == true ? (
@@ -227,10 +226,12 @@ const Listings = () => {
           )}
           {displayInvalidInputWarning == true ? (
             <div id="invalidInputWarning">
-              <p>
-                Please ensure that all non-text inputs are valid non-negative
-                numbers, and that number of bedrooms are between 1 and 5.
-              </p>
+              <ul>
+                <li id="firstLineOfList">Invalid input. Please ensure that:</li>
+                <li>All non-text inputs are non-negative.</li>
+                <li>Number of bedrooms is between 1 and 5</li>
+                <li>Prices are between 0 and 1500(PCM)</li>
+              </ul>
             </div>
           ) : (
             <p></p>
@@ -256,8 +257,8 @@ const Listings = () => {
             ></Property>
           ))}
           {properties.length == 0 &&
-          propertyRequestSubmitted == true &&
-          loading == false ? (
+            propertyRequestSubmitted == true &&
+            loading == false ? (
             <div id="noPropertiesFound">
               <h1>No results found</h1>
               <p>Try widening your search. </p>
