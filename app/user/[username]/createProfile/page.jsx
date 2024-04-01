@@ -1,31 +1,54 @@
 "use client";
 import "./createProfile.css";
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
+import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import ReactFlagsSelect from "react-flags-select";
-
 import { countries } from "@/constants/countries";
+import languagesList from "@/constants/languagesList";
+import countryList from "@/constants/countryList";
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 
 const createProfile = ({ params }) => {
   const [age, setAge] = useState(18);
-  const [country, setCountry] = useState("");
-  const [language, setLanguage] = useState("");
+  const [languages, setLanguages] = useState(["English"]);
   const [hobbies, setHobbies] = useState([]);
-  const [prefrences, setPrefrences] = useState([]);
+  const [preferences, setPreferences] = useState([]);
+  const [country, setCountry] = useState("");
+  const user = useUser();
 
-  const [countryCode, setCountryCode] = useState("");
-
-  console.log(country);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    if(hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
+      e.preventDefault();
+      alert("Please fill in all fields");
+    }
+    console.log("Submitted");
     e.preventDefault();
-    console.log("submitted");
-    console.log(country);
+    try {
+      const response = await axios.post("/api/users", {
+        username: user.username,
+        clerkId: user.id,
+        age: age,
+        hobbies: hobbies,
+        languages: languages,
+        preferences: preferences,
+        country: country        
+      });
+      if (response.status === 201) {
+        console.log("User profile created successfully");
+      }
+      else {
+        console.log("User profile creation failed");
+      }
+    }
+    catch (error) {
+      console.log("Error creating user profile", error);
+    }
   };
+  
 
-  const handleCountryChange = (country) => {
-    setCountryCode(country);
-    setCountry(countries[country]);
+  const handleCountryChange = (e) => {
+    setCountry(countries[e.value])
   }
 
   const handleChangeHobbies = (e) => {
@@ -33,10 +56,15 @@ const createProfile = ({ params }) => {
     setHobbies(updatedHobbies);
   };
 
-  const handleChangePrefrences = (e) => {
-    const updatedPreferences = e.map((prefrence) => prefrence.value);
-    setPrefrences(updatedPreferences);
+  const handleChangePreferences = (e) => {
+    const updatedPreferences = e.map((preference) => preference.value);
+    setPreferences(updatedPreferences);
   };
+
+  const handleChangeLanguages = (e) => {
+    const updatedLanguages = e.map((language) => language.value);
+    setLanguages(updatedLanguages);
+  }
 
   return (
     <div className="createProfile">
@@ -54,22 +82,11 @@ const createProfile = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
-          <ReactFlagsSelect
-            selected={countryCode}
-            onSelect={handleCountryChange}
-            searchable={true}
-            searchPlaceholder="Search a country"
-          />
+          <Select onChange={handleCountryChange} options={countryList} ></Select>
         </label>
         <label>
-          <span>What language do you speak?</span>
-          <input
-            required
-            type="text"
-            onChange={(e) => setLanguage(e.target.value)}
-            value={language}
-            placeholder="Enter a language"
-          />
+          <span>What languages do you speak?</span>
+          <Select isMulti onChange={handleChangeLanguages} options={languagesList} defaultValue={{value:"English", label:"English"}} />
         </label>
         <label>
           <span>What are your hobbies?</span>
@@ -77,13 +94,11 @@ const createProfile = ({ params }) => {
         </label>
         <label>
           <span>What prefrences do you have?</span>
-          <CreatableSelect isMulti onChange={handleChangePrefrences} />
+          <CreatableSelect isMulti onChange={handleChangePreferences} />
         </label>
-
         <button type="submit">Submit</button>
       </form>
     </div>
   );
-};
-
+  }
 export default createProfile;

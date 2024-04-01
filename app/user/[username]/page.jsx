@@ -10,6 +10,7 @@ const User = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const path = "/api/users/" + params.username;
         const response = await axios.get(path);
         console.log(response.data)
         setUser(response.data);
@@ -20,7 +21,6 @@ const User = ({ params }) => {
     fetchData();
   }, [])
 
-  const path = "/api/users/" + params.username;
   const { user } = useUser();
   const [auser, setUser] = useState(null);
   const hobbies = auser?.hobbies.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
