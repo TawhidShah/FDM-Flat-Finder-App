@@ -17,6 +17,11 @@ const userProfileSchema = new Schema(
       unique: true,
     },
 
+    age: {
+      type: Number,
+      required: true
+    },
+
     // Personal interests and preferences
     hobbies: {
       type: [String],
