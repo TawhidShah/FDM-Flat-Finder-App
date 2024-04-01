@@ -69,21 +69,9 @@ form {
   font-weight: 600;
   font-size: 1.25rem;
   margin: 1.5rem;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin: 1.5rem;
 }
 
-#invalidInputWarning {
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin: 1.5rem;
-  /*>>>>>>>9b774c66f6c5bcd94c9f4dd5919daae7490421c0*/
-}
+/*>>>>>>>9b774c66f6c5bcd94c9f4dd5919daae7490421c0*/
 
 #properties {
   display: grid;
