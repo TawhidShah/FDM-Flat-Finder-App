@@ -49,7 +49,7 @@ export default function Home() {
   });
 
   return (
-    <main className="flex flex-1 flex-col">
+    <main className="flex flex-1 flex-col mt-4">
       <div className={internalStyles.filterContainer}>
         <label htmlFor="minPrice" className="label">
           Min Price:
@@ -141,3 +141,5 @@ export default function Home() {
     </main>
   );
 }
+
+
