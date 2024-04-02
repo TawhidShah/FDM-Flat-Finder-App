@@ -1,5 +1,4 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
-import Image from 'next/image';
 export default function Property(props) {
   return (
     <div>
