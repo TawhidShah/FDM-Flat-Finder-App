@@ -1,5 +1,5 @@
 "use client";
-import "./createProfile.css";
+import "./create.css";
 import { React, useState } from "react";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -9,7 +9,7 @@ import countryList from "@/constants/countryList";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 
-const createProfile = ({ params }) => {
+const CreateProfile = ({ params }) => {
   const [age, setAge] = useState(18);
   const [languages, setLanguages] = useState(["English"]);
   const [hobbies, setHobbies] = useState([]);
@@ -68,7 +68,7 @@ const createProfile = ({ params }) => {
 
   return (
     <div className="createProfile">
-      <h1>Create a profile! {params.username}</h1>
+      <h1>Create a profile {user?.fullName}!</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <span>How old are you?</span>
@@ -101,4 +101,4 @@ const createProfile = ({ params }) => {
     </div>
   );
   }
-export default createProfile;
+export default CreateProfile;
