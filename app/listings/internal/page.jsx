@@ -1,7 +1,7 @@
 "use client";
-import mockListings from "@/constants/mockListings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Carousel,
   CarouselContent,
@@ -9,35 +9,39 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import internalStyles from "./internal.css"; // Import the internal CSS file
-
+import axios from "axios";
+ 
+import mockListings from "@/constants/mockListings";
+import internalStyles from "./internal.css"; 
+ 
 export default function Home() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [cityFilter, setCityFilter] = useState("");
-
+  const [listings, setListings] = useState([]);
+ 
   const handleMinPriceChange = (e) => {
     setMinPrice(Number(e.target.value));
   };
-
+ 
   const handleMaxPriceChange = (e) => {
     setMaxPrice(Number(e.target.value));
   };
-
+ 
   const handleMinBedroomsChange = (e) => {
     setMinBedrooms(Number(e.target.value));
   };
-
+ 
   const handleMaxBedroomsChange = (e) => {
     setMaxBedrooms(Number(e.target.value));
   };
-
+ 
   const handleCityFilterChange = (e) => {
     setCityFilter(e.target.value);
   };
-
+ 
   const filteredListings = mockListings.filter((listing) => {
     return (
       listing.price >= minPrice &&
@@ -47,9 +51,15 @@ export default function Home() {
       listing.city.toLowerCase().includes(cityFilter.toLowerCase())
     );
   });
-
+ 
+  useEffect(() => {
+    axios.get("/api/listings").then((response) => {
+      setListings(response.data);
+    });
+  }, []);
+ 
   return (
-    <main className="flex flex-1 flex-col mt-4">
+    <main className="mt-4 flex flex-1 flex-col">
       <div className={internalStyles.filterContainer}>
         <label htmlFor="minPrice" className="label">
           Min Price:
@@ -112,7 +122,9 @@ export default function Home() {
           className="input"
         />
       </div>
+ 
       {filteredListings.map((listing) => (
+        <Link href = {`/listings/${listing.id}`}>
         <div
           key={listing.id}
           className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
@@ -137,9 +149,19 @@ export default function Home() {
           <p className="mt-2 text-lg">{listing.description}</p>
           <p className="mt-2 text-lg font-bold">${listing.price}</p>
         </div>
+        </Link>
+      ))}
+ 
+      { listings.map((listing) => (
+        <div
+          key={listing.id}
+          className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
+        >
+          <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
+          <p className="mt-2 text-lg">{listing.description}</p>
+          <p className="mt-2 text-lg font-bold">${listing.price}</p>
+        </div>
       ))}
     </main>
   );
 }
-
-
