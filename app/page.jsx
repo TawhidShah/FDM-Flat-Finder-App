@@ -97,7 +97,7 @@ export default function Home() {
                 <p>Address: {listing.address}</p>
                 <p>Bedrooms: {listing.bedrooms}</p>
                 <p>Bathrooms: {listing.bathrooms}</p>
-                <p>Owner: {listing.owner.username}</p>
+                <p>Owner: {listing.owner?.username}</p>
               </div>
 
               <button
