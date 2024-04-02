@@ -270,7 +270,7 @@ const Listings = () => {
         </section>
       )}
       {loading == true ? (
-        <p>Loading properties...</p>
+        <p id="loadingText">Loading properties...</p>
       ) : (
         <div id="properties">
           {properties.map((property) => (
