@@ -113,7 +113,7 @@ export default function Home() {
       <WelcomeMessage />
       <div className="mt-10">
         <Link
-          href="/listings/external"
+          href="/listings"
           className="hover:bg-primary-dark inline-block rounded-lg bg-primary p-3 px-6 text-2xl text-primary-foreground transition-colors"
         >
           Start Your Search
