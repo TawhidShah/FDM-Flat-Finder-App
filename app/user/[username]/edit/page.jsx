@@ -8,6 +8,8 @@ import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+
 
 const Edit = ({ params }) => {
   const [age, setAge] = useState(18);
@@ -16,13 +18,9 @@ const Edit = ({ params }) => {
   const [preferences, setPreferences] = useState([]);
   const [country, setCountry] = useState("");
   const { user } = useUser();
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
-    if(hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
-      e.preventDefault();
-      alert("Please fill in all fields");
-    }
-    console.log("Submitted");
     e.preventDefault();
     try {
       const response = await axios.put('/api/users/' + user.username, {
@@ -32,16 +30,16 @@ const Edit = ({ params }) => {
         preferences: preferences,
         country: country        
       });
-      if (response.status === 201) {
-        console.log("User profile created successfully");
-      }
-      else {
-        console.log("User profile creation failed");
-      }
+      console.log('Profile edited')
+      setTimeout(() => {
+        router.push(`/user/${user.username}`);
+      },1500) 
     }
     catch (error) {
       console.log("Error creating user profile", error);
+      return;
     }
+    
   };
   
 
@@ -67,7 +65,7 @@ const Edit = ({ params }) => {
   return (
     <div className="createProfile">
       <h1>Edit your profile {user?.fullName}!</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label>
           <span>How old are you?</span>
           <input
@@ -94,7 +92,7 @@ const Edit = ({ params }) => {
           <span>What prefrences do you have?</span>
           <CreatableSelect isMulti onChange={handleChangePreferences} />
         </label>
-        <button type="submit">Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
     </div>
   );
