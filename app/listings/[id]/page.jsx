@@ -1,10 +1,10 @@
-"use client";
-import React, { useState } from "react";
-import mockListings from "@/constants/mockListings";
-import "./page.css";
-import { CircleChevronLeft } from "lucide-react";
-import { CircleChevronRight } from "lucide-react";
-import "./page.css";
+
+"use client"
+import React,{ useState } from 'react';
+import mockListings from './mockListings';
+import './page.css';
+import { CircleChevronLeft } from 'lucide-react';
+import { CircleChevronRight } from 'lucide-react';
 
 const Listing = ({ params }) => {
   const { id } = params;
