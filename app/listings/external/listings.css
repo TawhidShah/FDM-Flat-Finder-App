@@ -134,3 +134,7 @@ ul {
 #firstLineOfList {
   list-style-type: none;
 }
+
+#loadingText {
+  font-size: 2rem;
+}
