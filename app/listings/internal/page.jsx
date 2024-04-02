@@ -9,11 +9,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+<<<<<<< HEAD
 import axios from "axios";
  
 import mockListings from "@/constants/mockListings";
 import internalStyles from "./internal.css"; 
  
+=======
+import internalStyles from "./internal.css"; // Import the internal CSS file
+import Link from "next/link";
+
+>>>>>>> 63f12e158eebb3b3197f6a426603a5ee545f23b2
 export default function Home() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
@@ -124,6 +130,7 @@ export default function Home() {
       </div>
  
       {filteredListings.map((listing) => (
+<<<<<<< HEAD
         <Link href = {`/listings/${listing.id}`}>
         <div
           key={listing.id}
@@ -161,6 +168,34 @@ export default function Home() {
           <p className="mt-2 text-lg">{listing.description}</p>
           <p className="mt-2 text-lg font-bold">${listing.price}</p>
         </div>
+=======
+        <Link href={`/listings/${listing.id}`}>
+          <div
+            key={listing.id}
+            className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
+          >
+            <Carousel className="w-full max-w-xs">
+              <CarouselContent>
+                {listing.images.map((image) => (
+                  <CarouselItem key={image}>
+                    <Image
+                      src={image}
+                      alt={listing.title}
+                      width={300}
+                      height={200}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="carousel-control" />
+              <CarouselNext className="carousel-control" />
+            </Carousel>
+            <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
+            <p className="mt-2 text-lg">{listing.description}</p>
+            <p className="mt-2 text-lg font-bold">${listing.price}</p>
+          </div>
+        </Link>
+>>>>>>> 63f12e158eebb3b3197f6a426603a5ee545f23b2
       ))}
     </main>
   );
