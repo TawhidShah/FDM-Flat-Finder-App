@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import Select from "react-select";
+import ListingSmall from "@/components/ListingSmall";
 import './profile.css';
 
 const User = ({ params }) => {
@@ -57,22 +58,21 @@ const User = ({ params }) => {
       <div className="personal">
         <h2>Languages</h2>
         <div className="list">
-            {languages?.map((item) => <li>{item}</li>)}
+          {languages?.map((item) => <li>{item}</li>)}
         </div>
         <p></p>
         <h2>Hobbies</h2>
         <div className="list">
-            {hobbies?.map((item) => <li>{item}</li>)}
+          {hobbies?.map((item) => <li>{item}</li>)}
         </div>
         <h2>Prefences</h2>
         <div className="list">
-            {preferences?.map((item) => <li>{item}</li>)}
+          {preferences?.map((item) => <li>{item}</li>)}
         </div>
-        <p></p>
         <h2>Listings</h2>
-          
-        <p></p>
-        
+        <div className="listings">
+          {listings?.map((item) => <ListingSmall key={item._id} listing={item} /> )}
+        </div>
       </div>
     </div>
   );
