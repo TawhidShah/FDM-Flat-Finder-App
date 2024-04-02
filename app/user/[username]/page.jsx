@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import Select from "react-select";
 import ListingSmall from "@/components/ListingSmall";
 import './profile.css';
+import Link from 'next/link';
 
 const User = ({ params }) => {
   
@@ -43,11 +44,12 @@ const User = ({ params }) => {
       <div className="main">
         <div className="info">
           <h2>{user?.fullName}</h2>
-          <p>Age: 18</p>
+          <p>Age: {mainUser?.age}</p>
           <p>Country: {mainUser?.country}</p>
         </div>
         <img src={user?.imageUrl} alt="" />
       </div>
+      <Link href={`/user/${user?.username}/edit`}>Edit profile</Link>
       <div className="extra">
         <h2>Username</h2>
         <p>{user?.username}</p>
