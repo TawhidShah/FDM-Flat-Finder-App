@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import internalStyles from "./internal.css"; // Import the internal CSS file
+import Link from "next/link";
 
 export default function Home() {
   const [minPrice, setMinPrice] = useState(0);
@@ -49,7 +50,7 @@ export default function Home() {
   });
 
   return (
-    <main className="flex flex-1 flex-col mt-4">
+    <main className="mt-4 flex flex-1 flex-col">
       <div className={internalStyles.filterContainer}>
         <label htmlFor="minPrice" className="label">
           Min Price:
@@ -113,33 +114,33 @@ export default function Home() {
         />
       </div>
       {filteredListings.map((listing) => (
-        <div
-          key={listing.id}
-          className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
-        >
-          <Carousel className="w-full max-w-xs">
-            <CarouselContent>
-              {listing.images.map((image) => (
-                <CarouselItem key={image}>
-                  <Image
-                    src={image}
-                    alt={listing.title}
-                    width={300}
-                    height={200}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="carousel-control" />
-            <CarouselNext className="carousel-control" />
-          </Carousel>
-          <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
-          <p className="mt-2 text-lg">{listing.description}</p>
-          <p className="mt-2 text-lg font-bold">${listing.price}</p>
-        </div>
+        <Link href={`/listings/${listing.id}`}>
+          <div
+            key={listing.id}
+            className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
+          >
+            <Carousel className="w-full max-w-xs">
+              <CarouselContent>
+                {listing.images.map((image) => (
+                  <CarouselItem key={image}>
+                    <Image
+                      src={image}
+                      alt={listing.title}
+                      width={300}
+                      height={200}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="carousel-control" />
+              <CarouselNext className="carousel-control" />
+            </Carousel>
+            <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
+            <p className="mt-2 text-lg">{listing.description}</p>
+            <p className="mt-2 text-lg font-bold">${listing.price}</p>
+          </div>
+        </Link>
       ))}
     </main>
   );
 }
-
-
