@@ -1,8 +1,9 @@
 "use client";
 import { countries } from "@/constants/countries";
 import axios from "axios";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import Select from "react-select";
 import './profile.css';
 
 const User = ({ params }) => {
@@ -12,8 +13,12 @@ const User = ({ params }) => {
       try {
         const path = "/api/users/" + params.username;
         const response = await axios.get(path);
-        console.log(response.data)
-        setUser(response.data);
+        console.log(response.data);
+        setMainUser(response.data);
+        setLanguages(response.data.languages);
+        setHobbies(response.data.hobbies);
+        setPreferences(response.data.preferences)
+        setListings(response.data.listings)
       } catch (error) {
         console.log("Couldn't fetch user", error)
       }
@@ -21,12 +26,16 @@ const User = ({ params }) => {
     fetchData();
   }, [])
 
+  const makeSelect = (arr) => {
+    return arr?.map(item => ({value:item,label:item }))
+  } 
+
   const { user } = useUser();
-  const [auser, setUser] = useState(null);
-  const hobbies = auser?.hobbies.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
-  const langages = auser?.languages.map((language, index) => <div className="tag" key={index}>{language}</div>)
-  const prefrences = auser?.preferences.map((preference, index) => <div className="tag" key={index}>{preference}</div>)
-  //a const listings = auser.listings.map((hobby, index) => <div className="tag" key={index}>{hobby}</div>)
+  const [mainUser, setMainUser] = useState(null);
+  const [languages, setLanguages] = useState(null);
+  const [hobbies, setHobbies] = useState(null);
+  const [preferences, setPreferences] = useState(null);
+  const [listings, setListings] = useState(null);
 
   return (
     <div className="profile">
@@ -35,7 +44,7 @@ const User = ({ params }) => {
         <div className="info">
           <h2>{user?.fullName}</h2>
           <p>Age: 18</p>
-          <p>Country: Test</p>
+          <p>Country: {mainUser?.country}</p>
         </div>
         <img src={user?.imageUrl} alt="" />
       </div>
@@ -47,12 +56,21 @@ const User = ({ params }) => {
       </div>
       <div className="personal">
         <h2>Languages</h2>
+        <div className="list">
+            {languages?.map((item) => <li>{item}</li>)}
+        </div>
         <p></p>
         <h2>Hobbies</h2>
-        <p>{hobbies}</p>
+        <div className="list">
+            {hobbies?.map((item) => <li>{item}</li>)}
+        </div>
         <h2>Prefences</h2>
+        <div className="list">
+            {preferences?.map((item) => <li>{item}</li>)}
+        </div>
         <p></p>
         <h2>Listings</h2>
+          
         <p></p>
         
       </div>

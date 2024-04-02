@@ -15,7 +15,7 @@ const createProfile = ({ params }) => {
   const [hobbies, setHobbies] = useState([]);
   const [preferences, setPreferences] = useState([]);
   const [country, setCountry] = useState("");
-  const user = useUser();
+  const { user } = useUser();
 
   const handleSubmit = async (e) => {
     if(hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
