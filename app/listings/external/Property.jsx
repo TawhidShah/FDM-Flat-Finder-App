@@ -1,9 +1,19 @@
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
+import Image from 'next/image';
 export default function Property(props) {
   return (
     <div>
       <div id="propertyCard">
         <div id="picture">
-          <img src={props.image} alt="Property"></img>
+          <Carousel>
+            <CarouselContent>
+              {props.images.map((picture) => <CarouselItem>
+                <img src={picture.srcUrl} alt="Property Image"></img>
+              </CarouselItem>)}
+            </CarouselContent>
+            <CarouselPrevious></CarouselPrevious>
+            <CarouselNext></CarouselNext>
+          </Carousel>
         </div>
         <div id="info">
           <h1>{props.description}</h1>
