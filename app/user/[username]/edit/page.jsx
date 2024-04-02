@@ -1,5 +1,5 @@
 "use client";
-import "../createProfile/createProfile.css";
+import "../create/create.css";
 import { React, useState } from "react";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -66,7 +66,7 @@ const Edit = ({ params }) => {
 
   return (
     <div className="createProfile">
-      <h1>Create a profile! {params.username}</h1>
+      <h1>Edit your profile {user?.fullName}!</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <span>How old are you?</span>

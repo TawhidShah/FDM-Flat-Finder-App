@@ -1,5 +1,4 @@
 "use client";
-import { countries } from "@/constants/countries";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
