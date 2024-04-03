@@ -21,26 +21,6 @@ export default function Home() {
   const [cityFilter, setCityFilter] = useState("");
   const [listings, setListings] = useState([]);
 
-  const handleMinPriceChange = (e) => {
-    setMinPrice(Number(e.target.value));
-  };
-
-  const handleMaxPriceChange = (e) => {
-    setMaxPrice(Number(e.target.value));
-  };
-
-  const handleMinBedroomsChange = (e) => {
-    setMinBedrooms(Number(e.target.value));
-  };
-
-  const handleMaxBedroomsChange = (e) => {
-    setMaxBedrooms(Number(e.target.value));
-  };
-
-  const handleCityFilterChange = (e) => {
-    setCityFilter(e.target.value);
-  };
-
   useEffect(() => {
     axios.get("/api/listings").then((response) => {
       setListings(response.data);
@@ -69,7 +49,7 @@ export default function Home() {
           min={0}
           max={maxPrice}
           step="50"
-          onChange={handleMinPriceChange}
+          onChange={(e) => setMinPrice(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="maxPrice" className="label">
@@ -81,7 +61,7 @@ export default function Home() {
           min={minPrice}
           max={5000}
           step="50"
-          onChange={handleMaxPriceChange}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="minBedrooms" className="label">
@@ -93,7 +73,7 @@ export default function Home() {
           value={minBedrooms}
           min={1}
           max={maxBedrooms}
-          onChange={handleMinBedroomsChange}
+          onChange={(e) => setMinBedrooms(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="maxBedrooms" className="label">
@@ -105,7 +85,7 @@ export default function Home() {
           value={maxBedrooms}
           min={minBedrooms}
           max={5}
-          onChange={handleMaxBedroomsChange}
+          onChange={(e) => setMaxBedrooms(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="city" className="label">
@@ -116,7 +96,7 @@ export default function Home() {
           id="city"
           placeholder="City"
           value={cityFilter}
-          onChange={handleCityFilterChange}
+          onChange={(e) => setCityFilter(e.target.value)}
           className="input"
         />
       </div>
