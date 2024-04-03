@@ -117,6 +117,7 @@ const CreateListing = () => {
       submissionData.images = uploadedImageURLs;
 
       axios.post("/api/listings", submissionData);
+      setFormData(initialFormData);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
