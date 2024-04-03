@@ -173,6 +173,30 @@ const Listings = () => {
       );
     }
   };
+  const fetchLocationUS = async (inputLocation, minPrice, maxPrice, minBed, maxBed) => {
+    const headers =
+    {
+      'X-RapidAPI-Key': '',
+      'X-RapidAPI-Host': 'zillow-stable.p.rapidapi.com'
+    };
+    const params =
+    {
+      query: `${inputLocation}`
+    };
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "https://zillow-stable.p.rapidapi.com/api/general/autocomplete",
+        { headers, params },
+      );
+      setPropertyRequestSubmitted(true);
+    } catch {
+      setLoading(false);
+      window.alert(
+        "An error has occured while fetching the location that you input.",
+      );
+    }
+  }
   return (
     <div id="mainContainer">
       {loading == true ? (
