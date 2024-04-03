@@ -112,9 +112,9 @@ const CreateListing = () => {
     try {
       // tried adding submission for images
 
-      // const uploadedImageURLs = await uploadImages(formData.images);
-      // // add uploaded image URLs to submission data
-      // submissionData.images = uploadedImageURLs;
+      const uploadedImageURLs = await uploadImages(formData.images);
+      // add uploaded image URLs to submission data
+      submissionData.images = uploadedImageURLs;
 
       axios.post("/api/listings", submissionData);
     } catch (error) {
@@ -128,7 +128,7 @@ const CreateListing = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append("files", images[i]);
     }
-    const res = await axios.post("/api/images/uploadImages", formData);
+    const res = await axios.post("/api/uploadImages", formData);
     return res.data.links;
   };
 
