@@ -48,7 +48,7 @@ export default function Home() {
     });
   }, []);
 
-  const filteredListings = mockListings.filter((listing) => {
+  const filteredMockListings = mockListings.filter((listing) => {
     return (
       listing.price >= minPrice &&
       listing.price <= maxPrice &&
@@ -57,7 +57,15 @@ export default function Home() {
       listing.city.toLowerCase().includes(cityFilter.toLowerCase())
     );
   });
-
+  const filteredListings = listings.filter((listing) => {
+    return (
+      listing.price >= minPrice &&
+      listing.price <= maxPrice &&
+      listing.bedrooms >= minBedrooms &&
+      listing.bedrooms <= maxBedrooms &&
+      listing.city.toLowerCase().includes(cityFilter.toLowerCase())
+    );
+  });
   return (
     <main className="mt-4 flex flex-1 flex-col">
       <div className={internalStyles.filterContainer}>
@@ -123,7 +131,7 @@ export default function Home() {
         />
       </div>
 
-      {filteredListings.map((listing) => (
+      {filteredMockListings.map((listing) => (
         <Link href={`/listings/${listing.id}`} key={listing.id}>
           <div
             className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
@@ -151,7 +159,7 @@ export default function Home() {
         </Link>
       ))}
 
-      {listings.map((listing) => (
+      {filteredListings.map((listing) => (
         <div
           key={listing.id}
           className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
