@@ -190,7 +190,7 @@ const Listings = () => {
             </button>
           </div>
           <div id="propertyPreferences">
-            <label htmlFor="minPrice">Min Price: </label>
+            <label htmlFor="minPrice">Min Price(PCM): </label>
             <input
               type="number"
               step="50"
@@ -200,7 +200,7 @@ const Listings = () => {
               max="5000"
               onChange={changeMinPriceState}
             ></input>
-            <label htmlFor="maxPrice">Max Price: </label>
+            <label htmlFor="maxPrice">Max Price(PCM): </label>
             <input
               type="number"
               step="50"
