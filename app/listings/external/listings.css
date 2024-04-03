@@ -11,6 +11,7 @@
 #location {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 form {
@@ -41,13 +42,14 @@ form {
 
 form {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
 }
 
 #propertyPreferences {
   margin-top: 0.5rem;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
