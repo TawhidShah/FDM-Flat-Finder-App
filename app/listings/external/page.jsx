@@ -221,6 +221,29 @@ const Listings = () => {
       'X-RapidAPI-Key': '',
       'X-RapidAPI-Host': 'zillow-com4.p.rapidapi.com'
     }
+    const params =
+    {
+      location: `${location}`,
+      status: "forRent",
+      priceRange: `${minPrice},${maxPrice}`,
+      priceType: "monthlyPayment",
+      bedrooms: `${minBed},${maxBed}`,
+      homeType: "apartment"
+    }
+    try {
+      setProperties([]);
+      const response = await axios.get(
+        "'https://zillow-com4.p.rapidapi.com/properties/search",
+        { headers, params },
+      );
+      setLoading(false);
+      setProperties(response.data);
+    } catch {
+      setLoading(false);
+      window.alert(
+        "An error has occured while fetching property results. Please try again",
+      );
+    }
   }
   return (
     <div id="mainContainer">
