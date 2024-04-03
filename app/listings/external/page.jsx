@@ -105,15 +105,22 @@ const Listings = () => {
         "https://rightmove4.p.rapidapi.com/locations",
         { headers, params },
       );
-      setPropertyRequestSubmitted(true);
-      fetchProperties(
-        response.data.data[0].key,
-        minPrice,
-        maxPrice,
-        minBed,
-        maxBed,
-        letType,
-      );
+      if (response.data.data.length == 0) {
+        window.alert(
+          "No location with that name was found. Please refine your search.",
+        );
+      }
+      else {
+        setPropertyRequestSubmitted(true);
+        fetchProperties(
+          response.data.data[0].key,
+          minPrice,
+          maxPrice,
+          minBed,
+          maxBed,
+          letType,
+        );
+      }
     } catch {
       setLoading(false);
       window.alert(
