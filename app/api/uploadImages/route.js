@@ -20,8 +20,10 @@ export async function POST(request) {
 
   const response = await Promise.all(
     files.map(async (file) => {
+      const ext = file.name.split(".").pop();
+      const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
       const Body = await file.arrayBuffer();
-      const fileName = `${file.name}-${uuidv4()}`;
+      const fileName = `${nameWithoutExt}-${uuidv4()}.${ext}`;
 
       client.send(
         new PutObjectCommand({
