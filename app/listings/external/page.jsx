@@ -20,7 +20,6 @@ const Listings = () => {
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [letType, setLetType] = useState("Don't Mind");
-  const [country, setCountry] = useState("UK");
 
   const changeLocationState = (e) => {
     setSearchLocation(e.target.value);
@@ -39,9 +38,6 @@ const Listings = () => {
   };
   const changeLetType = (e) => {
     setLetType(e.target.value);
-  };
-  const changeCountry = (e) => {
-    setCountry(e.target.value);
   };
 
   const handleButtonClick = (event) => {
@@ -74,24 +70,14 @@ const Listings = () => {
         setDisplayInvalidInputWarning(true);
       } else {
         setDisplayInvalidInputWarning(false);
-        if (country == "UK") {
-          fetchLocation(
-            searchLocation,
-            minPrice,
-            maxPrice,
-            minBedrooms,
-            maxBedrooms,
-            ...(letType !== "Don't mind" ? [letType] : []),
-          );
-        } else if (country == "US") {
-          fetchLocationUS(
-            locationToSearch,
-            minimumPrice,
-            maximumPrice,
-            minimumBedrooms,
-            maximumBedrooms,
-          );
-        }
+        fetchLocation(
+          searchLocation,
+          minPrice,
+          maxPrice,
+          minBedrooms,
+          maxBedrooms,
+          ...(letType !== "Don't mind" ? [letType] : []),
+        );
       }
     } else {
       setDisplayEmptyInputWarning(true);
@@ -173,75 +159,6 @@ const Listings = () => {
       );
     }
   };
-  const fetchLocationUS = async (
-    inputLocation,
-    minPrice,
-    maxPrice,
-    minBed,
-    maxBed,
-  ) => {
-    const headers = {
-      "X-RapidAPI-Key": "d3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd",
-      "X-RapidAPI-Host": "zillow-stable.p.rapidapi.com",
-    };
-    const params = {
-      query: `${inputLocation}`,
-    };
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        "https://zillow-stable.p.rapidapi.com/api/general/autocomplete",
-        { headers, params },
-      );
-      fetchPropertiesUS(
-        response.data[0].display,
-        minPrice,
-        maxPrice,
-        minBed,
-        maxBed,
-      );
-      setPropertyRequestSubmitted(true);
-    } catch {
-      setLoading(false);
-      window.alert(
-        "An error has occured while fetching the location that you input.",
-      );
-    }
-  };
-  const fetchPropertiesUS = async (
-    location,
-    minPrice,
-    maxPrice,
-    minBed,
-    maxBed,
-  ) => {
-    const headers = {
-      "X-RapidAPI-Key": "d3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd",
-      "X-RapidAPI-Host": "zillow-com4.p.rapidapi.com",
-    };
-    const params = {
-      location: `${location}`,
-      status: "forRent",
-      priceRange: `${minPrice},${maxPrice}`,
-      priceType: "monthlyPayment",
-      bedrooms: `${minBed},${maxBed}`,
-      homeType: "apartment",
-    };
-    try {
-      setProperties([]);
-      const response = await axios.get(
-        "'https://zillow-com4.p.rapidapi.com/properties/search",
-        { headers, params },
-      );
-      setLoading(false);
-      setProperties(response.data);
-    } catch {
-      setLoading(false);
-      window.alert(
-        "An error has occured while fetching property results. Please try again",
-      );
-    }
-  };
   return (
     <div id="mainContainer">
       {loading == true ? (
@@ -311,19 +228,9 @@ const Listings = () => {
               value={letType}
               onChange={changeLetType}
             >
-              <option selected>Don't Mind</option>
+              <option>Don't Mind</option>
               <option>ShortTerm</option>
               <option>LongTerm</option>
-            </select>
-            <label htmlFor="country">Country</label>
-            <select
-              name="countryDropdown"
-              id="country"
-              value={country}
-              onChange={changeCountry}
-            >
-              <option>UK</option>
-              <option>US</option>
             </select>
           </div>
         </form>
@@ -365,15 +272,14 @@ const Listings = () => {
               estateAgent={property.customer.branchDisplayName}
               address={property.displayAddress}
               price={property.price.displayPrices[0].displayPrice}
-              image={property.propertyImages.mainImageSrc}
               images={property.propertyImages.images}
               description={property.propertyTypeFullDescription}
               summary={property.summary}
             ></Property>
           ))}
           {properties.length == 0 &&
-          propertyRequestSubmitted == true &&
-          loading == false ? (
+            propertyRequestSubmitted == true &&
+            loading == false ? (
             <div id="noPropertiesFound">
               <h1>No results found</h1>
               <p>Try widening your search. </p>
