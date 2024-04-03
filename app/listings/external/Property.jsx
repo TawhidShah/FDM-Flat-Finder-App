@@ -1,19 +1,30 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import Link from "next/navigation";
+
 export default function Property(props) {
   return (
     <div>
       <div id="propertyCard">
         <div id="picture">
           <Carousel>
-            <CarouselContent>
-              {props.images.map((picture) => <CarouselItem>
-                <img src={picture.srcUrl} alt="Property Image"></img>
-              </CarouselItem>)}
+            <CarouselContent className="self-center">
+              {props.images.map((picture) => (
+                <CarouselItem>
+                  <img className="mx-auto" src={picture.srcUrl} alt="Property Image"></img>
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselPrevious></CarouselPrevious>
-            <CarouselNext></CarouselNext>
+            <CarouselPrevious className="left-28 hover:bg-gray-300"/>
+            <CarouselNext className="right-28 hover:bg-gray-300"/>
           </Carousel>
         </div>
+
         <div id="info">
           <h1>{props.description}</h1>
           <h1>{props.address}</h1>

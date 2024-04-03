@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./listings.css";
 import Property from "./Property.jsx";
+import { Link } from "lucide-react";
 
 const Listings = () => {
   const [searchLocation, setSearchLocation] = useState("");
@@ -41,7 +42,7 @@ const Listings = () => {
   };
   const changeCountry = (e) => {
     setCountry(e.target.value);
-  }
+  };
 
   const handleButtonClick = (event) => {
     event.preventDefault();
@@ -74,33 +75,21 @@ const Listings = () => {
       } else {
         setDisplayInvalidInputWarning(false);
         if (country == "UK") {
-          if (letType != "Don't mind") {
-            fetchLocation(
-              locationToSearch,
-              minimumPrice,
-              maximumPrice,
-              minimumBedrooms,
-              maximumBedrooms,
-              letType
-            );
-          }
-          else {
-            fetchLocation(
-              locationToSearch,
-              minimumPrice,
-              maximumPrice,
-              minimumBedrooms,
-              maximumBedrooms
-            );
-          }
-        }
-        else if (country == "US") {
+          fetchLocation(
+            searchLocation,
+            minPrice,
+            maxPrice,
+            minBedrooms,
+            maxBedrooms,
+            ...(letType !== "Don't mind" ? [letType] : []),
+          );
+        } else if (country == "US") {
           fetchLocationUS(
             locationToSearch,
             minimumPrice,
             maximumPrice,
             minimumBedrooms,
-            maximumBedrooms
+            maximumBedrooms,
           );
         }
       }
@@ -115,7 +104,7 @@ const Listings = () => {
     maxPrice,
     minBed,
     maxBed,
-    letType = "Do not include in request"
+    letType = "Do not include in request",
   ) => {
     const headers = {
       "X-RapidAPI-Key": "",
@@ -137,7 +126,7 @@ const Listings = () => {
         maxPrice,
         minBed,
         maxBed,
-        letType
+        letType,
       );
     } catch {
       setLoading(false);
@@ -153,7 +142,7 @@ const Listings = () => {
     maxPrice,
     minBed,
     maxBed,
-    letType
+    letType,
   ) => {
     const headers = {
       "X-RapidAPI-Key": "",
@@ -167,7 +156,7 @@ const Listings = () => {
       max_price: `${maxPrice}`,
       min_bedroom: `${minBed}`,
       max_bedroom: `${maxBed}`,
-      type_of_let: `${letType}`
+      type_of_let: `${letType}`,
     };
     try {
       setProperties([]);
@@ -184,15 +173,19 @@ const Listings = () => {
       );
     }
   };
-  const fetchLocationUS = async (inputLocation, minPrice, maxPrice, minBed, maxBed) => {
-    const headers =
-    {
-      'X-RapidAPI-Key': '',
-      'X-RapidAPI-Host': 'zillow-stable.p.rapidapi.com'
+  const fetchLocationUS = async (
+    inputLocation,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+  ) => {
+    const headers = {
+      "X-RapidAPI-Key": "",
+      "X-RapidAPI-Host": "zillow-stable.p.rapidapi.com",
     };
-    const params =
-    {
-      query: `${inputLocation}`
+    const params = {
+      query: `${inputLocation}`,
     };
     try {
       setLoading(true);
@@ -205,8 +198,8 @@ const Listings = () => {
         minPrice,
         maxPrice,
         minBed,
-        maxBed
-      )
+        maxBed,
+      );
       setPropertyRequestSubmitted(true);
     } catch {
       setLoading(false);
@@ -214,22 +207,26 @@ const Listings = () => {
         "An error has occured while fetching the location that you input.",
       );
     }
-  }
-  const fetchPropertiesUS = async (location, minPrice, maxPrice, minBed, maxBed) => {
-    const headers =
-    {
-      'X-RapidAPI-Key': '',
-      'X-RapidAPI-Host': 'zillow-com4.p.rapidapi.com'
-    }
-    const params =
-    {
+  };
+  const fetchPropertiesUS = async (
+    location,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+  ) => {
+    const headers = {
+      "X-RapidAPI-Key": "",
+      "X-RapidAPI-Host": "zillow-com4.p.rapidapi.com",
+    };
+    const params = {
       location: `${location}`,
       status: "forRent",
       priceRange: `${minPrice},${maxPrice}`,
       priceType: "monthlyPayment",
       bedrooms: `${minBed},${maxBed}`,
-      homeType: "apartment"
-    }
+      homeType: "apartment",
+    };
     try {
       setProperties([]);
       const response = await axios.get(
@@ -244,7 +241,7 @@ const Listings = () => {
         "An error has occured while fetching property results. Please try again",
       );
     }
-  }
+  };
   return (
     <div id="mainContainer">
       {loading == true ? (
@@ -312,7 +309,8 @@ const Listings = () => {
               name="letTypeDropdown"
               id="longTermShortTerm"
               value={letType}
-              onChange={changeLetType}>
+              onChange={changeLetType}
+            >
               <option selected>Don't Mind</option>
               <option>ShortTerm</option>
               <option>LongTerm</option>
@@ -322,7 +320,8 @@ const Listings = () => {
               name="countryDropdown"
               id="country"
               value={country}
-              onChange={changeCountry}>
+              onChange={changeCountry}
+            >
               <option>UK</option>
               <option>US</option>
             </select>
@@ -373,8 +372,8 @@ const Listings = () => {
             ></Property>
           ))}
           {properties.length == 0 &&
-            propertyRequestSubmitted == true &&
-            loading == false ? (
+          propertyRequestSubmitted == true &&
+          loading == false ? (
             <div id="noPropertiesFound">
               <h1>No results found</h1>
               <p>Try widening your search. </p>
