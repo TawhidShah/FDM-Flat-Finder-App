@@ -30,6 +30,7 @@ export async function POST(request) {
     "price",
     "propertyType",
     "availability",
+    "periodAvailable",
     "country",
     "city",
     "address",
