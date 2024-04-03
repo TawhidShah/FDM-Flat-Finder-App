@@ -73,18 +73,29 @@ const Listings = () => {
         setDisplayInvalidInputWarning(true);
       } else {
         setDisplayInvalidInputWarning(false);
-        if (letType != "Don't mind") {
-          fetchLocation(
-            locationToSearch,
-            minimumPrice,
-            maximumPrice,
-            minimumBedrooms,
-            maximumBedrooms,
-            letType
-          );
+        if (country == "UK") {
+          if (letType != "Don't mind") {
+            fetchLocation(
+              locationToSearch,
+              minimumPrice,
+              maximumPrice,
+              minimumBedrooms,
+              maximumBedrooms,
+              letType
+            );
+          }
+          else {
+            fetchLocation(
+              locationToSearch,
+              minimumPrice,
+              maximumPrice,
+              minimumBedrooms,
+              maximumBedrooms
+            );
+          }
         }
-        else {
-          fetchLocation(
+        else if (country == "US") {
+          fetchLocationUS(
             locationToSearch,
             minimumPrice,
             maximumPrice,
@@ -127,7 +138,7 @@ const Listings = () => {
         minBed,
         maxBed,
         letType
-      ); //could be changed to provide a dropdown enabling the user to select a more specific location
+      );
     } catch {
       setLoading(false);
       window.alert(
@@ -189,12 +200,26 @@ const Listings = () => {
         "https://zillow-stable.p.rapidapi.com/api/general/autocomplete",
         { headers, params },
       );
+      fetchPropertiesUS(
+        response.data[0].display,
+        minPrice,
+        maxPrice,
+        minBed,
+        maxBed
+      )
       setPropertyRequestSubmitted(true);
     } catch {
       setLoading(false);
       window.alert(
         "An error has occured while fetching the location that you input.",
       );
+    }
+  }
+  const fetchPropertiesUS = async (location, minPrice, maxPrice, minBed, maxBed) => {
+    const headers =
+    {
+      'X-RapidAPI-Key': 'd3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd',
+      'X-RapidAPI-Host': 'zillow-com4.p.rapidapi.com'
     }
   }
   return (
