@@ -19,6 +19,7 @@ const Listings = () => {
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [letType, setLetType] = useState("Don't Mind");
+  const [country, setCountry] = useState("UK");
 
   const changeLocationState = (e) => {
     setSearchLocation(e.target.value);
@@ -38,6 +39,9 @@ const Listings = () => {
   const changeLetType = (e) => {
     setLetType(e.target.value);
   };
+  const changeCountry = (e) => {
+    setCountry(e.target.value);
+  }
 
   const handleButtonClick = (event) => {
     event.preventDefault();
@@ -233,13 +237,22 @@ const Listings = () => {
             ></input>
             <label htmlFor="longTermShortTerm">Long-Term/Short-Term?</label>
             <select
-              name="dropdown"
+              name="letTypeDropdown"
               id="longTermShortTerm"
               value={letType}
               onChange={changeLetType}>
               <option selected>Don't Mind</option>
               <option>ShortTerm</option>
               <option>LongTerm</option>
+            </select>
+            <label htmlFor="country">Country</label>
+            <select
+              name="countryDropdown"
+              id="country"
+              value={country}
+              onChange={changeCountry}>
+              <option>UK</option>
+              <option>US</option>
             </select>
           </div>
         </form>
