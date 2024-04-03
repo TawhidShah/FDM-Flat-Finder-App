@@ -1,7 +1,16 @@
-import React from "react";
+"use client";
+
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const CurrentUserRedirect = () => {
-  return <div>CURRENT USER PROFILE ETC.</div>;
+  const { user } = useUser();
+  const router = useRouter();
+
+  if (user) {
+    router.replace(`/user/${user.username}`);
+    return null;
+  }
 };
 
 export default CurrentUserRedirect;
