@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Filter from "./InternalFilter";
 import Listing from "./InternalListing";
+import Link from "next/link";
 
 const InternalListings = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -51,7 +52,9 @@ const InternalListings = () => {
       />
 
       {filteredListings.map((listing) => (
-        <Listing key={listing.id} listing={listing} />
+        <Link href={`/listings/${listing._id}`} key={listing._id}>
+          <Listing listing={listing} />
+        </Link>
       ))}
     </main>
   );
