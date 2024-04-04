@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const ImagesGallery = ({ title, images, onClose }) => {
@@ -13,6 +13,23 @@ const ImagesGallery = ({ title, images, onClose }) => {
       prevIndex === 0 ? images.length - 1 : prevIndex - 1,
     );
   };
+
+  useEffect(() => {
+    const onKeydown = (event) => {
+      if (event.key === "ArrowRight") {
+        nextImage();
+      } else if (event.key === "ArrowLeft") {
+        prevImage();
+      } else if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+      document.body.addEventListener('keydown', onKeydown);
+
+    return () => document.body.removeEventListener('keydown', onKeydown);
+  }, []);
+    
 
   return (
     <div className="fixed inset-0 flex flex-col bg-black">
@@ -29,7 +46,10 @@ const ImagesGallery = ({ title, images, onClose }) => {
       <div className="relative flex flex-1 items-center justify-center">
         <button
           className="absolute left-0 ml-20 h-full w-1/2 text-white"
-          onClick={prevImage}
+          onClick={(e) => {
+            prevImage()
+            e.currentTarget.blur();
+          }}
           aria-label="Previous image"
         >
           <ChevronLeft />
@@ -41,7 +61,10 @@ const ImagesGallery = ({ title, images, onClose }) => {
         />
         <button
           className="absolute right-0 mr-20 h-full w-1/2 text-white"
-          onClick={nextImage}
+          onClick={(e) => {
+            nextImage()
+            e.currentTarget.blur();
+          }}
           aria-label="Next image"
         >
           <ChevronRight className="ml-auto" />
