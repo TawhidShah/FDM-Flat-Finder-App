@@ -47,20 +47,18 @@ const Listings = () => {
 
   const fetchLocation = async () => {
     const headers = {
-      "X-RapidAPI-Key": "06515c88e2msh6735121f8b1acddp18fac6jsne0d6824106ef",
-      "X-RapidAPI-Host": "uk-real-estate-rightmove.p.rapidapi.com",
+      "X-RapidAPI-Key": "d3e773cfbbmsh969fb38e5d05e4cp1eb2e9jsnbf64876767cd",
+      "X-RapidAPI-Host": "rightmove4.p.rapidapi.com",
     };
     const params = {
       location: `${searchLocation}`,
     };
     try {
       setLoading(true);
-
       const response = await axios.get(
         "https://rightmove4.p.rapidapi.com/locations",
         { headers, params },
       );
-
       if (response.data.data.length == 0) {
         window.alert(
           "No location with that name was found. Please refine your search.",
@@ -69,7 +67,9 @@ const Listings = () => {
         setPropertyRequestSubmitted(true);
         fetchProperties(response.data.data[0].key);
       }
-    } catch {
+    }
+    catch
+    {
       setLoading(false);
       window.alert(
         "An error has occured while fetching the location that you input.",
@@ -88,8 +88,8 @@ const Listings = () => {
       do_not_show_retirement_home: "true",
       min_price: `${minPrice}`,
       max_price: `${maxPrice}`,
-      min_bedroom: `${minBed}`,
-      max_bedroom: `${maxBed}`,
+      min_bedroom: `${minBedrooms}`,
+      max_bedroom: `${maxBedrooms}`,
       type_of_let: `${letType}`,
     };
     try {
