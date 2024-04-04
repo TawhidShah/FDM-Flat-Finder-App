@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           )}
         >
           <Header />
-          <main className="self-center">{children}</main>
+          {children}
         </body>
       </html>
     </ClerkProvider>
