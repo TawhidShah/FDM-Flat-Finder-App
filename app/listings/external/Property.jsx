@@ -36,9 +36,8 @@ export default function Property(props) {
           <br></br>
           <p id="propertySummary">{props.summary}</p>
           <br></br>
-          <button id="buttonLink">
-            <a href={rightmoveUrl + props.link} target="_blank">More info</a>
-          </button>
+          <a href={rightmoveUrl + props.link} target="_blank">
+            <button id="buttonLink">More Info</button></a>
         </div>
       </div>
     </div>
