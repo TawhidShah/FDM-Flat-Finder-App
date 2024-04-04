@@ -142,7 +142,7 @@ const Listings = () => {
               id="maxPrice"
               value={maxPrice}
               min="0"
-              max="5000"
+              max="1500"
               onChange={(e) => setMaxPrice(e.target.value)}
             ></input>
             <label htmlFor="minBeds">Min Bedrooms: </label>
@@ -203,6 +203,7 @@ const Listings = () => {
             images={property.propertyImages.images}
             description={property.propertyTypeFullDescription}
             summary={property.summary}
+            link={property.propertyUrl}
           ></Property>
         ))}
         {properties.length == 0 &&
