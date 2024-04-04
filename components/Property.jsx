@@ -5,7 +5,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import Link from "next/navigation";
 
 export default function Property(props) {
   const rightmoveUrl = "https://www.rightmove.co.uk";
