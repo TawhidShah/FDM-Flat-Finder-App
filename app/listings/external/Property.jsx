@@ -20,8 +20,8 @@ export default function Property(props) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-28 hover:bg-gray-300"/>
-            <CarouselNext className="right-28 hover:bg-gray-300"/>
+            <CarouselPrevious className="left-28 hover:bg-gray-300" />
+            <CarouselNext className="right-28 hover:bg-gray-300" />
           </Carousel>
         </div>
 
