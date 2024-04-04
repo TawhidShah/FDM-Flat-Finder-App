@@ -1,6 +1,7 @@
 "use client";
-import WelcomeMessage from "../components/WelcomeMessage";
 import Link from "next/link";
+
+import WelcomeMessage from "@/components/WelcomeMessage";
 
 export default function Home() {
   return (

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+
 import { useSignUp } from "@clerk/nextjs";
 
 import SignUpForm from "@/components/SignUpForm";

@@ -1,4 +1,3 @@
-import React from "react";
 import internalStyles from "@/app/listings/internal/internal.css";
 
 const InternalFilter = ({
@@ -7,13 +6,13 @@ const InternalFilter = ({
   minBedrooms,
   maxBedrooms,
   cityFilter,
-  periodAvailableFilter, 
+  periodAvailableFilter,
   onMinPriceChange,
   onMaxPriceChange,
   onMinBedroomsChange,
   onMaxBedroomsChange,
   onCityFilterChange,
-  onPeriodAvailableChange, 
+  onPeriodAvailableChange,
 }) => {
   return (
     <div className={internalStyles.filterContainer}>
@@ -84,12 +83,14 @@ const InternalFilter = ({
       <select
         id="periodAvailable"
         value={periodAvailableFilter}
-        onChange={(e) => onPeriodAvailableChange(e.target.value)} 
+        onChange={(e) => onPeriodAvailableChange(e.target.value)}
         className={internalStyles.input}
       >
         <option value="">Any</option>
         <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
-        <option value="Medium Term (3-12 months)">Medium Term (3-12 months)</option>
+        <option value="Medium Term (3-12 months)">
+          Medium Term (3-12 months)
+        </option>
         <option value="Long Term (12+ months)">Long Term (12+ months)</option>
       </select>
     </div>

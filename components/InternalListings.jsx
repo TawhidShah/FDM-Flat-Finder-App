@@ -1,11 +1,11 @@
-// components/Home.js
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
+
+import Link from "next/link";
+
 import Filter from "./InternalFilter";
 import Listing from "./InternalListing";
-import Link from "next/link";
 
 const InternalListings = () => {
   const [minPrice, setMinPrice] = useState(0);

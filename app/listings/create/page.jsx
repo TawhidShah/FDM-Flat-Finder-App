@@ -1,17 +1,19 @@
 "use client";
 
-import React from "react";
 import { useState } from "react";
-import styles from "./CreateListings.module.css";
-import axios from "axios";
+
 import { useUser } from "@clerk/nextjs";
+import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
+
 import {
   propertyTypes,
   availabilityOptions,
   availabilityPeriods,
 } from "@/constants/createListing";
+
+import styles from "./CreateListings.module.css";
 
 const initialFormData = {
   title: "",

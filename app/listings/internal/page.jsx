@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import Image from "next/image";
 
 import {
@@ -35,7 +36,8 @@ export default function Home() {
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
       listing.city.toLowerCase().includes(cityFilter.toLowerCase()) &&
-      (periodAvailableFilter === "" || listing.periodAvailable === periodAvailableFilter)
+      (periodAvailableFilter === "" ||
+        listing.periodAvailable === periodAvailableFilter)
     );
   });
   return (
@@ -111,8 +113,12 @@ export default function Home() {
           className="input"
         >
           <option value="">Any</option>
-          <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
-          <option value="Medium Term (3-12 months)">Medium Term (3-12 months)</option>
+          <option value="Short Term (0-3 months)">
+            Short Term (0-3 months)
+          </option>
+          <option value="Medium Term (3-12 months)">
+            Medium Term (3-12 months)
+          </option>
           <option value="Long Term (12+ months)">Long Term (12+ months)</option>
         </select>
       </div>

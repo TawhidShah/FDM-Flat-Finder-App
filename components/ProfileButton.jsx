@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+
 import { SignOutButton } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 
+import { useRouter } from "next/navigation";
 
 const ProfileButton = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,11 +25,8 @@ const ProfileButton = ({ user }) => {
 
   return (
     <div ref={dropdownRef} className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="hover:scale-[105%]"
-      >
-        <User className="text-white mr-2"/>
+      <button onClick={() => setIsOpen(!isOpen)} className="hover:scale-[105%]">
+        <User className="mr-2 text-white" />
       </button>
       {isOpen && (
         <div className="absolute right-0 z-50 mt-2 flex w-96 flex-col rounded-md bg-gray-400">
@@ -61,7 +59,8 @@ const ProfileButton = ({ user }) => {
           >
             View Profile
           </button>
-          <button className="p-2 text-left hover:bg-gray-500"
+          <button
+            className="p-2 text-left hover:bg-gray-500"
             onClick={() => {
               setIsOpen(false);
               router.push("/manageAccount");

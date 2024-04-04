@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import mime from "mime-types";
+
 import { NextResponse } from "next/server";
 
 export async function POST(request) {

@@ -1,10 +1,11 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
+
 import InternalListings from "@/components/InternalListings";
-import ExternalListings from '@/components/ExternalListings';
+import ExternalListings from "@/components/ExternalListings";
 
 const listingsPage = () => {
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState("tab1");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -13,12 +14,22 @@ const listingsPage = () => {
   return (
     <div>
       <div className="tabs">
-        <button className={activeTab === 'tab1' ? 'active' : ''} onClick={() => handleTabChange('tab1')}>Internal</button>
-        <button className={activeTab === 'tab2' ? 'active' : ''} onClick={() => handleTabChange('tab2')}>External</button>
+        <button
+          className={activeTab === "tab1" ? "active" : ""}
+          onClick={() => handleTabChange("tab1")}
+        >
+          Internal
+        </button>
+        <button
+          className={activeTab === "tab2" ? "active" : ""}
+          onClick={() => handleTabChange("tab2")}
+        >
+          External
+        </button>
       </div>
       <div className="tab-content">
-        {activeTab === 'tab1' && < InternalListings />}
-        {activeTab === 'tab2' && <ExternalListings />}
+        {activeTab === "tab1" && <InternalListings />}
+        {activeTab === "tab2" && <ExternalListings />}
       </div>
 
       <style jsx>{`
@@ -51,7 +62,6 @@ const listingsPage = () => {
 };
 
 export default listingsPage;
-
 
 /*import React, { useState, useEffect } from 'react';
 
