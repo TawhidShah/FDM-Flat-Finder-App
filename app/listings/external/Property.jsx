@@ -8,6 +8,7 @@ import {
 import Link from "next/navigation";
 
 export default function Property(props) {
+  const rightmoveUrl = "https://www.rightmove.co.uk";
   return (
     <div>
       <div id="propertyCard">
@@ -34,6 +35,10 @@ export default function Property(props) {
           <br></br>
           <br></br>
           <p id="propertySummary">{props.summary}</p>
+          <br></br>
+          <button id="buttonLink">
+            <a href={rightmoveUrl + props.link} target="_blank">More info</a>
+          </button>
         </div>
       </div>
     </div>

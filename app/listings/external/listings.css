@@ -1,6 +1,7 @@
 #location input,
 #location button,
-#location label {
+#location label,
+#info button {
   border: 0.1rem solid black;
   border-radius: 0.3rem;
   padding-top: 0.6rem;
@@ -22,6 +23,11 @@ form {
 #location input {
   padding-left: 7.2rem;
   padding-right: 7.2rem;
+}
+
+#info button {
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
 }
 
 #location button {
@@ -109,12 +115,14 @@ form {
   align-items: flex-start;
 }
 
-#submitButton:hover {
+#submitButton:hover,
+#buttonLink:hover {
   background-color: rgba(39, 48, 63, 1);
   color: white;
 }
 
-#submitButton:active {
+#submitButton:active,
+#buttonLink:active {
   color: orange;
 }
 
