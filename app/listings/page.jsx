@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import InternalListings from "@/components/InternalListings";
-import ExternalListings from './external/page'; 
+import ExternalListings from '@/components/ExternalListings';
 
 const listingsPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
