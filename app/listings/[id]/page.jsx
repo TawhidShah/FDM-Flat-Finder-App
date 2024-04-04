@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import "./page.css";
+import { useEffect, useState } from "react";
+
 import axios from "axios";
 
-import ImagesGallery from "../../../components/ImagesGallery";
+import ImagesGallery from "@/components/ImagesGallery";
+
+import "./page.css";
 
 const Listing = ({ params }) => {
   const { id } = params;
@@ -25,7 +27,7 @@ const Listing = ({ params }) => {
   }
 
   return (
-    <div className="mx-auto px-12 pt-6 w-[60%]">
+    <div className="mx-auto w-[60%] px-12 pt-6">
       <h1 className="text-2xl font-semibold">{listing.title}</h1>
       <div className="mt-4 grid grid-cols-4 grid-rows-2 gap-4">
         <img

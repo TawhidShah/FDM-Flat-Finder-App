@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+
 import { useRouter } from "next/navigation";
 
 const CurrentUserRedirect = () => {

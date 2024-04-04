@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import { mongooseConnect } from "../../../../lib/mongoose";
-import { UserProfile } from "../../../../models/UserProfile";
+
+import { mongooseConnect } from "@/lib/mongoose";
+
+import { UserProfile } from "@/models/UserProfile";
 
 export async function GET(request, context) {
   await mongooseConnect();

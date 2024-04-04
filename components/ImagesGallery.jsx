@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const ImagesGallery = ({ title, images, onClose }) => {
@@ -25,11 +25,10 @@ const ImagesGallery = ({ title, images, onClose }) => {
       }
     };
 
-      document.body.addEventListener('keydown', onKeydown);
+    document.body.addEventListener("keydown", onKeydown);
 
-    return () => document.body.removeEventListener('keydown', onKeydown);
+    return () => document.body.removeEventListener("keydown", onKeydown);
   }, []);
-    
 
   return (
     <div className="fixed inset-0 flex flex-col bg-black">
@@ -47,7 +46,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
         <button
           className="absolute left-0 ml-20 h-full w-1/2 text-white"
           onClick={(e) => {
-            prevImage()
+            prevImage();
             e.currentTarget.blur();
           }}
           aria-label="Previous image"
@@ -62,7 +61,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
         <button
           className="absolute right-0 mr-20 h-full w-1/2 text-white"
           onClick={(e) => {
-            nextImage()
+            nextImage();
             e.currentTarget.blur();
           }}
           aria-label="Next image"

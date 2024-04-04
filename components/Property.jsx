@@ -16,7 +16,11 @@ export default function Property(props) {
             <CarouselContent className="self-center">
               {props.images.map((picture) => (
                 <CarouselItem>
-                  <img className="mx-auto" src={picture.srcUrl} alt="Property Image"></img>
+                  <img
+                    className="mx-auto"
+                    src={picture.srcUrl}
+                    alt="Property Image"
+                  ></img>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -36,7 +40,8 @@ export default function Property(props) {
           <p id="propertySummary">{props.summary}</p>
           <br></br>
           <a href={rightmoveUrl + props.link} target="_blank">
-            <button id="buttonLink">More Info</button></a>
+            <button id="buttonLink">More Info</button>
+          </a>
         </div>
       </div>
     </div>

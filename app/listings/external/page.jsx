@@ -1,10 +1,14 @@
 "use client";
+import { useState } from "react";
+
 import axios from "axios";
-import React, { useState } from "react";
-import "./listings.css";
-import Property from "./Property.jsx";
-import { numInRange } from "@/lib/utils";
 import { GridLoader } from "react-spinners";
+
+import { numInRange } from "@/lib/utils";
+
+import Property from "./Property.jsx";
+
+import "./listings.css";
 
 const Listings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
@@ -67,9 +71,7 @@ const Listings = () => {
         setPropertyRequestSubmitted(true);
         fetchProperties(response.data.data[0].key);
       }
-    }
-    catch
-    {
+    } catch {
       setLoading(false);
       window.alert(
         "An error has occured while fetching the location that you input.",

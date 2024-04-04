@@ -1,8 +1,8 @@
 "use client";
 
+import { SignInButton, useUser } from "@clerk/nextjs";
+
 import Link from "next/link";
-import React, { useState } from "react";
-import { SignInButton, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 import ProfileButton from "@/components/ProfileButton";
 
@@ -21,7 +21,6 @@ const Header = () => {
         <div className="flex items-center space-x-2">
           {user ? (
             <>
-              {/* <UserButton /> */}
               <ProfileButton user={user} />
             </>
           ) : (
