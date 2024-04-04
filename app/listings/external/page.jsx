@@ -282,6 +282,7 @@ const Listings = () => {
               images={property.propertyImages.images}
               description={property.propertyTypeFullDescription}
               summary={property.summary}
+              link={property.propertyUrl}
             ></Property>
           ))}
           {properties.length == 0 &&
