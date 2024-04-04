@@ -1,7 +1,5 @@
-// components/Filter.js
-// components/Filter.js
-
 import React from "react";
+import internalStyles from "@/app/listings/internal/internal.css";
 
 const InternalFilter = ({
   minPrice,
@@ -16,8 +14,8 @@ const InternalFilter = ({
   onCityFilterChange,
 }) => {
   return (
-    <div className="filter-container">
-      <label htmlFor="minPrice" className="label">
+    <div className={internalStyles.filterContainer}>
+      <label htmlFor="minPrice" className={internalStyles.label}>
         Min Price:
       </label>
       <input
@@ -28,9 +26,9 @@ const InternalFilter = ({
         max={maxPrice}
         step="50"
         onChange={(e) => onMinPriceChange(Number(e.target.value))}
-        className="input"
+        className={internalStyles.input}
       />
-      <label htmlFor="maxPrice" className="label">
+      <label htmlFor="maxPrice" className={internalStyles.label}>
         Max Price:
       </label>
       <input
@@ -40,9 +38,9 @@ const InternalFilter = ({
         max={5000}
         step="50"
         onChange={(e) => onMaxPriceChange(Number(e.target.value))}
-        className="input"
+        className={internalStyles.input}
       />
-      <label htmlFor="minBedrooms" className="label">
+      <label htmlFor="minBedrooms" className={internalStyles.label}>
         Min Bedrooms:
       </label>
       <input
@@ -52,9 +50,9 @@ const InternalFilter = ({
         min={1}
         max={maxBedrooms}
         onChange={(e) => onMinBedroomsChange(Number(e.target.value))}
-        className="input"
+        className={internalStyles.input}
       />
-      <label htmlFor="maxBedrooms" className="label">
+      <label htmlFor="maxBedrooms" className={internalStyles.label}>
         Max Bedrooms:
       </label>
       <input
@@ -64,9 +62,9 @@ const InternalFilter = ({
         min={minBedrooms}
         max={5}
         onChange={(e) => onMaxBedroomsChange(Number(e.target.value))}
-        className="input"
+        className={internalStyles.input}
       />
-      <label htmlFor="city" className="label">
+      <label htmlFor="city" className={internalStyles.label}>
         City:
       </label>
       <input
@@ -75,28 +73,8 @@ const InternalFilter = ({
         placeholder="City"
         value={cityFilter}
         onChange={(e) => onCityFilterChange(e.target.value)}
-        className="input"
+        className={internalStyles.input}
       />
-
-      <style jsx>{`
-        .filter-container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          margin-bottom: 10px;
-        }
-
-        .label {
-          flex: 1 0 100%;
-          margin-bottom: 5px;
-        }
-
-        .input {
-          flex: 1 0 100%;
-          padding: 8px;
-          margin-bottom: 10px;
-        }
-      `}</style>
     </div>
   );
 };
