@@ -4,6 +4,19 @@ import { Listing } from "../../../../models/Listing";
 import { getAuth } from "@clerk/nextjs/server";
 import { UserProfile } from "@/models/UserProfile";
 
+export async function GET(request, context) {
+  await mongooseConnect();
+  const { id } = context.params;
+
+  const listing = await Listing.findById(id).lean().populate("owner");
+
+  if (!listing) {
+    return NextResponse.json({ error: "Listing not found" }, { status: 404 });
+  }
+
+  return NextResponse.json(listing);
+}
+
 export async function DELETE(request, context) {
   await mongooseConnect();
   const { id } = context.params;
