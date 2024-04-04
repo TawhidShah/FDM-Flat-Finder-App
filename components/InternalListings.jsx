@@ -28,7 +28,9 @@ const InternalListings = () => {
       listing.price <= maxPrice &&
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
-      listing.city.toLowerCase().includes(cityFilter.toLowerCase()) &&
+      (listing.city.toLowerCase().includes(cityFilter.toLowerCase()) ||
+        listing.description.toLowerCase().includes(cityFilter.toLowerCase()) ||
+        listing.title.toLowerCase().includes(cityFilter.toLowerCase())) &&
       (periodAvailableFilter === "" ||
         listing.periodAvailable === periodAvailableFilter)
     );
