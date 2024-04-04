@@ -1,88 +1,57 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import "./page.css";
+import axios from "axios";
 
-"use client"
-import React,{ useState } from 'react';
-import mockListings from '../../../constants/mockListings';
-import './page.css';
-import { CircleChevronLeft } from 'lucide-react';
-import { CircleChevronRight } from 'lucide-react';
+import ImagesGallery from "../../../components/ImagesGallery";
 
 const Listing = ({ params }) => {
   const { id } = params;
-  const listing = mockListings.find((listing) => listing.id.toString() === id);
+  const [listing, setListing] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const nextImage = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex + 1) % listing.images.length,
-    );
+  const handleImageClick = () => {
+    setIsModalOpen(true);
   };
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? listing.images.length - 1 : prevIndex - 1,
-    );
-  };
+
+  useEffect(() => {
+    axios.get(`/api/listings/${id}`).then((response) => {
+      setListing(response.data);
+    });
+  }, [id]);
 
   if (!listing) {
     return <div>Listing not found</div>;
   }
 
   return (
-    <div className="container">
-      <div className="images">
-        <img src={listing.images[currentImageIndex]} alt="Listing" />
-        <div className="arrows">
-          <div className="arrow_left" onClick={prevImage}>
-            <CircleChevronLeft size="32" />
-          </div>
-          <div className="arrow_right" onClick={nextImage}>
-            <CircleChevronRight size="32" />
-          </div>
-        </div>
-      </div>
-
-      <form className="booking_form" method="GET" action="">
-        <fieldset>
-          <legend id="formtitle">BOOKING FORM</legend>
-          <p id="formInfo">
-            <label for="name">Name:</label>
-            <br />
-
-            <input type="text" id="name" name="name" required />
-            <br />
-            <label for="email">Email:</label>
-            <br />
-            <input type="email" id="email" name="email" required />
-            <br />
-          </p>
-          <button id="formButton" type="submit">
-            Submit
-          </button>
-        </fieldset>
-      </form>
-
-      <div className="owner">
-        <a href={listing.IMAGES_FROM} target="_blank" rel="noopener noreferrer">
-          Owner
-        </a>
-      </div>
-
-      <div className="chatButton">
-        <button>Chat with agent</button>
-      </div>
-
-      <div className="details">
-        <h2>{listing.title}</h2>
-        <ul>
-          <li>Description: {listing.description}</li>
-          <li>Price: ${listing.price}</li>
-          <li>Property Type: {listing.propertyType}</li>
-          <li>Number of Bedrooms: {listing.bedrooms}</li>
-          <li>Number of Bathrooms: {listing.bathrooms}</li>
-          <li>Area: {listing.area}</li>
-          <li>City: {listing.city}</li>
-          <li>Address: {listing.address}</li>
-          <li>Nearby Stations: {listing.nearbyStations.join(", ")}</li>
-        </ul>
+    <div className="mx-auto px-12 pt-6 w-[60%]">
+      <h1 className="text-2xl font-semibold">{listing.title}</h1>
+      <div className="mt-4 grid grid-cols-4 grid-rows-2 gap-4">
+        <img
+          src={listing.images[0]}
+          alt={`${listing.title} - image 1`}
+          className="col-span-2 row-span-2 h-full w-full rounded-bl-lg rounded-tl-lg object-cover"
+          onClick={handleImageClick}
+        />
+        {listing.images.slice(1, 5).map((image, index) => (
+          <img
+            key={image}
+            src={image}
+            alt={`${listing.title} - image ${index + 2}`}
+            className={`h-full w-full object-cover ${
+              index === 1 ? "rounded-tr-lg" : index === 3 ? "rounded-br-lg" : ""
+            }`}
+            onClick={handleImageClick}
+          />
+        ))}
+        {isModalOpen && (
+          <ImagesGallery
+            title={listing.title}
+            images={listing.images}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
       </div>
     </div>
   );
