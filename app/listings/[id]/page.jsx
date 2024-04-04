@@ -38,8 +38,6 @@ const Listing = ({ params }) => {
             <CircleChevronRight size="32" />
           </div>
         </div>
-
-        <img src={listing.images[0]} alt="First Image" />
       </div>
 
       <form className="booking_form" method="GET" action="">
@@ -47,13 +45,6 @@ const Listing = ({ params }) => {
           <legend id="formtitle">BOOKING FORM</legend>
           <p id="formInfo">
             <label for="name">Name:</label>
-            <br />
-
-            <input type="text" id="name" name="name" required />
-            <br />
-            <label for="email">Email:</label>
-            <br />
-            <input type="email" id="email" name="email" required />
             <br />
 
             <input type="text" id="name" name="name" required />
