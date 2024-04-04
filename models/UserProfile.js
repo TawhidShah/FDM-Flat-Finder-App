@@ -19,7 +19,7 @@ const userProfileSchema = new Schema(
 
     age: {
       type: Number,
-      required: true
+      required: true,
     },
 
     // Personal interests and preferences
@@ -41,9 +41,16 @@ const userProfileSchema = new Schema(
       type: String,
       required: true,
     },
-    
+
     // Listing references
     listings: {
+      type: [Schema.Types.ObjectId],
+      ref: "Listing",
+      default: [],
+    },
+
+    // Bookmark references
+    bookmarks: {
       type: [Schema.Types.ObjectId],
       ref: "Listing",
       default: [],
