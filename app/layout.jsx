@@ -16,9 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cn(inter.className, "flex min-h-screen flex-col")}>
+        <body
+          className={cn(
+            inter.className,
+            "flex min-h-screen flex-col bg-[#d5d3d3]",
+          )}
+        >
           <Header />
-          {children}
+          <main className="self-center">{children}</main>
         </body>
       </html>
     </ClerkProvider>
