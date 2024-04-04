@@ -30,6 +30,7 @@
     "react-flags-select": "^2.2.3",
     "react-select": "^5.8.0",
     "react-slider": "^2.0.6",
+    "react-spinners": "^0.13.8",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },
