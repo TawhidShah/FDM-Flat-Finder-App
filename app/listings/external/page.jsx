@@ -3,17 +3,16 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./listings.css";
 import Property from "./Property.jsx";
-import { Link } from "lucide-react";
+import { numInRange } from "@/lib/utils";
+import { GridLoader } from "react-spinners";
 
 const Listings = () => {
-  const [searchLocation, setSearchLocation] = useState("");
-  const [displayEmptyInputWarning, setDisplayEmptyInputWarning] =
-    useState(false);
-  const [displayInvalidInputWarning, setDisplayInvalidInputWarning] =
-    useState(false);
+  const [invalidInputWarning, setInvalidInputWarning] = useState(false);
   const [propertyRequestSubmitted, setPropertyRequestSubmitted] =
     useState(false);
+
   const [loading, setLoading] = useState(false);
+  const [searchLocation, setSearchLocation] = useState("");
   const [properties, setProperties] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1500);
@@ -21,105 +20,54 @@ const Listings = () => {
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [letType, setLetType] = useState("Don't Mind");
 
-  const changeLocationState = (e) => {
-    setSearchLocation(e.target.value);
-  };
-  const changeMinPriceState = (e) => {
-    setMinPrice(e.target.value);
-  };
-  const changeMaxPriceState = (e) => {
-    setMaxPrice(e.target.value);
-  };
-  const changeMinBedState = (e) => {
-    setMinBedrooms(e.target.value);
-  };
-  const changeMaxBedSate = (e) => {
-    setMaxBedrooms(e.target.value);
-  };
-  const changeLetType = (e) => {
-    setLetType(e.target.value);
-  };
-
   const handleButtonClick = (event) => {
     event.preventDefault();
-    const locationToSearch = searchLocation;
-    const minimumPrice = minPrice;
-    const maximumPrice = maxPrice;
-    const minimumBedrooms = minBedrooms;
-    const maximumBedrooms = maxBedrooms;
     if (
-      locationToSearch != "" &&
-      String(minimumPrice) != "" &&
-      String(maximumPrice) != "" &&
-      String(minimumBedrooms) != "" &&
-      String(maximumBedrooms) != ""
+      searchLocation.trim() === "" ||
+      !numInRange(minPrice, 0, 1500) ||
+      !numInRange(maxPrice, 0, 1500) ||
+      !numInRange(minBedrooms, 1, 5) ||
+      !numInRange(maxBedrooms, 1, 5) ||
+      minPrice > maxPrice ||
+      minBedrooms > maxBedrooms
     ) {
-      setDisplayEmptyInputWarning(false);
-      if (
-        Number(minimumPrice) < 0 ||
-        Number(minimumPrice) > 5000 ||
-        Number(maximumPrice) < 0 ||
-        Number(maximumPrice) > 5000 ||
-        Number(minimumBedrooms) < 1 ||
-        Number(minimumBedrooms) > 5 ||
-        Number(maximumBedrooms) < 1 ||
-        Number(maximumBedrooms) > 5 ||
-        Number(minimumPrice) > Number(maximumPrice) ||
-        Number(minimumBedrooms) > Number(maximumBedrooms)
-      ) {
-        setDisplayInvalidInputWarning(true);
-      } else {
-        setDisplayInvalidInputWarning(false);
-        fetchLocation(
-          searchLocation,
-          minPrice,
-          maxPrice,
-          minBedrooms,
-          maxBedrooms,
-          ...(letType !== "Don't mind" ? [letType] : []),
-        );
-      }
+      setInvalidInputWarning(true);
     } else {
-      setDisplayEmptyInputWarning(true);
+      setInvalidInputWarning(false);
+      fetchLocation(
+        searchLocation,
+        minPrice,
+        maxPrice,
+        minBedrooms,
+        maxBedrooms,
+        ...(letType !== "Don't mind" ? [letType] : []),
+      );
     }
   };
 
-  const fetchLocation = async (
-    inputLocation,
-    minPrice,
-    maxPrice,
-    minBed,
-    maxBed,
-    letType = "Do not include in request",
-  ) => {
+  const fetchLocation = async () => {
     const headers = {
       "X-RapidAPI-Key": "",
-      "X-RapidAPI-Host": "rightmove4.p.rapidapi.com",
+      "X-RapidAPI-Host": "uk-real-estate-rightmove.p.rapidapi.com",
     };
     const params = {
-      location: `${inputLocation}`,
+      location: `${searchLocation}`,
     };
     try {
       setLoading(true);
+
       const response = await axios.get(
         "https://rightmove4.p.rapidapi.com/locations",
         { headers, params },
       );
+
       if (response.data.data.length == 0) {
         window.alert(
           "No location with that name was found. Please refine your search.",
         );
-      }
-      else {
+      } else {
         setPropertyRequestSubmitted(true);
-        fetchProperties(
-          response.data.data[0].key,
-          minPrice,
-          maxPrice,
-          minBed,
-          maxBed,
-          letType,
-        );
+        fetchProperties(response.data.data[0].key);
       }
     } catch {
       setLoading(false);
@@ -129,20 +77,13 @@ const Listings = () => {
     }
   };
 
-  const fetchProperties = async (
-    location,
-    minPrice,
-    maxPrice,
-    minBed,
-    maxBed,
-    letType,
-  ) => {
+  const fetchProperties = async (locationIdentifier) => {
     const headers = {
       "X-RapidAPI-Key": "",
       "X-RapidAPI-Host": "uk-real-estate-rightmove.p.rapidapi.com",
     };
     const params = {
-      identifier: `${location}`,
+      identifier: `${locationIdentifier}`,
       property_type: "Flat",
       do_not_show_retirement_home: "true",
       min_price: `${minPrice}`,
@@ -168,14 +109,8 @@ const Listings = () => {
   };
   return (
     <div id="mainContainer">
-      {loading == true ? (
-        <p></p>
-      ) : (
+      <>
         <h1 id="infoText">Search for your dream property to rent</h1>
-      )}
-      {loading == true ? (
-        <p></p>
-      ) : (
         <form>
           <div id="location">
             <input
@@ -183,7 +118,7 @@ const Listings = () => {
               type="text"
               placeholder="Enter a city/place name"
               value={searchLocation}
-              onChange={changeLocationState}
+              onChange={(e) => setSearchLocation(e.target.value)}
             ></input>
             <button id="submitButton" onClick={handleButtonClick}>
               Search
@@ -198,7 +133,7 @@ const Listings = () => {
               value={minPrice}
               min="0"
               max="5000"
-              onChange={changeMinPriceState}
+              onChange={(e) => setMinPrice(e.target.value)}
             ></input>
             <label htmlFor="maxPrice">Max Price(PCM): </label>
             <input
@@ -208,7 +143,7 @@ const Listings = () => {
               value={maxPrice}
               min="0"
               max="5000"
-              onChange={changeMaxPriceState}
+              onChange={(e) => setMaxPrice(e.target.value)}
             ></input>
             <label htmlFor="minBeds">Min Bedrooms: </label>
             <input
@@ -217,7 +152,7 @@ const Listings = () => {
               value={minBedrooms}
               min="1"
               max="5"
-              onChange={changeMinBedState}
+              onChange={(e) => setMinBedrooms(e.target.value)}
             ></input>
             <label htmlFor="maxBeds">Max Bedrooms: </label>
             <input
@@ -226,14 +161,14 @@ const Listings = () => {
               value={maxBedrooms}
               min="1"
               max="5"
-              onChange={changeMaxBedSate}
+              onChange={(e) => setMaxBedrooms(e.target.value)}
             ></input>
             <label htmlFor="longTermShortTerm">Long-Term/Short-Term?</label>
             <select
               name="letTypeDropdown"
               id="longTermShortTerm"
               value={letType}
-              onChange={changeLetType}
+              onChange={(e) => setLetType(e.target.value)}
             >
               <option>Don't Mind</option>
               <option>ShortTerm</option>
@@ -241,53 +176,38 @@ const Listings = () => {
             </select>
           </div>
         </form>
+      </>
+
+      {!loading && invalidInputWarning && (
+        <div id="invalidInputWarning">
+          <ul>
+            <li id="firstLineOfList">Invalid input. Please ensure that:</li>
+            <li>All fields are filled in.</li>
+            <li>Number of bedrooms is between 1 and 5</li>
+            <li>Prices are between 0 and 1500(PCM)</li>
+          </ul>
+        </div>
       )}
-      {loading == true ? (
-        <p></p>
-      ) : (
-        <section>
-          {displayEmptyInputWarning == true ? (
-            <div id="emptyInputWarning">
-              <p>Please ensure that you fill in the boxes above.</p>{" "}
-            </div>
-          ) : (
-            <p></p>
-          )}
-          {displayInvalidInputWarning == true ? (
-            <div id="invalidInputWarning">
-              <ul>
-                <li id="firstLineOfList">Invalid input. Please ensure that:</li>
-                <li>All non-text inputs are non-negative.</li>
-                <li>Number of bedrooms is between 1 and 5</li>
-                <li>Prices are between 0 and 1500(PCM)</li>
-              </ul>
-            </div>
-          ) : (
-            <p></p>
-          )}
-        </section>
-      )}
-      {loading == true ? (
-        <p id="loadingText">Loading properties...</p>
-      ) : (
-        <div id="properties">
-          {properties.map((property) => (
-            <Property
-              key={property.id}
-              numBath={property.bathrooms}
-              numBed={property.bedrooms}
-              estateAgent={property.customer.branchDisplayName}
-              address={property.displayAddress}
-              price={property.price.displayPrices[0].displayPrice}
-              images={property.propertyImages.images}
-              description={property.propertyTypeFullDescription}
-              summary={property.summary}
-              link={property.propertyUrl}
-            ></Property>
-          ))}
-          {properties.length == 0 &&
-            propertyRequestSubmitted == true &&
-            loading == false ? (
+
+      {loading && <GridLoader className="mt-48" />}
+
+      <div id="properties">
+        {properties.map((property) => (
+          <Property
+            key={property.id}
+            numBath={property.bathrooms}
+            numBed={property.bedrooms}
+            estateAgent={property.customer.branchDisplayName}
+            address={property.displayAddress}
+            price={property.price.displayPrices[0].displayPrice}
+            images={property.propertyImages.images}
+            description={property.propertyTypeFullDescription}
+            summary={property.summary}
+          ></Property>
+        ))}
+        {properties.length == 0 &&
+          propertyRequestSubmitted == true &&
+          loading == false && (
             <div id="noPropertiesFound">
               <h1>No results found</h1>
               <p>Try widening your search. </p>
@@ -297,11 +217,8 @@ const Listings = () => {
                 properties found."
               ></img>
             </div>
-          ) : (
-            console.log("Displaying property information...")
           )}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

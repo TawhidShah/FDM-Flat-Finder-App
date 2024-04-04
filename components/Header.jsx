@@ -8,7 +8,6 @@ import ProfileButton from "@/components/ProfileButton";
 
 const Header = () => {
   const { user } = useUser();
-  console.log(user);
 
   return (
     <header className="bg-[#27303F]">
