@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import InternalListings from "@/components/InternalListings";
+import ExternalListings from './external/page'; 
 const listingsPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
 
@@ -16,7 +17,7 @@ const listingsPage = () => {
       </div>
       <div className="tab-content">
         {activeTab === 'tab1' && < InternalListings />}
-        {activeTab === 'tab2' && <div>Content for Tab 2</div>}
+        {activeTab === 'tab2' && <ExternalListings />}
       </div>
 
       <style jsx>{`
@@ -132,6 +133,5 @@ function ListingsPage() {
     </div>
   );
 }
-
 export default ListingsPage;
 */
