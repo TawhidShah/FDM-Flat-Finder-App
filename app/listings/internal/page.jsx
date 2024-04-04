@@ -19,6 +19,7 @@ export default function Home() {
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [cityFilter, setCityFilter] = useState("");
+  const [periodAvailableFilter, setPeriodAvailableFilter] = useState("");
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
@@ -33,7 +34,8 @@ export default function Home() {
       listing.price <= maxPrice &&
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
-      listing.city.toLowerCase().includes(cityFilter.toLowerCase())
+      listing.city.toLowerCase().includes(cityFilter.toLowerCase()) &&
+      (periodAvailableFilter === "" || listing.periodAvailable === periodAvailableFilter)
     );
   });
   return (
@@ -99,6 +101,20 @@ export default function Home() {
           onChange={(e) => setCityFilter(e.target.value)}
           className="input"
         />
+        <label htmlFor="periodAvailable" className="label">
+          Period Available:
+        </label>
+        <select
+          id="periodAvailable"
+          value={periodAvailableFilter}
+          onChange={(e) => setPeriodAvailableFilter(e.target.value)}
+          className="input"
+        >
+          <option value="">Any</option>
+          <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
+          <option value="Medium Term (3-12 months)">Medium Term (3-12 months)</option>
+          <option value="Long Term (12+ months)">Long Term (12+ months)</option>
+        </select>
       </div>
 
       {filteredListings.map((listing) => (

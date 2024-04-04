@@ -7,11 +7,13 @@ const InternalFilter = ({
   minBedrooms,
   maxBedrooms,
   cityFilter,
+  periodAvailableFilter, 
   onMinPriceChange,
   onMaxPriceChange,
   onMinBedroomsChange,
   onMaxBedroomsChange,
   onCityFilterChange,
+  onPeriodAvailableChange, 
 }) => {
   return (
     <div className={internalStyles.filterContainer}>
@@ -75,6 +77,21 @@ const InternalFilter = ({
         onChange={(e) => onCityFilterChange(e.target.value)}
         className={internalStyles.input}
       />
+      {/* Period Available filter */}
+      <label htmlFor="periodAvailable" className={internalStyles.label}>
+        Period Available:
+      </label>
+      <select
+        id="periodAvailable"
+        value={periodAvailableFilter}
+        onChange={(e) => onPeriodAvailableChange(e.target.value)} 
+        className={internalStyles.input}
+      >
+        <option value="">Any</option>
+        <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
+        <option value="Medium Term (3-12 months)">Medium Term (3-12 months)</option>
+        <option value="Long Term (12+ months)">Long Term (12+ months)</option>
+      </select>
     </div>
   );
 };

@@ -12,6 +12,7 @@ const InternalListings = () => {
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [cityFilter, setCityFilter] = useState("");
+  const [periodAvailableFilter, setPeriodAvailableFilter] = useState("");
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
@@ -26,7 +27,9 @@ const InternalListings = () => {
       listing.price <= maxPrice &&
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
-      listing.city.toLowerCase().includes(cityFilter.toLowerCase())
+      listing.city.toLowerCase().includes(cityFilter.toLowerCase()) &&
+      (periodAvailableFilter === "" ||
+        listing.periodAvailable === periodAvailableFilter)
     );
   });
 
@@ -38,11 +41,13 @@ const InternalListings = () => {
         minBedrooms={minBedrooms}
         maxBedrooms={maxBedrooms}
         cityFilter={cityFilter}
+        periodAvailableFilter={periodAvailableFilter}
         onMinPriceChange={setMinPrice}
         onMaxPriceChange={setMaxPrice}
         onMinBedroomsChange={setMinBedrooms}
         onMaxBedroomsChange={setMaxBedrooms}
         onCityFilterChange={setCityFilter}
+        onPeriodAvailableChange={setPeriodAvailableFilter}
       />
 
       {filteredListings.map((listing) => (
