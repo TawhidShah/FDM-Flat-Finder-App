@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+import { Bed, Bath } from "lucide-react";
+
 import {
   Carousel,
   CarouselContent,
@@ -15,7 +19,7 @@ const InternalListingCard = ({ listing }) => {
   return (
     <div
       key={listing.id}
-      className="flex flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
+      className="flex min-h-[400px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
     >
       <Carousel
         opts={{
@@ -23,7 +27,7 @@ const InternalListingCard = ({ listing }) => {
           loop: true,
         }}
       >
-        <CarouselContent className="self-center">
+        <CarouselContent>
           {listing.images.map((picture) => (
             <CarouselItem>
               <img
@@ -34,16 +38,35 @@ const InternalListingCard = ({ listing }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 border-none bg-transparent hover:bg-gray-300" />
-        <CarouselNext className="right-0 border-none bg-transparent hover:bg-gray-300" />
+        <CarouselPrevious className="left-0 border-none bg-transparent hover:bg-white" />
+        <CarouselNext className="right-0 border-none bg-transparent hover:bg-white" />
       </Carousel>
-
-      <h1 className="text-xl font-bold text-gray-900">{title}</h1>
-      <p className="mt-2 text-sm text-gray-600">{listing.description}</p>
-      <div className="mt-3 flex justify-between p-1">
-        <span className="text-sm text-gray-600">{listing.city}</span>
-        <span className="text-md text-gray-600">£{listing.price}</span>
-      </div>
+      <Link
+        className="flex flex-1 flex-col justify-between gap-2"
+        href={`/listings/${listing._id}`}
+      >
+        <h1 className="text-xl font-bold text-gray-900">{title}</h1>
+        <div className="mx-auto flex gap-3">
+          <span className="text-sm text-gray-600">{listing.propertyType}</span>
+          {listing.bedrooms && (
+            <>
+              <Bed color="#475569" />
+              <span className="text-sm text-gray-600">{listing.bedrooms}</span>
+            </>
+          )}
+          {listing.bathrooms && (
+            <>
+              <Bath color="#475569" />
+              <span className="text-sm text-gray-600">{listing.bathrooms}</span>
+            </>
+          )}
+        </div>
+        <p className="mt-2 text-sm text-gray-600">{listing.description}</p>
+        <div className="mt-3 flex justify-between p-1">
+          <span className="text-sm text-gray-600">{listing.city}</span>
+          <span className="text-md text-gray-600">£{listing.price}</span>
+        </div>
+      </Link>
     </div>
   );
 };
