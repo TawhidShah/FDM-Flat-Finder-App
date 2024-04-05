@@ -8,6 +8,7 @@ import { numInRange } from "@/lib/utils";
 import Property from "@/components/Property";
 
 import "@/styles/ExternalListings.css";
+import ExternalListingsGrid from "./ExternalListingsGrid";
 
 const ExternalListings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
@@ -108,6 +109,7 @@ const ExternalListings = () => {
       );
     }
   };
+
   return (
     <div id="mainContainer">
       <>
@@ -193,20 +195,7 @@ const ExternalListings = () => {
       {loading && <GridLoader className="mt-48" />}
 
       <div id="properties">
-        {properties.map((property) => (
-          <Property
-            key={property.id}
-            numBath={property.bathrooms}
-            numBed={property.bedrooms}
-            estateAgent={property.customer.branchDisplayName}
-            address={property.displayAddress}
-            price={property.price.displayPrices[0].displayPrice}
-            images={property.propertyImages.images}
-            description={property.propertyTypeFullDescription}
-            summary={property.summary}
-            link={property.propertyUrl}
-          ></Property>
-        ))}
+        <ExternalListingsGrid listings={properties} />
         {properties.length == 0 &&
           propertyRequestSubmitted == true &&
           loading == false && (
