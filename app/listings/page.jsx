@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import InternalListings from "@/components/internalListings/InternalListings";
-import ExternalListings from "@/components/ExternalListings";
+import ExternalListings from "@/components/externalListings/ExternalListings";
 
 const listingsPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
