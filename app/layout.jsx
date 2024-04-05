@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <body
           className={cn(
             inter.className,
-            "flex min-h-screen flex-col bg-[#d5d3d3]",
+            "flex min-h-screen flex-col bg-secondary",
           )}
         >
           <Header />

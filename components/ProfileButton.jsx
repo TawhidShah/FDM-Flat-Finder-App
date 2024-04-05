@@ -25,8 +25,8 @@ const ProfileButton = ({ user }) => {
 
   return (
     <div ref={dropdownRef} className="relative">
-      <button onClick={() => setIsOpen(!isOpen)} className="hover:scale-[105%]">
-        <User className="mr-2 text-[#C5FF00]" />
+      <button onClick={() => setIsOpen(!isOpen)} className="hover:scale-[110%]">
+        <User className="mr-2 text-primary" />
       </button>
       {isOpen && (
         <div className="absolute right-0 z-50 mt-2 flex w-96 flex-col rounded-md bg-gray-400">
