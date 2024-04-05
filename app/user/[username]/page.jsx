@@ -1,14 +1,16 @@
 "use client";
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import Select from "react-select";
+
+import Link from "next/link";
+
 import ListingSmall from "@/components/ListingSmall";
-import './profile.css';
-import Link from 'next/link';
+
+import "./profile.css";
 
 const User = ({ params }) => {
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,18 +20,14 @@ const User = ({ params }) => {
         setMainUser(response.data);
         setLanguages(response.data.languages);
         setHobbies(response.data.hobbies);
-        setPreferences(response.data.preferences)
-        setListings(response.data.listings)
+        setPreferences(response.data.preferences);
+        setListings(response.data.listings);
       } catch (error) {
-        console.log("Couldn't fetch user", error)
+        console.log("Couldn't fetch user", error);
       }
-    }
+    };
     fetchData();
-  }, [])
-
-  const makeSelect = (arr) => {
-    return arr?.map(item => ({value:item,label:item }))
-  } 
+  }, []);
 
   const { user } = useUser();
   const [mainUser, setMainUser] = useState(null);
@@ -59,20 +57,28 @@ const User = ({ params }) => {
       <div className="personal">
         <h2>Languages</h2>
         <div className="list">
-          {languages?.map((item) => <li>{item}</li>)}
+          {languages?.map((item) => (
+            <li>{item}</li>
+          ))}
         </div>
         <p></p>
         <h2>Hobbies</h2>
         <div className="list">
-          {hobbies?.map((item) => <li>{item}</li>)}
+          {hobbies?.map((item) => (
+            <li>{item}</li>
+          ))}
         </div>
         <h2>Prefences</h2>
         <div className="list">
-          {preferences?.map((item) => <li>{item}</li>)}
+          {preferences?.map((item) => (
+            <li>{item}</li>
+          ))}
         </div>
         <h2>Listings</h2>
         <div className="listings">
-          {listings?.map((item) => <ListingSmall key={item._id} listing={item} /> )}
+          {listings?.map((item) => (
+            <ListingSmall key={item._id} listing={item} />
+          ))}
         </div>
       </div>
     </div>

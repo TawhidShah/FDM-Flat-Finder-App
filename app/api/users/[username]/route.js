@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import { mongooseConnect } from "../../../../lib/mongoose";
-import { UserProfile } from "../../../../models/UserProfile";
+
+import { mongooseConnect } from "@/lib/mongoose";
+
+import { UserProfile } from "@/models/UserProfile";
 
 export async function GET(request, context) {
   await mongooseConnect();
@@ -10,7 +12,6 @@ export async function GET(request, context) {
   if (!username) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
   }
-
   const user = await UserProfile.findOne({ username }).populate("listings");
 
   if (!user) {

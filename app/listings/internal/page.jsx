@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import Image from "next/image";
-import Link from "next/link";
+
 import {
   Carousel,
   CarouselContent,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/carousel";
 import axios from "axios";
 
-import mockListings from "@/constants/mockListings";
 import internalStyles from "./internal.css";
 
 export default function Home() {
@@ -20,27 +20,8 @@ export default function Home() {
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
   const [cityFilter, setCityFilter] = useState("");
+  const [periodAvailableFilter, setPeriodAvailableFilter] = useState("");
   const [listings, setListings] = useState([]);
-
-  const handleMinPriceChange = (e) => {
-    setMinPrice(Number(e.target.value));
-  };
-
-  const handleMaxPriceChange = (e) => {
-    setMaxPrice(Number(e.target.value));
-  };
-
-  const handleMinBedroomsChange = (e) => {
-    setMinBedrooms(Number(e.target.value));
-  };
-
-  const handleMaxBedroomsChange = (e) => {
-    setMaxBedrooms(Number(e.target.value));
-  };
-
-  const handleCityFilterChange = (e) => {
-    setCityFilter(e.target.value);
-  };
 
   useEffect(() => {
     axios.get("/api/listings").then((response) => {
@@ -48,16 +29,17 @@ export default function Home() {
     });
   }, []);
 
-  const filteredListings = mockListings.filter((listing) => {
+  const filteredListings = listings.filter((listing) => {
     return (
       listing.price >= minPrice &&
       listing.price <= maxPrice &&
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
-      listing.city.toLowerCase().includes(cityFilter.toLowerCase())
+      listing.city.toLowerCase().includes(cityFilter.toLowerCase()) &&
+      (periodAvailableFilter === "" ||
+        listing.periodAvailable === periodAvailableFilter)
     );
   });
-
   return (
     <main className="mt-4 flex flex-1 flex-col">
       <div className={internalStyles.filterContainer}>
@@ -71,7 +53,7 @@ export default function Home() {
           min={0}
           max={maxPrice}
           step="50"
-          onChange={handleMinPriceChange}
+          onChange={(e) => setMinPrice(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="maxPrice" className="label">
@@ -83,7 +65,7 @@ export default function Home() {
           min={minPrice}
           max={5000}
           step="50"
-          onChange={handleMaxPriceChange}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="minBedrooms" className="label">
@@ -95,7 +77,7 @@ export default function Home() {
           value={minBedrooms}
           min={1}
           max={maxBedrooms}
-          onChange={handleMinBedroomsChange}
+          onChange={(e) => setMinBedrooms(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="maxBedrooms" className="label">
@@ -107,7 +89,7 @@ export default function Home() {
           value={maxBedrooms}
           min={minBedrooms}
           max={5}
-          onChange={handleMaxBedroomsChange}
+          onChange={(e) => setMaxBedrooms(Number(e.target.value))}
           className="input"
         />
         <label htmlFor="city" className="label">
@@ -118,44 +100,50 @@ export default function Home() {
           id="city"
           placeholder="City"
           value={cityFilter}
-          onChange={handleCityFilterChange}
+          onChange={(e) => setCityFilter(e.target.value)}
           className="input"
         />
+        <label htmlFor="periodAvailable" className="label">
+          Period Available:
+        </label>
+        <select
+          id="periodAvailable"
+          value={periodAvailableFilter}
+          onChange={(e) => setPeriodAvailableFilter(e.target.value)}
+          className="input"
+        >
+          <option value="">Any</option>
+          <option value="Short Term (0-3 months)">
+            Short Term (0-3 months)
+          </option>
+          <option value="Medium Term (3-12 months)">
+            Medium Term (3-12 months)
+          </option>
+          <option value="Long Term (12+ months)">Long Term (12+ months)</option>
+        </select>
       </div>
 
       {filteredListings.map((listing) => (
-        <Link href={`/listings/${listing.id}`} key={listing.id}>
-          <div
-            className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
-          >
-            <Carousel className="w-full max-w-xs">
-              <CarouselContent>
-                {listing.images.map((image) => (
-                  <CarouselItem key={image}>
-                    <Image
-                      src={image}
-                      alt={listing.title}
-                      width={300}
-                      height={200}
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="carousel-control" />
-              <CarouselNext className="carousel-control" />
-            </Carousel>
-            <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
-            <p className="mt-2 text-lg">{listing.description}</p>
-            <p className="mt-2 text-lg font-bold">${listing.price}</p>
-          </div>
-        </Link>
-      ))}
-
-      {listings.map((listing) => (
         <div
           key={listing.id}
           className={`m-8 flex flex-col items-center justify-center rounded-lg border border-gray-900 bg-white p-8 shadow-lg ${internalStyles.listingContainer}`}
         >
+          <Carousel className="w-full max-w-xs">
+            <CarouselContent>
+              {listing.images.map((image) => (
+                <CarouselItem key={image}>
+                  <Image
+                    src={image}
+                    alt={listing.title}
+                    width={300}
+                    height={200}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="carousel-control" />
+            <CarouselNext className="carousel-control" />
+          </Carousel>
           <h2 className="mt-4 text-2xl font-bold">{listing.title}</h2>
           <p className="mt-2 text-lg">{listing.description}</p>
           <p className="mt-2 text-lg font-bold">${listing.price}</p>

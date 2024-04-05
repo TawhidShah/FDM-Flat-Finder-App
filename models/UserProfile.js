@@ -19,7 +19,7 @@ const userProfileSchema = new Schema(
 
     age: {
       type: Number,
-      required: true
+      required: true,
     },
 
     languages: {
@@ -55,27 +55,23 @@ const userProfileSchema = new Schema(
       type: String,
       required: true,
     },
-    
+
     // Listing references
     listings: {
       type: [Schema.Types.ObjectId],
       ref: "Listing",
       default: [],
     },
-<<<<<<< Updated upstream
-=======
-
     // Bookmark references
     bookmarks: {
       type: [Schema.Types.ObjectId],
       ref: "Listing",
       default: [],
-    }
->>>>>>> Stashed changes
-  },
-  {
+    },
+
     timestamps: true,
   },
+  
 );
 
 export const UserProfile =

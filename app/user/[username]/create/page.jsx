@@ -1,16 +1,23 @@
 "use client";
-import "./create.css";
-import { React, useState } from "react";
+import { useState } from "react";
+
+import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
+<<<<<<< HEAD
 import countries  from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
 import {types, periods} from "@/constants/employee"
+=======
+import { countries } from "@/constants/countries";
+import languagesList from "@/constants/languagesList";
+import countryList from "@/constants/countryList";
+>>>>>>> main
 
 import "./create.css";
 
@@ -27,8 +34,12 @@ const CreateProfile = ({ params }) => {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
+<<<<<<< HEAD
     //Input validation
     if (hobbies.length < 1 || preferences.length < 1 ||  !type.trim() ||  !period.trim() ||  !country.trim()) {
+=======
+    if (hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
+>>>>>>> main
       alert("Please fill in all fields");
       e.preventDefault();
       return;
@@ -44,27 +55,36 @@ const CreateProfile = ({ params }) => {
         languages: languages,
         preferences: preferences,
         country: country,
+<<<<<<< HEAD
         type: type,
         period: period
+=======
+>>>>>>> main
       });
       if (response.status === 201) {
+        // TOAST
         console.log("User profile created successfully");
-      }
-      else {
+      } else {
+        // TOAST
         console.log("User profile creation failed");
       }
       setTimeout(() => {
-        router.push('/users/'+ user.username);
-      },1500)
-    }
-    catch (error) {
-      console.log("Error creating user profile", error);
+        router.push("/user/" + user.username);
+      }, 1500);
+    } catch (error) {
+      console.error("Error creating user profile", error);
       return;
     }
   };
-  
 
+<<<<<<< HEAD
   //Handling changing array values
+=======
+  const handleCountryChange = (e) => {
+    setCountry(countries[e.value]);
+  };
+
+>>>>>>> main
   const handleChangeHobbies = (e) => {
     const updatedHobbies = e.map((hobby) => hobby.value);
     setHobbies(updatedHobbies);
@@ -78,7 +98,7 @@ const CreateProfile = ({ params }) => {
   const handleChangeLanguages = (e) => {
     const updatedLanguages = e.map((language) => language.value);
     setLanguages(updatedLanguages);
-  }
+  };
 
   return (
     <div className="createProfile">
@@ -96,6 +116,7 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
+<<<<<<< HEAD
           <Select onChange={(e) => setCountry(countries[e.value])} options={countryList}></Select>
         </label>
         <label>
@@ -105,10 +126,18 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>What is you contract period?</span>
           <Select onChange={(e) => setPeriod(e.value)} options={periods}></Select>
+=======
+          <Select onChange={handleCountryChange} options={countryList}></Select>
+>>>>>>> main
         </label>
         <label>
           <span>What languages do you speak?</span>
-          <Select isMulti onChange={handleChangeLanguages} options={languagesList} defaultValue={{value:"English", label:"English"}} />
+          <Select
+            isMulti
+            onChange={handleChangeLanguages}
+            options={languagesList}
+            defaultValue={{ value: "English", label: "English" }}
+          />
         </label>
         <label>
           <span>What are your hobbies?</span>
@@ -122,5 +151,5 @@ const CreateProfile = ({ params }) => {
       </form>
     </div>
   );
-  }
+};
 export default CreateProfile;

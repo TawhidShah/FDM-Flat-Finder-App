@@ -1,17 +1,18 @@
 "use client";
-import "../create/create.css";
-import { React, useState } from "react";
+import { useState } from "react";
+
+import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { countries } from "@/constants/countries";
+
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+
+import countries from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
-import axios from "axios";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 
-
-const Edit = ({ params }) => {
+const Edit = () => {
   const [age, setAge] = useState(18);
   const [languages, setLanguages] = useState(["English"]);
   const [hobbies, setHobbies] = useState([]);
@@ -23,29 +24,25 @@ const Edit = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put('/api/users/' + user.username, {
+      const response = await axios.put("/api/users/" + user.username, {
         age: age,
         hobbies: hobbies,
         languages: languages,
         preferences: preferences,
-        country: country        
+        country: country,
       });
-      console.log('Profile edited')
       setTimeout(() => {
         router.push(`/user/${user.username}`);
-      },1500) 
-    }
-    catch (error) {
-      console.log("Error creating user profile", error);
+      }, 1500);
+    } catch (error) {
+      console.error("Error creating user profile", error);
       return;
     }
-    
   };
-  
 
   const handleCountryChange = (e) => {
-    setCountry(countries[e.value])
-  }
+    setCountry(countries[e.value]);
+  };
 
   const handleChangeHobbies = (e) => {
     const updatedHobbies = e.map((hobby) => hobby.value);
@@ -60,7 +57,7 @@ const Edit = ({ params }) => {
   const handleChangeLanguages = (e) => {
     const updatedLanguages = e.map((language) => language.value);
     setLanguages(updatedLanguages);
-  }
+  };
 
   return (
     <div className="createProfile">
@@ -78,11 +75,16 @@ const Edit = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
-          <Select onChange={handleCountryChange} options={countryList} ></Select>
+          <Select onChange={handleCountryChange} options={countryList}></Select>
         </label>
         <label>
           <span>What languages do you speak?</span>
-          <Select isMulti onChange={handleChangeLanguages} options={languagesList} defaultValue={{value:"English", label:"English"}} />
+          <Select
+            isMulti
+            onChange={handleChangeLanguages}
+            options={languagesList}
+            defaultValue={{ value: "English", label: "English" }}
+          />
         </label>
         <label>
           <span>What are your hobbies?</span>
@@ -96,5 +98,5 @@ const Edit = ({ params }) => {
       </form>
     </div>
   );
-  }
+};
 export default Edit;
