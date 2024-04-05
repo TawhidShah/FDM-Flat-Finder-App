@@ -22,13 +22,7 @@ const userProfileSchema = new Schema(
       required: true,
     },
 
-    languages: {
-      type: [String],
-      default: [],
-      required: true
-    },
-
-    //Employement information
+    //Employee info
     type: {
       type: String,
       required: true
@@ -37,6 +31,11 @@ const userProfileSchema = new Schema(
     period: {
       type: String,
       required: true
+    }, 
+
+    languages: {
+      type: [String],
+      default: [],
     },
 
     // Personal interests and preferences
@@ -62,16 +61,17 @@ const userProfileSchema = new Schema(
       ref: "Listing",
       default: [],
     },
+
     // Bookmark references
     bookmarks: {
       type: [Schema.Types.ObjectId],
       ref: "Listing",
       default: [],
     },
-
+  },
+  {
     timestamps: true,
   },
-  
 );
 
 export const UserProfile =

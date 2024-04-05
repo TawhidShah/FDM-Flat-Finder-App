@@ -53,7 +53,48 @@ export const hobbiesList = [
     { value: 'Yoga', label: 'Yoga' }
   ];
 
-
+  export const preferencesList = [
+    { value: 'Accessibility features', label: 'Accessibility features' },
+    { value: 'Cleanliness and tidiness', label: 'Cleanliness and tidiness' },
+    { value: 'Close amenities', label: 'Close amenities' },
+    { value: 'Cultural venue access', label: 'Cultural venue access' },
+    { value: 'Decor style preference', label: 'Decor style preference' },
+    { value: 'Dietary requirements', label: 'Dietary requirements' },
+    { value: 'Flexible schedules', label: 'Flexible schedules' },
+    { value: 'Fitness amenities', label: 'Fitness amenities' },
+    { value: 'Furnished living space', label: 'Furnished living space' },
+    { value: 'Gardening opportunities', label: 'Gardening opportunities' },
+    { value: 'Green living initiatives', label: 'Green living initiatives' },
+    { value: 'Hosting pets', label: 'Hosting pets' },
+    { value: 'Natural lighting preference', label: 'Natural lighting preference' },
+    { value: 'Non-smoking environment', label: 'Non-smoking environment' },
+    { value: 'Organized living environment', label: 'Organized living environment' },
+    { value: 'Outdoor access', label: 'Outdoor access' },
+    { value: 'Pet-friendly environment', label: 'Pet-friendly environment' },
+    { value: 'Privacy and space', label: 'Privacy and space' },
+    { value: 'Private bathroom', label: 'Private bathroom' },
+    { value: 'Quiet hours', label: 'Quiet hours' },
+    { value: 'Quiet hours preference', label: 'Quiet hours preference' },
+    { value: 'Quiet living space', label: 'Quiet living space' },
+    { value: 'Recreational activities proximity', label: 'Recreational activities proximity' },
+    { value: 'Security features', label: 'Security features' },
+    { value: 'Separate kitchen', label: 'Separate kitchen' },
+    { value: 'Shared cooking responsibilities', label: 'Shared cooking responsibilities' },
+    { value: 'Shared interests/hobbies', label: 'Shared interests/hobbies' },
+    { value: 'Shared responsibilities', label: 'Shared responsibilities' },
+    { value: 'Shared storage space', label: 'Shared storage space' },
+    { value: 'Shared workspace', label: 'Shared workspace' },
+    { value: 'Socializing preferences', label: 'Socializing preferences' },
+    { value: 'Spacious bedroom', label: 'Spacious bedroom' },
+    { value: 'Special dietary requirements', label: 'Special dietary requirements' },
+    { value: 'Sustainability practices', label: 'Sustainability practices' },
+    { value: 'Temperature control', label: 'Temperature control' },
+    { value: 'Visitor policy', label: 'Visitor policy' },
+    { value: 'Workspace availability', label: 'Workspace availability' },
+    { value: 'Laundry facilities availability', label: 'Laundry facilities availability' }
+    // Add more preferences as needed
+  ];
+  
 
 
 export const types  = [
