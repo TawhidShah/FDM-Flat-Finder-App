@@ -1,84 +1,38 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import { useState } from "react";
 
-function ListingsPage() {
-  const [showExternal, setShowExternal] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState('#ffeeb4');
+import InternalListings from "@/components/internalListings/InternalListings";
+import ExternalListings from "@/components/externalListings/ExternalListings";
 
-  useEffect(() => {
-    function handleScroll(event) {
-      if (event.deltaX > 0) {
-        setShowExternal(true);
-        setBackgroundColor('#c0ffee'); // Change to your desired color for external
-      } else {
-        setShowExternal(false);
-        setBackgroundColor('#ffeeb4'); // Change to your desired color for internal
-      }
-    }
+const listingsPage = () => {
+  const [activeTab, setActiveTab] = useState("tab1");
 
-    function handleKeyPress(event) {
-      if (event.key === 'ArrowRight') {
-        setShowExternal(true);
-        setBackgroundColor('#c0ffee');
-      } else if (event.key === 'ArrowLeft') {
-        setShowExternal(false);
-        setBackgroundColor('#ffeeb4');
-      }
-    }
-
-    window.addEventListener('wheel', handleScroll);
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, []);
-
-  const toggleListings = () => {
-    setShowExternal(!showExternal);
-    setBackgroundColor(showExternal ? '#ffeeb4' : '#c0ffee');
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
 
   return (
-    <div className="container mx-auto mt-35 p-4" style={{ backgroundColor: backgroundColor }}>
-      <h1 className="text-3xl font-bold">Choose Listing Type</h1>
-      <div className="mt-4">
-        {showExternal ? (
-          <p>
-            <b>External Listings</b> are listings from third-party providers. You could make your search and than create a lisitng on this page to find a roomate!
-          </p>
-        ) : (
-          <p>
-            <b>Internal listings</b> are listings managed within our platform from our own users! This way you could directly move in with a roomate already
-          </p>
-        )}
-      </div>
-      <div className="mt-4">
+    <div>
+      <div className="tabs mb-2.5 flex justify-center">
         <button
-          onClick={toggleListings}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className={`mr-2.5 cursor-pointer px-5 py-2.5 text-base outline-none ${activeTab === "tab1" ? "font-bold" : ""}`}
+          onClick={() => handleTabChange("tab1")}
         >
-          {showExternal ? '← Show Internal Listings' : 'Show External Listings →'}
+          Internal
         </button>
-        <div className="flex mt-2">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
-            <a href="listings/internal" className="text-white">Internal Listings</a>
-          </button>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <a href="/listings/external" className="text-white">External Listings</a>
-          </button>
-        </div>
+        <button
+          className={`mr-2.5 cursor-pointer px-5 py-2.5 text-base outline-none ${activeTab === "tab2" ? "font-bold" : ""}`}
+          onClick={() => handleTabChange("tab2")}
+        >
+          External
+        </button>
       </div>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold">Create Your Listing</h2>
-        <p className="mt-2">Do you already have a listing? create a lisitng to find a roomate!</p>
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">
-          <a href="/listings/create" className="text-white">Create Listing</a>
-        </button>
+      <div className="text-center">
+        {activeTab === "tab1" && <InternalListings />}
+        {activeTab === "tab2" && <ExternalListings />}
       </div>
     </div>
   );
-}
+};
 
-export default ListingsPage;
+export default listingsPage;

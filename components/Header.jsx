@@ -1,32 +1,32 @@
 "use client";
 
+import { SignInButton, useUser } from "@clerk/nextjs";
+
 import Link from "next/link";
-import React, { useState } from "react";
-import { Menu } from "lucide-react";
-import { SignInButton, SignedOut, UserButton } from "@clerk/nextjs";
+
+import ProfileButton from "@/components/ProfileButton";
 
 const Header = () => {
-  const [showNav, setShowNav] = useState(false);
+  const { user } = useUser();
 
   return (
-    <header className="bg-[#27303F]">
+    <header className="bg-[#000]">
       <nav className="flex items-center justify-between p-6">
         <Link href="/">
-          <h1 className="text-xl font-bold text-white hover:scale-[101%]">FDM Flat Finder</h1>
+        
+        <h1 className="text-xl font-bold text-primary hover:scale-[101%]">
+           FDM Flat Finder
+          </h1>
         </Link>
 
-        <div className="z-[100000] lg:hidden">
-          <button onClick={() => setShowNav(!showNav)}>
-            <Menu className="h-8 w-8" />
-          </button>
-        </div>
-
         <div className="flex items-center space-x-2">
-          <UserButton afterSignOutUrl="/" />
-
-          <SignedOut>
-            <SignInButton afterSignInUrl="/dashboard" />
-          </SignedOut>
+          {user ? (
+            <>
+              <ProfileButton user={user} />
+            </>
+          ) : (
+            <SignInButton className="rounded-full bg-primary px-4 py-2 hover:scale-[101%]" />
+          )}
         </div>
       </nav>
     </header>

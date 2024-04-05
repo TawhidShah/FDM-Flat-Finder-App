@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-
 import axios from "axios";
 import { GridLoader } from "react-spinners";
 
@@ -8,9 +7,10 @@ import { numInRange } from "@/lib/utils";
 
 import Property from "@/components/Property";
 
-import "@/styles/externalListings.css";
+import "@/styles/ExternalListings.css";
+import ExternalListingsGrid from "./ExternalListingsGrid";
 
-const Listings = () => {
+const ExternalListings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
   const [propertyRequestSubmitted, setPropertyRequestSubmitted] =
     useState(false);
@@ -109,6 +109,7 @@ const Listings = () => {
       );
     }
   };
+
   return (
     <div id="mainContainer">
       <>
@@ -194,20 +195,7 @@ const Listings = () => {
       {loading && <GridLoader className="mt-48" />}
 
       <div id="properties">
-        {properties.map((property) => (
-          <Property
-            key={property.id}
-            numBath={property.bathrooms}
-            numBed={property.bedrooms}
-            estateAgent={property.customer.branchDisplayName}
-            address={property.displayAddress}
-            price={property.price.displayPrices[0].displayPrice}
-            images={property.propertyImages.images}
-            description={property.propertyTypeFullDescription}
-            summary={property.summary}
-            link={property.propertyUrl}
-          ></Property>
-        ))}
+        <ExternalListingsGrid listings={properties} />
         {properties.length == 0 &&
           propertyRequestSubmitted == true &&
           loading == false && (
@@ -225,4 +213,4 @@ const Listings = () => {
     </div>
   );
 };
-export default Listings;
+export default ExternalListings;
