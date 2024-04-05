@@ -8,16 +8,10 @@ import CreatableSelect from "react-select/creatable";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
-<<<<<<< HEAD
 import countries  from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
-import {types, periods} from "@/constants/employee"
-=======
-import { countries } from "@/constants/countries";
-import languagesList from "@/constants/languagesList";
-import countryList from "@/constants/countryList";
->>>>>>> main
+import {types, periods, hobbiesList, preferencesList} from "@/constants/employee"
 
 import "./create.css";
 
@@ -34,17 +28,14 @@ const CreateProfile = ({ params }) => {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-<<<<<<< HEAD
     //Input validation
     if (hobbies.length < 1 || preferences.length < 1 ||  !type.trim() ||  !period.trim() ||  !country.trim()) {
-=======
-    if (hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
->>>>>>> main
       alert("Please fill in all fields");
       e.preventDefault();
       return;
     }
     e.preventDefault();
+    console.log(hobbies,languages,preferences,country,type,period);
     //Post to database
     try {
       const response = await axios.post("/api/users", {
@@ -55,11 +46,8 @@ const CreateProfile = ({ params }) => {
         languages: languages,
         preferences: preferences,
         country: country,
-<<<<<<< HEAD
         type: type,
         period: period
-=======
->>>>>>> main
       });
       if (response.status === 201) {
         // TOAST
@@ -77,14 +65,7 @@ const CreateProfile = ({ params }) => {
     }
   };
 
-<<<<<<< HEAD
   //Handling changing array values
-=======
-  const handleCountryChange = (e) => {
-    setCountry(countries[e.value]);
-  };
-
->>>>>>> main
   const handleChangeHobbies = (e) => {
     const updatedHobbies = e.map((hobby) => hobby.value);
     setHobbies(updatedHobbies);
@@ -116,7 +97,6 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
-<<<<<<< HEAD
           <Select onChange={(e) => setCountry(countries[e.value])} options={countryList}></Select>
         </label>
         <label>
@@ -126,9 +106,6 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>What is you contract period?</span>
           <Select onChange={(e) => setPeriod(e.value)} options={periods}></Select>
-=======
-          <Select onChange={handleCountryChange} options={countryList}></Select>
->>>>>>> main
         </label>
         <label>
           <span>What languages do you speak?</span>
@@ -141,11 +118,11 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>What are your hobbies?</span>
-          <CreatableSelect isMulti onChange={handleChangeHobbies} />
+          <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangeHobbies} options={hobbiesList} />
         </label>
         <label>
           <span>What prefrences do you have?</span>
-          <CreatableSelect isMulti onChange={handleChangePreferences} />
+          <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangePreferences} options={preferencesList} />
         </label>
         <button onClick={handleSubmit}>Submit</button>
       </form>
