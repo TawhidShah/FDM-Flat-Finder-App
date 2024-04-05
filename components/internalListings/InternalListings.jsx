@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import Filter from "./InternalFilter";
-import Listing from "./InternalListing";
+import InternalListingsGrid from "./InternalListingsGrid";
 
 const InternalListings = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -53,11 +53,12 @@ const InternalListings = () => {
         onPeriodAvailableChange={setPeriodAvailableFilter}
       />
 
-      {filteredListings.map((listing) => (
+      {/* {filteredListings.map((listing) => (
         <Link href={`/listings/${listing._id}`} key={listing._id}>
           <Listing listing={listing} />
         </Link>
-      ))}
+      ))} */}
+      <InternalListingsGrid listings={filteredListings} />
     </main>
   );
 };

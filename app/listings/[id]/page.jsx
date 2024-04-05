@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 
-import ImagesGallery from "@/components/ImagesGallery";
+import ImagesGallery from "@/components/internalListings/ImagesGallery";
 
 import "./page.css";
 
