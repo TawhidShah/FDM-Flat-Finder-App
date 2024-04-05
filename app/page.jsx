@@ -10,7 +10,7 @@ export default function Home() {
       <div className="mt-10">
         <Link
           href="/listings"
-          class="inline-block rounded-lg bg-primary p-3 px-6 text-2xl text-white transition-colors font-bold hover:bg-white hover:text-primary">
+          class="inline-block rounded-lg bg-primary p-3 px-6 text-2xl text-black font-bold hover:bg-white">
           Start Your Search
         </Link>
       </div>
