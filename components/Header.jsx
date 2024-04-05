@@ -13,8 +13,9 @@ const Header = () => {
     <header className="bg-[#000]">
       <nav className="flex items-center justify-between p-6">
         <Link href="/">
-          <h1 className="text-xl font-bold text-primary hover:scale-[101%]">
-            FDM Flat Finder
+        
+        <h1 className="text-xl font-bold text-primary hover:scale-[101%]">
+           FDM Flat Finder
           </h1>
         </Link>
 
