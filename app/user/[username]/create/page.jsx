@@ -3,12 +3,16 @@ import "./create.css";
 import { React, useState } from "react";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { countries } from "@/constants/countries";
+
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+
+import countries  from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
-import axios from "axios";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import {types, periods} from "@/constants/employee"
+
+import "./create.css";
 
 const CreateProfile = ({ params }) => {
   const [age, setAge] = useState(18);
@@ -16,16 +20,21 @@ const CreateProfile = ({ params }) => {
   const [hobbies, setHobbies] = useState([]);
   const [preferences, setPreferences] = useState([]);
   const [country, setCountry] = useState("");
+  const [type, setType] = useState("");
+  const [period, setPeriod] = useState("")
+  
   const { user } = useUser();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    if(hobbies.length < 1 || preferences.length < 1 || !country.trim()) {
+    //Input validation
+    if (hobbies.length < 1 || preferences.length < 1 ||  !type.trim() ||  !period.trim() ||  !country.trim()) {
       alert("Please fill in all fields");
       e.preventDefault();
       return;
     }
     e.preventDefault();
+    //Post to database
     try {
       const response = await axios.post("/api/users", {
         username: user.username,
@@ -34,7 +43,9 @@ const CreateProfile = ({ params }) => {
         hobbies: hobbies,
         languages: languages,
         preferences: preferences,
-        country: country        
+        country: country,
+        type: type,
+        period: period
       });
       if (response.status === 201) {
         console.log("User profile created successfully");
@@ -53,10 +64,7 @@ const CreateProfile = ({ params }) => {
   };
   
 
-  const handleCountryChange = (e) => {
-    setCountry(countries[e.value])
-  }
-
+  //Handling changing array values
   const handleChangeHobbies = (e) => {
     const updatedHobbies = e.map((hobby) => hobby.value);
     setHobbies(updatedHobbies);
@@ -88,7 +96,15 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
-          <Select onChange={handleCountryChange} options={countryList} ></Select>
+          <Select onChange={(e) => setCountry(countries[e.value])} options={countryList}></Select>
+        </label>
+        <label>
+          <span>What type of employee are you?</span>
+          <Select onChange={(e) => setType(e.value)} options={types}></Select>
+        </label>
+        <label>
+          <span>What is you contract period?</span>
+          <Select onChange={(e) => setPeriod(e.value)} options={periods}></Select>
         </label>
         <label>
           <span>What languages do you speak?</span>

@@ -22,15 +22,29 @@ const userProfileSchema = new Schema(
       required: true
     },
 
+    languages: {
+      type: [String],
+      default: [],
+      required: true
+    },
+
+    //Employement information
+    type: {
+      type: String,
+      required: true
+    },
+
+    period: {
+      type: String,
+      required: true
+    },
+
     // Personal interests and preferences
     hobbies: {
       type: [String],
       default: [],
     },
-    languages: {
-      type: [String],
-      default: [],
-    },
+    
     preferences: {
       type: [String],
       default: [],
@@ -48,6 +62,16 @@ const userProfileSchema = new Schema(
       ref: "Listing",
       default: [],
     },
+<<<<<<< Updated upstream
+=======
+
+    // Bookmark references
+    bookmarks: {
+      type: [Schema.Types.ObjectId],
+      ref: "Listing",
+      default: [],
+    }
+>>>>>>> Stashed changes
   },
   {
     timestamps: true,

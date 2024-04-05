@@ -1,0 +1,70 @@
+export const hobbiesList = [
+    { value: 'Archery', label: 'Archery' },
+    { value: 'Astronomy', label: 'Astronomy' },
+    { value: 'Attending concerts', label: 'Attending concerts' },
+    { value: 'Baking', label: 'Baking' },
+    { value: 'Basketball', label: 'Basketball' },
+    { value: 'Beekeeping', label: 'Beekeeping' },
+    { value: 'Birdwatching', label: 'Birdwatching' },
+    { value: 'Board games', label: 'Board games' },
+    { value: 'Brewing beer', label: 'Brewing beer' },
+    { value: 'Collecting', label: 'Collecting' },
+    { value: 'Cooking', label: 'Cooking' },
+    { value: 'Cycling', label: 'Cycling' },
+    { value: 'Dancing', label: 'Dancing' },
+    { value: 'DIY projects', label: 'DIY projects' },
+    { value: 'Drawing', label: 'Drawing' },
+    { value: 'Fishing', label: 'Fishing' },
+    { value: 'Film photography', label: 'Film photography' },
+    { value: 'Football', label: 'Football' },
+    { value: 'Gardening', label: 'Gardening' },
+    { value: 'Hiking', label: 'Hiking' },
+    { value: 'Home improvement', label: 'Home improvement' },
+    { value: 'Horseback riding', label: 'Horseback riding' },
+    { value: 'Karaoke', label: 'Karaoke' },
+    { value: 'Learning languages', label: 'Learning languages' },
+    { value: 'Listening to music', label: 'Listening to music' },
+    { value: 'Music appreciation', label: 'Music appreciation' },
+    { value: 'Paintball', label: 'Paintball' },
+    { value: 'Painting', label: 'Painting' },
+    { value: 'Photography', label: 'Photography' },
+    { value: 'Playing musical instruments', label: 'Playing musical instruments' },
+    { value: 'Playing sports', label: 'Playing sports' },
+    { value: 'Playing video games', label: 'Playing video games' },
+    { value: 'Pottery', label: 'Pottery' },
+    { value: 'Reading', label: 'Reading' },
+    { value: 'Reading comics', label: 'Reading comics' },
+    { value: 'Rock climbing', label: 'Rock climbing' },
+    { value: 'Running', label: 'Running' },
+    { value: 'Scuba diving', label: 'Scuba diving' },
+    { value: 'Sculpting', label: 'Sculpting' },
+    { value: 'Skiing', label: 'Skiing' },
+    { value: 'Surfing', label: 'Surfing' },
+    { value: 'Surfing the internet', label: 'Surfing the internet' },
+    { value: 'Traveling', label: 'Traveling' },
+    { value: 'Volunteering', label: 'Volunteering' },
+    { value: 'Watching movies', label: 'Watching movies' },
+    { value: 'Wine making', label: 'Wine making' },
+    { value: 'Wine tasting', label: 'Wine tasting' },
+    { value: 'Woodworking', label: 'Woodworking' },
+    { value: 'Writing', label: 'Writing' },
+    { value: 'Writing fiction', label: 'Writing fiction' },
+    { value: 'Writing poetry', label: 'Writing poetry' },
+    { value: 'Yoga', label: 'Yoga' }
+  ];
+
+
+
+
+export const types  = [
+    {value:"Intern", label:"Intern"},
+    {value:"Employee", label:"Employee"},
+    {value:"Consultant", label:"Consultant"},
+];
+
+export const periods  = [
+    {value:"Short", label:"Short"},
+    {value:"Medium", label:"Medium"},
+    {value:"Long", label:"Long"},
+];
+
