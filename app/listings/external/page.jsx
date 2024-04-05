@@ -6,9 +6,9 @@ import { GridLoader } from "react-spinners";
 
 import { numInRange } from "@/lib/utils";
 
-import Property from "./Property.jsx";
+import Property from "@/components/Property";
 
-import "./listings.css";
+import "@/styles/externalListings.css";
 
 const Listings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
