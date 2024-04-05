@@ -34,8 +34,8 @@ const ExternalListingCard = ({ listing }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 hover:bg-gray-300" />
-        <CarouselNext className="right-0 hover:bg-gray-300" />
+        <CarouselPrevious className="left-0 border-none bg-transparent hover:bg-gray-300" />
+        <CarouselNext className="right-0 border-none bg-transparent hover:bg-gray-300" />
       </Carousel>
       <h1 className="text-xl font-bold text-gray-900">{title}</h1>
       <p className="mt-2 text-sm text-gray-600">{listing.summary}</p>
