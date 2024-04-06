@@ -12,9 +12,9 @@ import {
 
 const InternalListingCard = ({ listing }) => {
   const title =
-    listing.title.length > 25
-      ? listing.title.substring(0, 25) + "..."
-      : listing.title;
+  listing && listing.title && listing.title.length > 25
+    ? listing.title.substring(0, 25) + "..."
+    : listing && listing.title;
 
   return (
     <div
