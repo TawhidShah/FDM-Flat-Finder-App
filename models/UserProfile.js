@@ -11,6 +11,25 @@ const userProfileSchema = new Schema(
       minlength: 4,
     },
 
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+
+    email: {
+      type: String,
+      required: true
+    },
+
+    profilePicture: {
+      type: String,
+      required: true
+    },
+
     clerkId: {
       type: String,
       required: true,
@@ -22,15 +41,28 @@ const userProfileSchema = new Schema(
       required: true,
     },
 
+    //Employee info
+    employmentType: {
+      type: String,
+      required: true
+    },
+
+    periodType: {
+      type: String,
+      required: true
+    }, 
+
+    languages: {
+      type: [String],
+      default: [],
+    },
+
     // Personal interests and preferences
     hobbies: {
       type: [String],
       default: [],
     },
-    languages: {
-      type: [String],
-      default: [],
-    },
+    
     preferences: {
       type: [String],
       default: [],
