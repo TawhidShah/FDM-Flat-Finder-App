@@ -199,7 +199,7 @@ const User = ({ params }) => {
             <h2>Email Address</h2>
             <p>{currUser?.email}</p>
           </div>
-          {(params.username == currUser?.username) == user.username ? (
+          {params.username == user.username ? (
             <button onClick={() => setEditAccount(!editAccount)}>
               Edit account information
             </button>
@@ -311,7 +311,7 @@ const User = ({ params }) => {
               <InternalListingCard key={item._id} listing={item} />
             ))}
           </div>
-          {(params.username == currUser?.username) == user.username ? (
+          {params.username == user.username ? (
             <button onClick={() => setEditExtra(!editExtra)}>
               Edit additional information
             </button>
