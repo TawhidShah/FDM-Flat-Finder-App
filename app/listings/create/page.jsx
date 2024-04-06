@@ -6,6 +6,9 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import {
   propertyTypes,
@@ -146,8 +149,10 @@ const CreateListing = () => {
 
       axios.post("/api/listings", submissionData);
       setFormData(initialFormData);
+      toast.success('Listing created successfully!');
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error('Error creating listing. Please try again later.');
     }
   };
 
@@ -342,6 +347,7 @@ const CreateListing = () => {
         </label>
         <button type="submit">Submit</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
