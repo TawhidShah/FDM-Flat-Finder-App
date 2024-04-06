@@ -114,7 +114,7 @@ const InternalFilter = ({
         value={periodAvailableFilter}
         onChange={(e) => onPeriodAvailableChange(e.target.value)}
         style={{
-          color: 'white', // Add lime color for font
+          color: 'rgb(197, 255, 0)', // Add lime color for font
           backgroundColor: 'black', // Add transparent background
           border: '1px solid lime', // Add border styling
           borderRadius: '5px', // Add border radius for rounded corners
