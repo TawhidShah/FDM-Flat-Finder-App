@@ -63,7 +63,7 @@ const SignInForm = () => {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        router.push("/user");
+        router.push("/listings");
       } else {
         /*Investigate why the sign-in hasn't completed */
         console.log(result);

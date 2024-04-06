@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import { useState } from "react";
+
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 import { LuBed, LuBath } from "react-icons/lu";
 
 import {
@@ -11,16 +15,48 @@ import {
 } from "@/components/ui/carousel";
 
 const InternalListingCard = ({ listing }) => {
+  const { user } = useUser();
+
+  const [bookmarked, setBookmarked] = useState(
+    localStorage.getItem("bookmarks")?.includes(listing._id),
+  );
+
   const title =
   listing && listing.title && listing.title.length > 25
     ? listing.title.substring(0, 25) + "..."
     : listing && listing.title;
 
+  const handleBookmarked = async () => {
+    try {
+      const res = await axios.post(`/api/users/${user.username}/bookmarks`, {
+        listingId: listing._id,
+        action: bookmarked ? "remove" : "add",
+      });
+      setBookmarked(!bookmarked);
+      localStorage.setItem("bookmarks", JSON.stringify(res.data.bookmarks));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div
       key={listing.id}
-      className="flex min-h-[400px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
+      className="relative flex min-h-[400px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
     >
+      <svg
+        onClick={handleBookmarked}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        aria-hidden="true"
+        focusable="false"
+        className="absolute right-2 top-2 z-[10000] h-8 w-8 outline-none hover:cursor-pointer"
+        stroke="#fff"
+        fill={bookmarked ? "rgba(255,0,0,0.7)" : "rgba(0,0,0,0.5)"}
+      >
+        <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path>
+      </svg>
+
       <Carousel
         opts={{
           align: "start",
@@ -29,9 +65,9 @@ const InternalListingCard = ({ listing }) => {
       >
         <CarouselContent>
           {listing.images.map((picture) => (
-            <CarouselItem>
+            <CarouselItem key={picture}>
               <img
-                className="h-56 w-full rounded-lg object-cover object-center "
+                className="h-56 w-full object-cover object-center "
                 src={picture}
                 alt="Property Image"
               ></img>
@@ -46,17 +82,17 @@ const InternalListingCard = ({ listing }) => {
         href={`/listings/${listing._id}`}
       >
         <h1 className="text-xl font-bold text-gray-900">{title}</h1>
-        <div className="mx-auto flex gap-3">
-          <span className="text-sm text-gray-600">{listing.propertyType}</span>
+        <div className="mx-auto flex items-center gap-3">
+          <span className="text-sm">{listing.propertyType}</span>
           {listing.bedrooms && (
             <>
-              <LuBed color="#475569" />
+              <LuBed />
               <span className="text-sm text-gray-600">{listing.bedrooms}</span>
             </>
           )}
           {listing.bathrooms && (
             <>
-              <LuBath color="#475569" />
+              <LuBath />
               <span className="text-sm text-gray-600">{listing.bathrooms}</span>
             </>
           )}

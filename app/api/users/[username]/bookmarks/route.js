@@ -106,5 +106,8 @@ export async function POST(request, context) {
 
   await user.save();
 
-  return NextResponse.json({ message: "Bookmark updated" }, { status: 200 });
+  return NextResponse.json(
+    { message: "Bookmark updated", bookmarks: user.bookmarks },
+    { status: 209 },
+  );
 }

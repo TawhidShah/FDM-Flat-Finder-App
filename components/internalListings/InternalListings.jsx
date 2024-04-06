@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-
-import Link from "next/link";
 
 import Filter from "./InternalFilter";
 import InternalListingsGrid from "./InternalListingsGrid";
 
 const InternalListings = () => {
+  const { user } = useUser();
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
   const [minBedrooms, setMinBedrooms] = useState(1);
@@ -20,6 +20,21 @@ const InternalListings = () => {
     axios.get("/api/listings").then((response) => {
       setListings(response.data);
     });
+  }, []);
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      try {
+        const res = await axios.get(`/api/users/${user?.username}/bookmarks`);
+        localStorage.setItem("bookmarks", JSON.stringify(res.data.bookmarks));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (user) {
+      fetchBookmarks();
+    }
   }, []);
 
   const filteredListings = listings.filter((listing) => {
@@ -53,11 +68,6 @@ const InternalListings = () => {
         onPeriodAvailableChange={setPeriodAvailableFilter}
       />
 
-      {/* {filteredListings.map((listing) => (
-        <Link href={`/listings/${listing._id}`} key={listing._id}>
-          <Listing listing={listing} />
-        </Link>
-      ))} */}
       <InternalListingsGrid listings={filteredListings} />
     </main>
   );
