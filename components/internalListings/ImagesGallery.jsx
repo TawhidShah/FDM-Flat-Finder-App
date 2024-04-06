@@ -3,6 +3,10 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const ImagesGallery = ({ title, images, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -30,8 +34,37 @@ const ImagesGallery = ({ title, images, onClose }) => {
     return () => document.body.removeEventListener("keydown", onKeydown);
   }, []);
 
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isSwipeRight = distance > minSwipeDistance;
+    const isSwipeLeft = distance < -minSwipeDistance;
+
+    if (isSwipeRight) {
+      nextImage();
+    } else if (isSwipeLeft) {
+      prevImage();
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   return (
-    <div className="fixed inset-0 flex flex-col bg-black">
+    <div
+      className="fixed inset-0 flex flex-col bg-black"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="flex justify-between p-8">
         <div></div>
         <h2 className="text-xl font-semibold text-white">
@@ -42,9 +75,9 @@ const ImagesGallery = ({ title, images, onClose }) => {
         </button>
       </div>
 
-      <div className="relative flex flex-1 items-center justify-center">
+      <div className="relative flex flex-1 items-center justify-between">
         <button
-          className="absolute left-0 ml-20 h-full w-1/2 text-white"
+          className="hidden h-full p-4 text-white md:p-32 lg:inline-block"
           onClick={(e) => {
             prevImage();
             e.currentTarget.blur();
@@ -56,10 +89,10 @@ const ImagesGallery = ({ title, images, onClose }) => {
         <img
           src={images[currentImageIndex]}
           alt={title}
-          className="z-10000 object-cover"
+          className="z-10000 mx-auto max-h-[80vh] min-h-[60vh] w-full object-contain lg:max-w-[70vw] "
         />
         <button
-          className="absolute right-0 mr-20 h-full w-1/2 text-white"
+          className="hidden h-full p-4 text-white md:p-32 lg:inline-block"
           onClick={(e) => {
             nextImage();
             e.currentTarget.blur();
