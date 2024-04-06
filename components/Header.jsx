@@ -25,7 +25,7 @@ const Header = () => {
               <ProfileButton user={user} />
             </>
           ) : (
-            <SignInButton className="rounded-full bg-primary px-4 py-2 hover:scale-[101%]" />
+            <SignInButton className="rounded-full bg-primary px-4 py-2 hover:bg-white" />
           )}
         </div>
       </nav>
