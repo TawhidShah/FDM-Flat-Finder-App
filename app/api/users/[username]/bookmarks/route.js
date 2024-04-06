@@ -6,6 +6,33 @@ import { mongooseConnect } from "@/lib/mongoose";
 
 import { UserProfile } from "@/models/UserProfile";
 
+export async function GET(request, context) {
+  await mongooseConnect();
+
+  const { username } = context.params;
+
+  const { userId } = getAuth(request);
+
+  if (!username) {
+    return NextResponse.json({ error: "Missing username" }, { status: 400 });
+  }
+
+  const user = await UserProfile.findOne({ username }).select({
+    bookmarks: 1,
+    clerkId: 1,
+  });
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  if (user.clerkId !== userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  return NextResponse.json({ bookmarks: user.bookmarks }, { status: 200 });
+}
+
 export async function POST(request, context) {
   await mongooseConnect();
 
@@ -37,10 +64,10 @@ export async function POST(request, context) {
     return NextResponse.json({ error: "Missing action" }, { status: 400 });
   }
 
-  const user = await UserProfile.findOne({ username }).select(
-    "bookmarks",
-    "clerkId",
-  );
+  const user = await UserProfile.findOne({ username }).select({
+    bookmarks: 1,
+    clerkId: 1,
+  });
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });

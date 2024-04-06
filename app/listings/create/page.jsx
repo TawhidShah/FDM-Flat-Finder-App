@@ -81,6 +81,32 @@ const CreateListing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+     let requiredFields = Object.keys(formData);
+
+     // remove optional fields
+     requiredFields = requiredFields.filter(
+       (key) =>
+         !locationInputFields.find((field) => field.name === key && field.optional)
+     );
+ 
+     // if the chosen property type is not shared flat or shared house, remove roomsAvailable from required fields
+     if (
+       formData.propertyType !== "Shared Flat" &&
+       formData.propertyType !== "Shared House"
+     ) {
+       requiredFields = requiredFields.filter((field) => field !== "roomsAvailable");
+     }
+ 
+     // normal case to handle if the form has any empty required fields
+     const emptyFields = requiredFields.filter((field) => !formData[field]);
+ 
+     if (emptyFields.length > 0) {
+       alert("Please fill in all required fields");
+       return;
+     }
+     console.log("Form submitted successfully!");
+ 
+
     // Combining addressLine1, addressLine2, and postcode into one string
     const combinedAddress = [
       formData.addressLine1,
