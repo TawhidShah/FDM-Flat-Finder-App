@@ -8,7 +8,6 @@ export async function POST(request) {
   await mongooseConnect();
 
   let body;
-  console.log(body);
 
   try {
     body = await request.json();

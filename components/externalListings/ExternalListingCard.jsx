@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Bed, Bath } from "lucide-react";
+import { LuBed, LuBath } from "react-icons/lu";
 
 import {
   Carousel,
@@ -51,17 +51,17 @@ const ExternalListingCard = ({ listing }) => {
         target="_blank"
       >
         <h1 className="text-xl font-semibold text-gray-900">{title}</h1>
-        <div className="mx-auto flex gap-3">
+        <div className="mx-auto flex items-center gap-3">
           <span className="text-sm text-gray-600">{listing.propertyType}</span>
           {listing.bedrooms && (
             <>
-              <Bed color="#475569" />
+              <LuBed />
               <span className="text-sm text-gray-600">{listing.bedrooms}</span>
             </>
           )}
           {listing.bathrooms && (
             <>
-              <Bath color="#475569" />
+              <LuBath />
               <span className="text-sm text-gray-600">{listing.bathrooms}</span>
             </>
           )}
