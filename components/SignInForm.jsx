@@ -63,19 +63,23 @@ const SignInForm = () => {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        router.push("/");
+        router.push("/user");
       } else {
         /*Investigate why the sign-in hasn't completed */
         console.log(result);
       }
     } catch (err) {
-      setClerkError(err.errors[0].message.replace("Identifier", "Email/Username"));
+      setClerkError(
+        err.errors[0].message.replace("Identifier", "Email/Username"),
+      );
     }
   };
 
   return (
     <div className="mt-4">
-      {clerkError && <p className="text-center text-red-500 mb-2 ">{clerkError}</p>}
+      {clerkError && (
+        <p className="mb-2 text-center text-red-500 ">{clerkError}</p>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
         <div>
           <label

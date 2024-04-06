@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
@@ -19,8 +18,6 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
     emailAddress: "",
     password: "",
   });
-
-  const router = useRouter();
 
   // Form Validation
   const validateForm = () => {
