@@ -7,23 +7,25 @@ import CreatableSelect from "react-select/creatable";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
-import countries  from "@/constants/countries";
+import countries from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
-import {types, periods, hobbiesList, preferencesList} from "@/constants/employee"
+import {
+  types,
+  periods,
+  hobbiesList,
+  preferencesList,
+} from "@/constants/employee";
 
 import Link from "next/link";
 
 import "./profile.css";
 import InternalListingCard from "@/components/internalListings/InternalListingCard";
 
-
 const User = ({ params }) => {
-  
   const [refresh, setRefresh] = useState(false);
   const router = useRouter();
   const { user } = useUser();
- 
 
   const [currUser, setCurrUser] = useState(null);
   const [age, setAge] = useState(18);
@@ -41,7 +43,7 @@ const User = ({ params }) => {
 
   const [editAccount, setEditAccount] = useState(false);
   const [editExtra, setEditExtra] = useState(false);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,16 +61,12 @@ const User = ({ params }) => {
         setLastName(response.data.lastName);
         setUsername(response.data.username);
         setEmail(response.data.email);
-        console.log("Custom" , response.data);
-        console.log("Clerk:", user)
       } catch (error) {
         console.log("Couldn't fetch user", error);
       }
     };
     fetchData();
   }, [refresh]);
-
-  console.log("Clerk:", user)
 
   const handleSaveAccount = async (e) => {
     if (!firstName.trim() || !lastName.trim()) {
@@ -81,39 +79,45 @@ const User = ({ params }) => {
         firstName: firstName,
         lastName: lastName,
       });
-      user.update({firstName: firstName, lastName:lastName})
+      user.update({ firstName: firstName, lastName: lastName });
       console.log("Updated Account", response.data, user);
-      
+
       setTimeout(() => {
         setEditAccount(!editAccount);
-      },500);
+      }, 500);
       router.push("/user");
     } catch (error) {
       console.log("Error updating account", error);
     }
-  }
+  };
 
   const handleSaveExtra = async (e) => {
-    if (hobbies.length < 1 || preferences.length < 1 ||  !type.trim() ||  !period.trim() ||  !country.trim()) {
+    if (
+      hobbies.length < 1 ||
+      preferences.length < 1 ||
+      !type.trim() ||
+      !period.trim() ||
+      !country.trim()
+    ) {
       alert("Please fill in all fields");
       e.preventDefault();
       return;
     }
     try {
-      const response = await axios.put(`/api/users/${params.username}` , {
+      const response = await axios.put(`/api/users/${params.username}`, {
         age: age,
         hobbies: hobbies,
         languages: languages,
         preferences: preferences,
         country: country,
         employmentType: type,
-        periodType: period
+        periodType: period,
       });
-      console.log("Profile updated",response.data)
+      console.log("Profile updated", response.data);
       setTimeout(() => {
         setEditExtra(!editExtra);
         setRefresh(!refresh);
-      },500);
+      }, 500);
     } catch (error) {
       console.error("Error updating user profile", error);
       return;
@@ -136,16 +140,18 @@ const User = ({ params }) => {
   };
 
   function makeSelect(input) {
-    if (typeof input === 'string') {
+    if (typeof input === "string") {
       return { value: input, label: input };
     } else if (Array.isArray(input)) {
-      return input.map(str => ({ value: str, label: str }));
+      return input.map((str) => ({ value: str, label: str }));
     } else {
-      throw new Error('Input must be a string or an array of strings.');
+      throw new Error("Input must be a string or an array of strings.");
     }
   }
 
-  console.log("checking states", firstName,lastName,username);
+  if (!currUser || !user) {
+    return <></>;
+  }
 
   return (
     <div className="profile">
@@ -153,18 +159,28 @@ const User = ({ params }) => {
       {editAccount ? (
         <>
           <p>Edit ACCOUTN!!!!!</p>
-          <label >
+          <label>
             <span>First name</span>
-            <input type="text" placeholder="Enter your first name" onChange={(e) => setFirstName(e.target.value)} defaultValue={currUser?.firstName} />
+            <input
+              type="text"
+              placeholder="Enter your first name"
+              onChange={(e) => setFirstName(e.target.value)}
+              defaultValue={currUser?.firstName}
+            />
           </label>
-          <label >
+          <label>
             <span>Last name</span>
-            <input type="text" placeholder="Enter your last name" onChange={(e) => setLastName(e.target.value)} defaultValue={currUser?.lastName} />
+            <input
+              type="text"
+              placeholder="Enter your last name"
+              onChange={(e) => setLastName(e.target.value)}
+              defaultValue={currUser?.lastName}
+            />
           </label>
           <button onClick={() => setEditAccount(!editAccount)}>Cancel</button>
           <button onClick={handleSaveAccount}>Save</button>
         </>
-      ):(
+      ) : (
         <>
           <div className="main">
             <div className="info">
@@ -183,15 +199,14 @@ const User = ({ params }) => {
             <h2>Email Address</h2>
             <p>{currUser?.email}</p>
           </div>
-          {(params.username == currUser?.username == user.username) ? (
-          <button onClick={() => setEditAccount(!editAccount)}>Edit account information</button>
-          ) : (
-            null
-          )}
+          {(params.username == currUser?.username) == user.username ? (
+            <button onClick={() => setEditAccount(!editAccount)}>
+              Edit account information
+            </button>
+          ) : null}
         </>
-        
       )}
-      
+
       {editExtra ? (
         <div className="edit">
           <p>edit mode!!!</p>
@@ -207,15 +222,29 @@ const User = ({ params }) => {
           </label>
           <label>
             <span>Where are you from?</span>
-            <Select onChange={(e) => setCountry(countries[e.value])} options={countryList} defaultValue={makeSelect(country)}> </Select>
+            <Select
+              onChange={(e) => setCountry(countries[e.value])}
+              options={countryList}
+              defaultValue={makeSelect(country)}
+            >
+              {" "}
+            </Select>
           </label>
           <label>
             <span>What type of employee are you?</span>
-            <Select onChange={(e) => setType(e.value)} options={types} defaultValue={makeSelect(type)}></Select>
+            <Select
+              onChange={(e) => setType(e.value)}
+              options={types}
+              defaultValue={makeSelect(type)}
+            ></Select>
           </label>
           <label>
             <span>What is you contract period?</span>
-            <Select onChange={(e) => (setPeriod(e.value))} options={periods} defaultValue={makeSelect(period)}></Select>
+            <Select
+              onChange={(e) => setPeriod(e.value)}
+              options={periods}
+              defaultValue={makeSelect(period)}
+            ></Select>
           </label>
           <label>
             <span>What languages do you speak?</span>
@@ -228,48 +257,66 @@ const User = ({ params }) => {
           </label>
           <label>
             <span>What are your hobbies?</span>
-            <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangeHobbies} options={hobbiesList} defaultValue={makeSelect(hobbies)} />
+            <CreatableSelect
+              placeholder="Select or type to create..."
+              isMulti
+              onChange={handleChangeHobbies}
+              options={hobbiesList}
+              defaultValue={makeSelect(hobbies)}
+            />
           </label>
           <label>
             <span>What prefrences do you have?</span>
-            <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangePreferences} options={preferencesList} defaultValue={makeSelect(preferences)} />
+            <CreatableSelect
+              placeholder="Select or type to create..."
+              isMulti
+              onChange={handleChangePreferences}
+              options={preferencesList}
+              defaultValue={makeSelect(preferences)}
+            />
           </label>
           <button onClick={() => setEditExtra(!editExtra)}>Cancel</button>
           <button onClick={handleSaveExtra}>Save</button>
         </div>
       ) : (
         <div className="personal">
-        <h2>Languages</h2>
-        <div className="list">
-          {currUser?.languages.map((item) => (
-            <li className="tag" key={item}>{item}</li>
-          ))}
+          <h2>Languages</h2>
+          <div className="list">
+            {currUser?.languages.map((item) => (
+              <li className="tag" key={item}>
+                {item}
+              </li>
+            ))}
+          </div>
+          <p></p>
+          <h2>Hobbies</h2>
+          <div className="list">
+            {currUser?.hobbies.map((item) => (
+              <li className="tag" key={item}>
+                {item}
+              </li>
+            ))}
+          </div>
+          <h2>Prefences</h2>
+          <div className="list">
+            {currUser?.preferences.map((item) => (
+              <li className="tag" key={item}>
+                {item}
+              </li>
+            ))}
+          </div>
+          <h2>Listings</h2>
+          <div className="listings">
+            {currUser?.listings?.map((item) => (
+              <InternalListingCard key={item._id} listing={item} />
+            ))}
+          </div>
+          {(params.username == currUser?.username) == user.username ? (
+            <button onClick={() => setEditExtra(!editExtra)}>
+              Edit additional information
+            </button>
+          ) : null}
         </div>
-        <p></p>
-        <h2>Hobbies</h2>
-        <div className="list">
-          {currUser?.hobbies.map((item) => (
-            <li className="tag" key={item}>{item}</li>
-          ))}
-        </div>
-        <h2>Prefences</h2>
-        <div className="list">
-          {currUser?.preferences.map((item) => (
-            <li className="tag" key={item}>{item}</li>
-          ))}
-        </div>
-        <h2>Listings</h2>
-        <div className="listings">
-          {currUser?.listings.map((item) => (
-            <InternalListingCard key={item._id} listing={item} />
-          ))}
-        </div>
-        {(params.username == currUser?.username == user.username) ? (
-          <button onClick={() => setEditExtra(!editExtra)}>Edit additional information</button>
-        ) : (
-          null
-        )}
-      </div>
       )}
     </div>
   );
