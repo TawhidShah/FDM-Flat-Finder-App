@@ -12,7 +12,7 @@ export async function GET(request, context) {
   if (!username) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
   }
-  const user = await UserProfile.findOne({ username })//.populate("listings");
+  const user = await UserProfile.findOne({ username }).populate("listings");
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });

@@ -64,16 +64,16 @@ const InternalListingCard = ({ listing }) => {
         }}
       >
         <CarouselContent>
-          {listing.images.map((picture) => (
-            <CarouselItem key={picture}>
-              <img
-                className="h-56 w-full object-cover object-center "
-                src={picture}
-                alt="Property Image"
-              ></img>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+        {listing.images.map((picture) => (
+          <CarouselItem key={picture}>
+          <img
+          className="h-56 w-full object-cover object-center"
+          src={picture}
+        alt={`Image ${picture}`}
+      />
+      </CarouselItem>
+     ))}
+    </CarouselContent>
         <CarouselPrevious className="left-0 border-none bg-transparent hover:bg-white" />
         <CarouselNext className="right-0 border-none bg-transparent hover:bg-white" />
       </Carousel>
