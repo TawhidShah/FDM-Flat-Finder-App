@@ -4,17 +4,21 @@ import { useState } from "react";
 
 import Link from "next/link";
 
+import { useStore } from "@/store/store";
+
 const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const username = useStore((state) => state.username);
+  const setUsername = useStore((state) => state.setUsername);
 
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
-    userName: "",
+    username: "",
     emailAddress: "",
     password: "",
   });
@@ -24,7 +28,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
     setErrors({
       firstName: "",
       lastName: "",
-      userName: "",
+      username: "",
       emailAddress: "",
       password: "",
     });
@@ -39,14 +43,14 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
       return false;
     }
 
-    if (!userName.trim()) {
-      setErrors((prev) => ({ ...prev, userName: "Username is required" }));
+    if (!username.trim()) {
+      setErrors((prev) => ({ ...prev, username: "Username is required" }));
       return false;
     }
-    if (userName.length < 4 || userName.length > 64) {
+    if (username.length < 4 || username.length > 64) {
       setErrors((prev) => ({
         ...prev,
-        userName: "Username must be at least 4 characters",
+        username: "Username must be at least 4 characters",
       }));
       return false;
     }
@@ -90,7 +94,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
       await signUp.create({
         firstName,
         lastName,
-        username: userName,
+        username: username,
         emailAddress,
         password,
       });
@@ -99,6 +103,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
       // update state to show verification code input
+      setUsername(username);
       setVerifying(true);
     } catch (err) {
       console.error("Error:", JSON.stringify(err, null, 2));
@@ -116,7 +121,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
             case "username":
               setErrors((prev) => ({
                 ...prev,
-                userName: error.message,
+                username: error.message,
               }));
               break;
             case "emailAddress":
@@ -180,11 +185,11 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
           <input
             type="text"
             name="user_name"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
           />
-          {errors.userName && (
-            <p className="text-xs text-red-500">{errors.userName}</p>
+          {errors.username && (
+            <p className="text-xs text-red-500">{errors.username}</p>
           )}
         </div>
 

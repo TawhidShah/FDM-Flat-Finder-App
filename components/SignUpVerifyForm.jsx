@@ -4,8 +4,11 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { useStore } from "@/store/store";
+
 const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
   const [code, setCode] = useState("");
+  const username = useStore((state) => state.username);
   const router = useRouter();
 
   // Verify User Email Code
@@ -24,7 +27,7 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
       }
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
-        router.push("/user");
+        router.push(`/user/${username}/create`);
       }
     } catch (err) {
       console.error(err);
