@@ -5,8 +5,6 @@ import { GridLoader } from "react-spinners";
 
 import { numInRange } from "@/lib/utils";
 
-import Property from "@/components/Property";
-
 import "@/styles/ExternalListings.css";
 import ExternalListingsGrid from "./ExternalListingsGrid";
 
@@ -192,7 +190,7 @@ const ExternalListings = () => {
         </div>
       )}
 
-      {loading && <GridLoader className="mt-48" />}
+      {loading && <GridLoader className="mt-48" color="#C5FF00" />}
 
       <div id="properties">
         <ExternalListingsGrid listings={properties} />
