@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Bed, Bath } from "lucide-react";
+import { LuBed, LuBath } from "react-icons/lu";
 
 import {
   Carousel,
@@ -50,13 +50,13 @@ const InternalListingCard = ({ listing }) => {
           <span className="text-sm text-gray-600">{listing.propertyType}</span>
           {listing.bedrooms && (
             <>
-              <Bed color="#475569" />
+              <LuBed color="#475569" />
               <span className="text-sm text-gray-600">{listing.bedrooms}</span>
             </>
           )}
           {listing.bathrooms && (
             <>
-              <Bath color="#475569" />
+              <LuBath color="#475569" />
               <span className="text-sm text-gray-600">{listing.bathrooms}</span>
             </>
           )}
