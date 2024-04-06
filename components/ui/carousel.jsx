@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react"
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -163,7 +163,7 @@ const CarouselPrevious = React.forwardRef(({ className, variant = "outline", siz
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}>
-      <ArrowLeft className="h-6 w-6" />
+      <LuArrowLeft className="h-6 w-6" />
       <span className="sr-only">Previous slide</span>
     </Button>)
   );
@@ -184,7 +184,7 @@ const CarouselNext = React.forwardRef(({ className, variant = "outline", size = 
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}>
-      <ArrowRight className="h-6 w-6" />
+      <LuArrowRight className="h-6 w-6" />
       <span className="sr-only">Next slide</span>
     </Button>)
   );

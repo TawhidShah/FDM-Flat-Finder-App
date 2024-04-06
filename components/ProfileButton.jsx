@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 import { SignOutButton } from "@clerk/nextjs";
-import { User } from "lucide-react";
+import { LuUser } from "react-icons/lu";
 
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,7 @@ const ProfileButton = ({ user }) => {
   return (
     <div ref={dropdownRef} className="relative">
       <button onClick={() => setIsOpen(!isOpen)} className="hover:scale-[110%]">
-        <User className="mr-2 text-primary" />
+        <LuUser className="mr-2 text-primary w-6 h-6" />
       </button>
       {isOpen && (
         <div className="absolute right-0 z-50 mt-2 flex w-96 flex-col rounded-md bg-gray-400">
