@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 
 import { UserProfile } from "@/models/UserProfile";
+import { Listing } from "@/models/Listing";
 
 export async function GET(request, context) {
   await mongooseConnect();
