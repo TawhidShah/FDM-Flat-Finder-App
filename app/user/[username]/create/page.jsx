@@ -40,20 +40,24 @@ const CreateProfile = ({ params }) => {
     try {
       const response = await axios.post("/api/users", {
         username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.emailAddresses[0].emailAddress,
         clerkId: user.id,
+        profilePicture: user.imageUrl,
         age: age,
         hobbies: hobbies,
         languages: languages,
         preferences: preferences,
         country: country,
-        type: type,
-        period: period
+        employmentType: type,
+        periodType: period
       });
       if (response.status === 201) {
-        // TOAST
+        
         console.log("User profile created successfully");
       } else {
-        // TOAST
+        
         console.log("User profile creation failed");
       }
       setTimeout(() => {
