@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { LuChevronLeft, LuChevronRight, LuX } from "react-icons/lu";
 
 const ImagesGallery = ({ title, images, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -71,7 +71,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
           {currentImageIndex + 1} / {images.length}{" "}
         </h2>
         <button className="text-white" onClick={onClose}>
-          <X />
+          <LuX />
         </button>
       </div>
 
@@ -84,7 +84,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
           }}
           aria-label="Previous image"
         >
-          <ChevronLeft />
+          <LuChevronLeft />
         </button>
         <img
           src={images[currentImageIndex]}
@@ -99,7 +99,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
           }}
           aria-label="Next image"
         >
-          <ChevronRight className="ml-auto" />
+          <LuChevronRight className="ml-auto" />
         </button>
       </div>
     </div>
