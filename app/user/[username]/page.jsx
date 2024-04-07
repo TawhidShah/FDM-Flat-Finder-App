@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 import Select from "react-select";
@@ -17,8 +17,6 @@ import {
   preferencesList,
 } from "@/constants/employee";
 
-import Link from "next/link";
-
 import "./profile.css";
 import InternalListingCard from "@/components/internalListings/InternalListingCard";
 
@@ -28,18 +26,7 @@ const User = ({ params }) => {
   const { user } = useUser();
 
   const [currUser, setCurrUser] = useState(null);
-  const [age, setAge] = useState(18);
-  const [languages, setLanguages] = useState(["English"]);
-  const [hobbies, setHobbies] = useState([]);
-  const [preferences, setPreferences] = useState([]);
-  const [country, setCountry] = useState("");
-  const [type, setType] = useState("");
-  const [period, setPeriod] = useState("");
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [updateUser, setUpdateUser] = useState({});
 
   const [editAccount, setEditAccount] = useState(false);
   const [editExtra, setEditExtra] = useState(false);
@@ -47,20 +34,9 @@ const User = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const path = "/api/users/" + params.username;
-        const response = await axios.get(path);
+        const response = await axios.get(`/api/users/${params.username}`);
         setCurrUser(response.data);
-        setAge(response.data.age);
-        setCountry(response.data.country);
-        setHobbies(response.data.hobbies);
-        setLanguages(response.data.languages);
-        setPreferences(response.data.preferences);
-        setType(response.data.employmentType);
-        setPeriod(response.data.periodType);
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
-        setUsername(response.data.username);
-        setEmail(response.data.email);
+        setUpdateUser(response.data);
       } catch (error) {
         console.log("Couldn't fetch user", error);
       }
@@ -68,18 +44,23 @@ const User = ({ params }) => {
     fetchData();
   }, [refresh]);
 
+  const handleSave = async (e) => {};
+
   const handleSaveAccount = async (e) => {
-    if (!firstName.trim() || !lastName.trim()) {
+    if (!updateUser.firstName.trim() || !updateUser.lastName.trim()) {
       alert("Please fill in all fields");
       e.preventDefault();
       return;
     }
     try {
       const response = await axios.put(`/api/users/${params.username}`, {
-        firstName: firstName,
-        lastName: lastName,
+        firstName: updateUser.firstName,
+        lastName: updateUser.lastName,
       });
-      user.update({ firstName: firstName, lastName: lastName });
+      user.update({
+        firstName: updateUser.firstName,
+        lastName: updateUser.lastName,
+      });
       console.log("Updated Account", response.data, user);
 
       setTimeout(() => {
@@ -93,11 +74,11 @@ const User = ({ params }) => {
 
   const handleSaveExtra = async (e) => {
     if (
-      hobbies.length < 1 ||
-      preferences.length < 1 ||
-      !type.trim() ||
-      !period.trim() ||
-      !country.trim()
+      updateUser.hobbies.length < 1 ||
+      updateUser.preferences.length < 1 ||
+      !updateUser.employmentType ||
+      !updateUser.periodType ||
+      !updateUser.age
     ) {
       alert("Please fill in all fields");
       e.preventDefault();
@@ -105,13 +86,13 @@ const User = ({ params }) => {
     }
     try {
       const response = await axios.put(`/api/users/${params.username}`, {
-        age: age,
-        hobbies: hobbies,
-        languages: languages,
-        preferences: preferences,
-        country: country,
-        employmentType: type,
-        periodType: period,
+        age: updateUser.age,
+        hobbies: updateUser.hobbies,
+        languages: updateUser.languages,
+        preferences: updateUser.preferences,
+        country: updateUser.country,
+        employmentType: updateUser.employmentType,
+        periodType: updateUser.periodType,
       });
       console.log("Profile updated", response.data);
       setTimeout(() => {
@@ -124,22 +105,19 @@ const User = ({ params }) => {
     }
   };
 
-  const handleChangeHobbies = (e) => {
-    const updatedHobbies = e.map((hobby) => hobby.value);
-    setHobbies(updatedHobbies);
+  const handleChange = (field) => (value) => {
+    if (
+      field === "languages" ||
+      field === "hobbies" ||
+      field === "preferences"
+    ) {
+      value = value.map((v) => v.value);
+    }
+
+    setUpdateUser((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleChangePreferences = (e) => {
-    const updatedPreferences = e.map((preference) => preference.value);
-    setPreferences(updatedPreferences);
-  };
-
-  const handleChangeLanguages = (e) => {
-    const updatedLanguages = e.map((language) => language.value);
-    setLanguages(updatedLanguages);
-  };
-
-  function makeSelect(input) {
+  const makeSelect = (input) => {
     if (typeof input === "string") {
       return { value: input, label: input };
     } else if (Array.isArray(input)) {
@@ -147,7 +125,7 @@ const User = ({ params }) => {
     } else {
       throw new Error("Input must be a string or an array of strings.");
     }
-  }
+  };
 
   if (!currUser || !user) {
     return <></>;
@@ -158,14 +136,14 @@ const User = ({ params }) => {
       <h1>Profile</h1>
       {editAccount ? (
         <>
-          <p>Edit ACCOUTN!!!!!</p>
+          <p>Edit Mode</p>
           <label>
             <span>First name</span>
             <input
               type="text"
               placeholder="Enter your first name"
-              onChange={(e) => setFirstName(e.target.value)}
-              defaultValue={currUser?.firstName}
+              onChange={(e) => handleChange("firstName")(e.target.value)}
+              defaultValue={updateUser.firstName}
             />
           </label>
           <label>
@@ -173,11 +151,18 @@ const User = ({ params }) => {
             <input
               type="text"
               placeholder="Enter your last name"
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => handleChange("lastName")(e.target.value)}
               defaultValue={currUser?.lastName}
             />
           </label>
-          <button onClick={() => setEditAccount(!editAccount)}>Cancel</button>
+          <button
+            onClick={() => {
+              setEditAccount(!editAccount);
+              setUpdateUser(currUser);
+            }}
+          >
+            Cancel
+          </button>
           <button onClick={handleSaveAccount}>Save</button>
         </>
       ) : (
@@ -199,60 +184,58 @@ const User = ({ params }) => {
             <h2>Email Address</h2>
             <p>{currUser?.email}</p>
           </div>
-          {params.username == user.username ? (
+          {params.username == user.username && (
             <button onClick={() => setEditAccount(!editAccount)}>
               Edit account information
             </button>
-          ) : null}
+          )}
         </>
       )}
 
       {editExtra ? (
         <div className="edit">
-          <p>edit mode!!!</p>
+          <p>Edit Mode</p>
           <label>
             <span>How old are you?</span>
             <input
               required
               type="number"
               min="18"
-              onChange={(e) => setAge(e.target.value)}
-              value={age}
+              onChange={(e) => handleChange("age")(e.target.value)}
+              value={updateUser.age}
             />
           </label>
           <label>
             <span>Where are you from?</span>
             <Select
-              onChange={(e) => setCountry(countries[e.value])}
+              onChange={(e) => handleChange("country")(countries[e.value])}
               options={countryList}
-              defaultValue={makeSelect(country)}
-            >
-              {" "}
-            </Select>
+              defaultValue={makeSelect(updateUser.country)}
+            ></Select>
           </label>
           <label>
             <span>What type of employee are you?</span>
             <Select
-              onChange={(e) => setType(e.value)}
+              onChange={(e) => handleChange("employmentType")(e.value)}
               options={types}
-              defaultValue={makeSelect(type)}
+              defaultValue={makeSelect(updateUser.employmentType)}
             ></Select>
           </label>
           <label>
             <span>What is you contract period?</span>
             <Select
-              onChange={(e) => setPeriod(e.value)}
+              onChange={(e) => handleChange("periodType")(e.value)}
               options={periods}
-              defaultValue={makeSelect(period)}
+              defaultValue={makeSelect(updateUser.periodType)}
             ></Select>
           </label>
           <label>
             <span>What languages do you speak?</span>
             <Select
               isMulti
-              onChange={handleChangeLanguages}
+              onChange={(selected) => handleChange("languages")(selected)}
               options={languagesList}
-              defaultValue={makeSelect(languages)}
+              defaultValue={makeSelect(updateUser.languages)}
             />
           </label>
           <label>
@@ -260,9 +243,9 @@ const User = ({ params }) => {
             <CreatableSelect
               placeholder="Select or type to create..."
               isMulti
-              onChange={handleChangeHobbies}
+              onChange={(selected) => handleChange("hobbies")(selected)}
               options={hobbiesList}
-              defaultValue={makeSelect(hobbies)}
+              defaultValue={makeSelect(updateUser.hobbies)}
             />
           </label>
           <label>
@@ -270,9 +253,9 @@ const User = ({ params }) => {
             <CreatableSelect
               placeholder="Select or type to create..."
               isMulti
-              onChange={handleChangePreferences}
+              onChange={(selected) => handleChange("preferences")(selected)}
               options={preferencesList}
-              defaultValue={makeSelect(preferences)}
+              defaultValue={makeSelect(updateUser.preferences)}
             />
           </label>
           <button onClick={() => setEditExtra(!editExtra)}>Cancel</button>
@@ -280,42 +263,34 @@ const User = ({ params }) => {
         </div>
       ) : (
         <div className="personal">
-          <h2>Languages</h2>
-          <div className="list">
-            {currUser?.languages.map((item) => (
-              <li className="tag" key={item}>
-                {item}
-              </li>
-            ))}
-          </div>
-          <p></p>
-          <h2>Hobbies</h2>
-          <div className="list">
-            {currUser?.hobbies.map((item) => (
-              <li className="tag" key={item}>
-                {item}
-              </li>
-            ))}
-          </div>
-          <h2>Prefences</h2>
-          <div className="list">
-            {currUser?.preferences.map((item) => (
-              <li className="tag" key={item}>
-                {item}
-              </li>
-            ))}
-          </div>
+          {[
+            { title: "Languages", data: currUser?.languages },
+            { title: "Hobbies", data: currUser?.hobbies },
+            { title: "Preferences", data: currUser?.preferences },
+          ].map(({ title, data }) => (
+            <div key={title}>
+              <h2>{title}</h2>
+              <div className="list">
+                {data?.map((item) => (
+                  <li className="tag" key={item}>
+                    {item}
+                  </li>
+                ))}
+              </div>
+            </div>
+          ))}
+
           <h2>Listings</h2>
-          <div className="listings">
+          <div className=" grid grid-cols1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {currUser?.listings?.map((item) => (
-              <InternalListingCard key={item._id} listing={item} />
+              <InternalListingCard key={item._id} listing={item} className="border border-secondary"/>
             ))}
           </div>
-          {params.username == user.username ? (
+          {params.username == user.username && (
             <button onClick={() => setEditExtra(!editExtra)}>
               Edit additional information
             </button>
-          ) : null}
+          )}
         </div>
       )}
     </div>
