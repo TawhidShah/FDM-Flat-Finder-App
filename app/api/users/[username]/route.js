@@ -1,3 +1,5 @@
+import { Email, getAuth } from "@clerk/nextjs/server";
+
 import { NextResponse } from "next/server";
 
 import { mongooseConnect } from "@/lib/mongoose";
@@ -13,13 +15,38 @@ export async function GET(request, context) {
   if (!username) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
   }
-  const user = await UserProfile.findOne({ username }).populate("listings");
+
+  // get clerk id
+  const { userId } = getAuth(request);
+  const user = await UserProfile.findOne({ username }).populate("listings").lean();
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  return NextResponse.json(user);
+  // if user is requesting their own profile, return all data
+  if (user.clerkId === userId) {
+    return NextResponse.json(user);
+  }
+
+  // if user is not requesting their own profile, return only public data
+  const userPublic = {
+    profilePicture: user.profilePicture,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    age: user.age,
+    username: user.username,
+    email: user.email,
+    employmentType: user.employmentType,
+    periodType: user.periodType,
+    country: user.country,
+    languages: user.languages,
+    hobbies: user.hobbies,
+    preferences: user.preferences,
+    listings: user.listings,
+  };
+
+  return NextResponse.json(userPublic);
 }
 
 export async function PUT(request, context) {
