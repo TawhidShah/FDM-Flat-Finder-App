@@ -24,7 +24,7 @@ const ProfileButton = ({ user }) => {
   }, [dropdownRef]);
 
   return (
-    <div ref={dropdownRef} className="relative z-[999999]">
+    <div ref={dropdownRef} className="relative z-[999998]">
       <button onClick={() => setIsOpen(!isOpen)} className="hover:scale-[110%]">
         <LuUser className="mr-2 text-primary w-6 h-6" />
       </button>

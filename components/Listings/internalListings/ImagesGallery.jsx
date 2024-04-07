@@ -60,7 +60,7 @@ const ImagesGallery = ({ title, images, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col bg-black"
+      className="fixed inset-0 flex flex-col bg-black z-[999999]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
