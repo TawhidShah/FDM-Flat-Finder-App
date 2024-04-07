@@ -1,5 +1,3 @@
-import React from 'react';
-
 const InternalFilter = ({
   minPrice,
   maxPrice,
@@ -15,14 +13,10 @@ const InternalFilter = ({
   onPeriodAvailableChange,
 }) => {
   return (
-    <div style={{
-      border: '1px solid lime', 
-      borderRadius: '5px', 
-      padding: '10px', 
-      marginRight: '150px',
-      marginLeft: '150px',
-    }}>
-      <label htmlFor="minPrice" style={{color: 'lime', marginRight: '5px'}}>Min Price:</label>
+    <div className="mx-auto border border-primary p-2">
+      <label htmlFor="minPrice" className="mx-1 text-primary">
+        Min Price:
+      </label>
       <input
         type="number"
         id="minPrice"
@@ -31,16 +25,11 @@ const InternalFilter = ({
         max={maxPrice}
         step="50"
         onChange={(e) => onMinPriceChange(Number(e.target.value))}
-        style={{
-          color: 'rgb(197, 255, 0)', 
-          backgroundColor: 'rgba(0, 0, 0, 0)', 
-          border: '1px solid lime',
-          borderRadius: '5px',  
-          padding: '5px', 
-          margin: '5px 0', 
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary focus:outline-none"
       />
-      <label htmlFor="maxPrice" style={{color: 'lime', marginRight: '5px'}}>Max Price:</label>
+      <label htmlFor="maxPrice" className="mx-1 text-primary">
+        Max Price:
+      </label>
       <input
         type="number"
         id="maxPrice"
@@ -49,16 +38,11 @@ const InternalFilter = ({
         value={maxPrice}
         step="50"
         onChange={(e) => onMaxPriceChange(Number(e.target.value))}
-        style={{
-          color: 'rgb(197, 255, 0)', // Add lime color for font
-          backgroundColor: 'rgba(0, 0, 0, 0)', // Add transparent background
-          border: '1px solid lime', // Add border styling
-          borderRadius: '5px', // Add border radius for rounded corners
-          padding: '5px', // Add padding for better spacing
-          margin: '5px 0', // Add margin for better spacing
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary focus:outline-none"
       />
-      <label htmlFor="minBedrooms" style={{color: 'lime', marginRight: '5px'}}>Min Bedrooms:</label>
+      <label htmlFor="minBedrooms" className="mx-1 text-primary">
+        Min Bedrooms:
+      </label>
       <input
         type="number"
         id="minBedrooms"
@@ -66,16 +50,11 @@ const InternalFilter = ({
         min={1}
         max={maxBedrooms}
         onChange={(e) => onMinBedroomsChange(Number(e.target.value))}
-        style={{
-          color: 'rgb(197, 255, 0)', // Add lime color for font
-          backgroundColor: 'rgba(0, 0, 0, 0)', // Add transparent background
-          border: '1px solid lime', // Add border styling
-          borderRadius: '5px', // Add border radius for rounded corners
-          padding: '5px', // Add padding for better spacing
-          margin: '5px 0', // Add margin for better spacing
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary focus:outline-none"
       />
-      <label htmlFor="maxBedrooms" style={{color: 'lime', marginRight: '5px'}}>Max Bedrooms:</label>
+      <label htmlFor="maxBedrooms" className="mx-1 text-primary">
+        Max Bedrooms:
+      </label>
       <input
         type="number"
         id="maxBedrooms"
@@ -83,48 +62,33 @@ const InternalFilter = ({
         min={minBedrooms}
         max={5}
         onChange={(e) => onMaxBedroomsChange(Number(e.target.value))}
-        style={{
-          color: 'rgb(197, 255, 0)', // Add lime color for font
-          backgroundColor: 'rgba(0, 0, 0, 0)', // Add transparent background
-          border: '1px solid lime', // Add border styling
-          borderRadius: '5px', // Add border radius for rounded corners
-          padding: '5px', // Add padding for better spacing
-          margin: '5px 0', // Add margin for better spacing
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary focus:outline-none"
       />
-      <label htmlFor="city" style={{color: 'lime', marginRight: '5px'}}>City:</label>
+      <label htmlFor="city" className="mx-1 text-primary">
+        City:
+      </label>
       <input
         type="text"
         id="city"
         placeholder="City"
         value={cityFilter}
         onChange={(e) => onCityFilterChange(e.target.value)}
-        style={{
-          color: 'rgb(197, 255, 0)', // Add lime color for font
-          backgroundColor: 'rgba(0, 0, 0, 0)', // Add transparent background
-          border: '1px solid lime', // Add border styling
-          borderRadius: '5px', // Add border radius for rounded corners
-          padding: '5px', // Add padding for better spacing
-          margin: '5px 0', // Add margin for better spacing
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary focus:outline-none"
       />
-      <label htmlFor="periodAvailable" style={{color: 'lime', marginRight: '5px'}}>Period Available:</label>
+      <label htmlFor="periodAvailable" className="mx-1 text-primary">
+        Period Available:
+      </label>
       <select
         id="periodAvailable"
         value={periodAvailableFilter}
         onChange={(e) => onPeriodAvailableChange(e.target.value)}
-        style={{
-          color: 'rgb(197, 255, 0)', // Add lime color for font
-          backgroundColor: 'black', // Add transparent background
-          border: '1px solid lime', // Add border styling
-          borderRadius: '5px', // Add border radius for rounded corners
-          padding: '5px', // Add padding for better spacing
-          margin: '5px 0', // Add margin for better spacing
-        }}
+        className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary"
       >
         <option value="">Any</option>
         <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
-        <option value="Medium Term (3-12 months)">Medium Term (3-12 months)</option>
+        <option value="Medium Term (3-12 months)">
+          Medium Term (3-12 months)
+        </option>
         <option value="Long Term (12+ months)">Long Term (12+ months)</option>
       </select>
     </div>
@@ -132,4 +96,3 @@ const InternalFilter = ({
 };
 
 export default InternalFilter;
-
