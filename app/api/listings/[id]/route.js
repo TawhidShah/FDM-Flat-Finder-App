@@ -11,13 +11,24 @@ export async function GET(request, context) {
   await mongooseConnect();
   const { id } = context.params;
 
-  const listing = await Listing.findById(id).lean().populate("owner");
+  try {
+    const listing = await Listing.findById(id).lean().populate("owner");
 
-  if (!listing) {
-    return NextResponse.json({ error: "Listing not found" }, { status: 404 });
+    if (!listing) {
+      return NextResponse.json({ error: "Listing not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(listing);
+  } catch (error) {
+    if (error.name === "CastError") {
+      return NextResponse.json({ error: "Listing not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { error: "Error fetching listing" },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json(listing);
 }
 
 export async function DELETE(request, context) {

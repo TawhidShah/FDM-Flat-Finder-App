@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 import axios from "axios";
+import { GridLoader } from "react-spinners";
 
 import ImagesGallery from "@/components/internalListings/ImagesGallery";
 
@@ -13,33 +14,72 @@ const Listing = ({ params }) => {
   const [listing, setListing] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const handleImageClick = () => {
     setIsModalOpen(true);
   };
 
   const openPopup = (url) => {
-    const width = 700; 
-    const height = 500; 
+    const width = 1400;
+    const height = 800;
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
-    window.open(url, 'Popup', `width=${width},height=${height},left=${left},top=${top}`);
+    window.open(
+      url,
+      "Popup",
+      `width=${width},height=${height},left=${left},top=${top}`,
+    );
   };
 
   useEffect(() => {
-    axios.get(`/api/listings/${id}`).then((response) => {
-      setListing(response.data);
-    });
+    const fetchListing = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`/api/listings/${id}`);
+        setListing(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListing();
   }, [id]);
 
+  if (loading) {
+    return (
+      <div className="mt-[15vh] flex w-full flex-1 justify-center">
+        <GridLoader color="#C5FF00" />;
+      </div>
+    );
+  }
+
   if (!listing) {
-    return <div>Listing not found</div>;
+    return (
+      <div className="mt-[15vh] flex w-full flex-1 flex-col items-center">
+        <h1 className="text-4xl font-semibold text-primary">
+          Listing not found
+        </h1>
+
+        <Link
+          href="/listings"
+          className="mt-4 rounded bg-primary p-3 font-semibold hover:bg-white"
+        >
+          Back to listings
+        </Link>
+      </div>
+    );
   }
 
   return (
     <>
       {!isModalOpen ? (
         <div className="mx-auto w-[60%] px-12 pt-6">
-          <h1 className="text-2xl font-semibold  text-primary">{listing.title}</h1>
+          <h1 className="text-2xl font-semibold  text-primary">
+            {listing.title}
+          </h1>
           <div className="mt-4 grid grid-cols-4 grid-rows-2 gap-4">
             <img
               src={listing.images[0]}
@@ -63,56 +103,61 @@ const Listing = ({ params }) => {
               />
             ))}
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Description:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.description}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Description:</span>
+            <span className="text-primary"> {listing.description}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Price:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.price}$</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Price:</span>
+            <span className="text-primary"> ${listing.price}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Property Type:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.propertyType}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Property Type:</span>
+            <span className="text-primary"> {listing.propertyType}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Availability:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.availability}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Availability:</span>
+            <span className="text-primary"> {listing.availability}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Country:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.country}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Country:</span>
+            <span className="text-primary"> {listing.country}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">City:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.city}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">City:</span>
+            <span className="text-primary"> {listing.city}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Address:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.address}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Address:</span>
+            <span className="text-primary"> {listing.address}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Nearby Stations:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.nearbyStations.join(", ")}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Nearby Stations:</span>
+            <span className="text-primary">
+              {" "}
+              {listing.nearbyStations.join(", ")}
+            </span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Bedrooms:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.bedrooms}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Bedrooms:</span>
+            <span className="text-primary"> {listing.bedrooms}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Bathrooms:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.bathrooms}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Bathrooms:</span>
+            <span className="text-primary"> {listing.bathrooms}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Area:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.area}</span>
+          <div className="mt-4">
+            <span className="font-bold text-white">Area:</span>
+            <span className="text-primary"> {listing.area}</span>
           </div>
-          <div style={{ marginTop: '10px', marginBottom: '20px' }}>
-            <span className="text-white font-bold">Poseted by:</span>
-            <span style={{ color: 'rgb(197, 225, 0)', marginRight: '10px' }}> {listing.owner.username}</span>
-            <button className="hover:bg-primary hover:text-black text-white font-bold py-2 px-4 rounded" onClick={() => openPopup(`/user/${listing.owner.username}`)}>
-              View Profile
-            </button>
+          <div className="my-4">
+            <span className="font-bold text-white">Posted by:&nbsp;&nbsp;</span>
+            <span
+              onClick={() => openPopup(`/user/${listing.owner.username}`)}
+              className="mr-2 cursor-pointer text-primary underline"
+            >
+              {listing.owner.username}
+            </span>
           </div>
         </div>
       ) : (
@@ -127,4 +172,3 @@ const Listing = ({ params }) => {
 };
 
 export default Listing;
-
