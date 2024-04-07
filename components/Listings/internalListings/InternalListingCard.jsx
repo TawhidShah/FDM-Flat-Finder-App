@@ -87,7 +87,7 @@ const InternalListingCard = ({ listing, className }) => {
         className="flex flex-1 flex-col justify-around gap-2 px-2"
         href={`/listings/${listing._id}`}
       >
-        <h1 className="text-xl font-bold text-gray-900">{title}</h1>
+        <h1 className="text-center text-xl font-bold text-gray-900">{title}</h1>
         <div className="mx-auto flex items-center gap-3">
           <span className="text-sm">{listing.propertyType}</span>
           {listing.bedrooms && (

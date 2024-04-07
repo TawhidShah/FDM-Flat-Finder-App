@@ -8,14 +8,12 @@ import Link from "next/link";
 import Loading from "@/components/Loading";
 import ImagesGallery from "@/components/Listings/internalListings/ImagesGallery";
 
-import "./page.css";
-
 const Listing = ({ params }) => {
   const { id } = params;
   const [listing, setListing] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleImageClick = () => {
     setIsModalOpen(true);
@@ -35,7 +33,6 @@ const Listing = ({ params }) => {
 
   useEffect(() => {
     const fetchListing = async () => {
-      setLoading(true);
       try {
         const response = await axios.get(`/api/listings/${id}`);
         setListing(response.data);

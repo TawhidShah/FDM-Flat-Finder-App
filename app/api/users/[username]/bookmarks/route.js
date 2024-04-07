@@ -5,22 +5,40 @@ import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 
 import { UserProfile } from "@/models/UserProfile";
+import { Listing } from "@/models/Listing";
 
 export async function GET(request, context) {
   await mongooseConnect();
 
   const { username } = context.params;
-
+  console.log("params", context.params);
   const { userId } = getAuth(request);
 
   if (!username) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
   }
 
-  const user = await UserProfile.findOne({ username }).select({
-    bookmarks: 1,
-    clerkId: 1,
-  });
+  const searchParams = request.nextUrl.searchParams;
+  const populate = searchParams.get("populate");
+
+  let user;
+
+  if (populate == 1) {
+    user = await UserProfile.findOne({ username })
+      .populate("bookmarks")
+      .select({
+        bookmarks: 1,
+        clerkId: 1,
+      })
+      .lean();
+  } else {
+    user = await UserProfile.findOne({ username })
+      .select({
+        bookmarks: 1,
+        clerkId: 1,
+      })
+      .lean();
+  }
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
