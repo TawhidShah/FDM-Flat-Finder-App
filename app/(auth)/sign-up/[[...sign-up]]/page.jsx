@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import { useSignUp } from "@clerk/nextjs";
 
-import SignUpForm from "@/components/SignUpForm";
-import SignUpVerifyForm from "@/components/SignUpVerifyForm";
+import SignUpForm from "@/components/auth/SignUpForm";
+import SignUpVerifyForm from "@/components/auth/SignUpVerifyForm";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
