@@ -143,15 +143,16 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
           <div>
             <label
               htmlFor="first_name"
-              className="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-primary"
             >
               First Name
             </label>
             <input
               type="text"
               name="first_name"
+              placeholder="First Name"
               onChange={(e) => setFirstName(e.target.value)}
-              className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm "
+              className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-secondary sm:text-sm "
             />
             {errors.firstName && (
               <p className="text-xs text-red-500">{errors.firstName}</p>
@@ -160,15 +161,16 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
           <div>
             <label
               htmlFor="last_name"
-              className="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-primary"
             >
               Last Name
             </label>
             <input
               type="text"
               name="last_name"
+              placeholder="Last Name"
               onChange={(e) => setLastName(e.target.value)}
-              className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-secondary sm:text-sm"
             />
             {errors.lastName && (
               <p className="text-xs text-red-500">{errors.lastName}</p>
@@ -178,15 +180,16 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
         <div>
           <label
             htmlFor="user_name"
-            className="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-primary"
           >
             Username
           </label>
           <input
             type="text"
             name="user_name"
+            placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
-            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-secondary sm:text-sm"
           />
           {errors.username && (
             <p className="text-xs text-red-500">{errors.username}</p>
@@ -196,7 +199,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
         <div>
           <label
             htmlFor="email"
-            className="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-primary"
           >
             Email Address
           </label>
@@ -204,7 +207,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
             type="email"
             name="email"
             onChange={(e) => setEmailAddress(e.target.value)}
-            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-secondary sm:text-sm"
             placeholder="name@example.com"
           />
           {errors.emailAddress && (
@@ -214,15 +217,16 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
         <div>
           <label
             htmlFor="password"
-            className="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-primary"
           >
             Password
           </label>
           <input
             type="password"
             name="password"
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            className="block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-secondary sm:text-sm"
           />
           {errors.password && (
             <p className="text-xs text-red-500">{errors.password}</p>
@@ -230,12 +234,12 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700"
+          className="w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium hover:bg-white"
         >
           Create an account
         </button>
       </form>
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center text-primary">
         Already have an account? &nbsp;
         <Link href="/sign-in" className="text-blue-600 hover:underline">
           Sign In

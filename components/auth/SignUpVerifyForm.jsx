@@ -46,7 +46,7 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
       <button
         type="submit"
         onClick={onPressVerify}
-        className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700"
+        className="w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium hover:bg-white"
       >
         Verify Email
       </button>
