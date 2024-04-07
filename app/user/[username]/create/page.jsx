@@ -73,7 +73,7 @@ const CreateProfile = ({ params }) => {
         console.log("User profile creation failed");
       }
       setTimeout(() => {
-        router.push("/user/" + user.username);
+        router.push("/listings");
       }, 1500);
     } catch (error) {
       console.error("Error creating user profile", error);
