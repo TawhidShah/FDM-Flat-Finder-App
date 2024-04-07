@@ -23,9 +23,10 @@ const ExternalListingCard = ({ listing }) => {
   return (
     <div
       key={listing.id}
-      className="flex min-h-[400px] flex-col gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
+      className="flex h-[500px] min-h-[500px] flex-col gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
     >
       <Carousel
+        className="h-[250px] w-full"
         opts={{
           align: "start",
           loop: true,
@@ -35,7 +36,7 @@ const ExternalListingCard = ({ listing }) => {
           {listing.propertyImages.images.map((picture) => (
             <CarouselItem>
               <img
-                className="h-56 w-full rounded-lg object-cover object-center"
+                className="h-[250px] w-full object-cover object-center"
                 src={picture.srcUrl}
                 alt="Property Image"
               ></img>
@@ -46,7 +47,7 @@ const ExternalListingCard = ({ listing }) => {
         <CarouselNext className="right-0 border-none bg-transparent hover:bg-white" />
       </Carousel>
       <Link
-        className="flex flex-1 flex-col justify-between"
+        className="flex h-[250px] flex-1 flex-col justify-between"
         href={rightmoveUrl + listing.propertyUrl}
         target="_blank"
       >

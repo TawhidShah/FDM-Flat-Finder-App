@@ -14,7 +14,9 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 
-const InternalListingCard = ({ listing }) => {
+import { cn } from "@/lib/utils";
+
+const InternalListingCard = ({ listing, className }) => {
   const { user } = useUser();
 
   const [bookmarked, setBookmarked] = useState(
@@ -22,9 +24,9 @@ const InternalListingCard = ({ listing }) => {
   );
 
   const title =
-  listing && listing.title && listing.title.length > 25
-    ? listing.title.substring(0, 25) + "..."
-    : listing && listing.title;
+    listing && listing.title && listing.title.length > 25
+      ? listing.title.substring(0, 25) + "..."
+      : listing && listing.title;
 
   const handleBookmarked = async () => {
     try {
@@ -42,7 +44,10 @@ const InternalListingCard = ({ listing }) => {
   return (
     <div
       key={listing.id}
-      className="relative flex min-h-[400px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
+      className={cn(
+        "relative flex h-[500px] max-h-[500px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg",
+        className,
+      )}
     >
       <svg
         onClick={handleBookmarked}
@@ -58,27 +63,28 @@ const InternalListingCard = ({ listing }) => {
       </svg>
 
       <Carousel
+        className="h-[250px] max-h-[250px]"
         opts={{
           align: "start",
           loop: true,
         }}
       >
         <CarouselContent>
-        {listing.images.map((picture) => (
-          <CarouselItem key={picture}>
-          <img
-          className="h-56 w-full object-cover object-center"
-          src={picture}
-        alt={`Image ${picture}`}
-      />
-      </CarouselItem>
-     ))}
-    </CarouselContent>
-        <CarouselPrevious className="left-0 border-none bg-transparent hover:bg-white" />
-        <CarouselNext className="right-0 border-none bg-transparent hover:bg-white" />
+          {listing.images.map((picture) => (
+            <CarouselItem key={picture}>
+              <img
+                className="h-[250px] w-full object-cover object-center"
+                src={picture}
+                alt={`Image ${picture}`}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="left-1 border-none bg-transparent hover:bg-white focus:bg-white focus:outline-none" />
+        <CarouselNext className="right-1 border-none bg-transparent hover:bg-white focus:bg-white focus:outline-none" />
       </Carousel>
       <Link
-        className="flex flex-1 flex-col justify-between gap-2"
+        className="flex flex-1 flex-col justify-around gap-2 px-2"
         href={`/listings/${listing._id}`}
       >
         <h1 className="text-xl font-bold text-gray-900">{title}</h1>
