@@ -5,6 +5,8 @@ import axios from "axios";
 
 import Filter from "../Filter";
 import InternalListingsGrid from "./InternalListingsGrid";
+import { set } from "mongoose";
+import Loading from "@/components/Loading";
 
 const InternalListings = () => {
   const { user } = useUser();
@@ -16,10 +18,14 @@ const InternalListings = () => {
   const [periodAvailableFilter, setPeriodAvailableFilter] = useState("");
   const [listings, setListings] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     axios.get("/api/listings").then((response) => {
       setListings(response.data);
     });
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -68,6 +74,8 @@ const InternalListings = () => {
         onPeriodAvailableChange={setPeriodAvailableFilter}
         showSearchButton={false}
       />
+
+      {loading && <Loading />}
 
       <InternalListingsGrid listings={filteredListings} />
     </main>
