@@ -1,3 +1,5 @@
+import { clerkClient } from "@clerk/nextjs";
+
 import { NextResponse } from "next/server";
 
 import { mongooseConnect } from "@/lib/mongoose";
@@ -32,6 +34,13 @@ export async function POST(request) {
   try {
     const newUser = new UserProfile(body);
     await newUser.save();
+
+    await clerkClient.users.updateUserMetadata(newUser.clerkId, {
+      publicMetadata: {
+        profileCreated: true,
+      },
+    });
+
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
     console.log(error);

@@ -4,14 +4,22 @@ import { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-
-import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
-import countries  from "@/constants/countries";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import Loading from "@/components/Loading";
+
+import countries from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
-import {types, periods, hobbiesList, preferencesList} from "@/constants/employee"
+import {
+  types,
+  periods,
+  hobbiesList,
+  preferencesList,
+} from "@/constants/employee";
 
 import "./create.css";
 
@@ -22,20 +30,26 @@ const CreateProfile = ({ params }) => {
   const [preferences, setPreferences] = useState([]);
   const [country, setCountry] = useState("");
   const [type, setType] = useState("");
-  const [period, setPeriod] = useState("")
-  
+  const [period, setPeriod] = useState("");
+
   const { user } = useUser();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     //Input validation
-    if (hobbies.length < 1 || preferences.length < 1 ||  !type.trim() ||  !period.trim() ||  !country.trim()) {
+    if (
+      hobbies.length < 1 ||
+      preferences.length < 1 ||
+      !type.trim() ||
+      !period.trim() ||
+      !country.trim()
+    ) {
       alert("Please fill in all fields");
       e.preventDefault();
       return;
     }
     e.preventDefault();
-    console.log(hobbies,languages,preferences,country,type,period);
+    console.log(hobbies, languages, preferences, country, type, period);
     //Post to database
     try {
       const response = await axios.post("/api/users", {
@@ -51,13 +65,11 @@ const CreateProfile = ({ params }) => {
         preferences: preferences,
         country: country,
         employmentType: type,
-        periodType: period
+        periodType: period,
       });
       if (response.status === 201) {
-        
         console.log("User profile created successfully");
       } else {
-        
         console.log("User profile creation failed");
       }
       setTimeout(() => {
@@ -85,6 +97,27 @@ const CreateProfile = ({ params }) => {
     setLanguages(updatedLanguages);
   };
 
+  if (!user) {
+    return <Loading />;
+  }
+
+  if (user?.publicMetadata?.profileCreated === true) {
+    return (
+      <div className="mt-[15vh] flex w-full flex-1 flex-col items-center">
+        <h1 className="text-4xl font-semibold text-primary">
+          Profile already created
+        </h1>
+
+        <Link
+          href={`/user/${user.username}`}
+          className="mt-4 rounded bg-primary p-3 font-semibold hover:bg-white"
+        >
+          Go to profile
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="createProfile">
       <h1>Create a profile {user?.fullName}!</h1>
@@ -101,7 +134,10 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>Where are you from?</span>
-          <Select onChange={(e) => setCountry(countries[e.value])} options={countryList}></Select>
+          <Select
+            onChange={(e) => setCountry(countries[e.value])}
+            options={countryList}
+          ></Select>
         </label>
         <label>
           <span>What type of employee are you?</span>
@@ -109,7 +145,10 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>What is you contract period?</span>
-          <Select onChange={(e) => setPeriod(e.value)} options={periods}></Select>
+          <Select
+            onChange={(e) => setPeriod(e.value)}
+            options={periods}
+          ></Select>
         </label>
         <label>
           <span>What languages do you speak?</span>
@@ -122,11 +161,21 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>What are your hobbies?</span>
-          <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangeHobbies} options={hobbiesList} />
+          <CreatableSelect
+            placeholder="Select or type to create..."
+            isMulti
+            onChange={handleChangeHobbies}
+            options={hobbiesList}
+          />
         </label>
         <label>
           <span>What prefrences do you have?</span>
-          <CreatableSelect placeholder="Select or type to create..." isMulti onChange={handleChangePreferences} options={preferencesList} />
+          <CreatableSelect
+            placeholder="Select or type to create..."
+            isMulti
+            onChange={handleChangePreferences}
+            options={preferencesList}
+          />
         </label>
         <button onClick={handleSubmit}>Submit</button>
       </form>

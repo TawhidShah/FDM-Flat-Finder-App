@@ -281,9 +281,13 @@ const User = ({ params }) => {
           ))}
 
           <h2>Listings</h2>
-          <div className=" grid grid-cols1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className=" grid-cols1 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {currUser?.listings?.map((item) => (
-              <InternalListingCard key={item._id} listing={item} className="border border-secondary"/>
+              <InternalListingCard
+                key={item._id}
+                listing={item}
+                className="border border-secondary"
+              />
             ))}
           </div>
           {params.username == user.username && (
