@@ -13,7 +13,7 @@ const InternalFilter = ({
   onPeriodAvailableChange,
 }) => {
   return (
-    <div className="mx-auto border border-primary p-2">
+    <div className="mx-auto p-2">
       <label htmlFor="minPrice" className="mx-1 text-primary">
         Min Price:
       </label>
