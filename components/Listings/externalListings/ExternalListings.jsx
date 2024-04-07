@@ -7,6 +7,8 @@ import { numInRange } from "@/lib/utils";
 
 import Filter from "../Filter";
 import ExternalListingsGrid from "./ExternalListingsGrid";
+import Loading from "@/components/Loading";
+import { set } from "mongoose";
 
 const ExternalListings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
@@ -24,6 +26,9 @@ const ExternalListings = () => {
 
   const handleButtonClick = (event) => {
     event.preventDefault();
+    setPropertyRequestSubmitted(false);
+    setLoading(false);
+    setInvalidInputWarning(false);
     setProperties([]);
     if (
       searchLocation.trim() === "" ||
@@ -124,9 +129,9 @@ const ExternalListings = () => {
       </>
 
       {!loading && invalidInputWarning && (
-        <div id="invalidInputWarning">
-          <ul>
-            <li id="firstLineOfList">Invalid input. Please ensure that:</li>
+        <div className="mt-4 text-xl text-destructive">
+          <p>Invalid input. Please ensure that:</p>
+          <ul className="list-inside list-disc">
             <li>All fields are filled in.</li>
             <li>Number of bedrooms is between 1 and 5</li>
             <li>Prices are between 0 and 1500(PCM)</li>
@@ -134,24 +139,18 @@ const ExternalListings = () => {
         </div>
       )}
 
-      {loading && <GridLoader className="mt-48" color="#C5FF00" />}
+      {loading && <Loading />}
 
-      <div id="properties">
-        <ExternalListingsGrid listings={properties} />
-        {properties.length == 0 &&
-          propertyRequestSubmitted == true &&
-          loading == false && (
-            <div id="noPropertiesFound">
-              <h1>No results found</h1>
-              <p>Try widening your search. </p>
-              <img
-                src="https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg"
-                alt="No
-                properties found."
-              ></img>
-            </div>
-          )}
-      </div>
+      {propertyRequestSubmitted &&
+        properties.length == 0 &&
+        !loading &&
+        !invalidInputWarning && (
+          <div className="mt-4 text-xl text-destructive">
+            <p>No properties found with the given criteria.</p>
+          </div>
+        )}
+
+      <ExternalListingsGrid listings={properties} />
     </div>
   );
 };

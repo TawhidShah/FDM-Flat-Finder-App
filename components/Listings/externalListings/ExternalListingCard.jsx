@@ -18,8 +18,6 @@ const ExternalListingCard = ({ listing }) => {
       ? listing.displayAddress.substring(0, 25) + "..."
       : listing.displayAddress;
 
-  console.log(listing);
-
   return (
     <div
       key={listing.id}
