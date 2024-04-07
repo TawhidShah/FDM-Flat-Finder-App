@@ -85,11 +85,8 @@ const InternalFilter = ({
         className="my-1 rounded-sm border border-primary bg-secondary p-1 text-primary"
       >
         <option value="">Any</option>
-        <option value="Short Term (0-3 months)">Short Term (0-3 months)</option>
-        <option value="Medium Term (3-12 months)">
-          Medium Term (3-12 months)
-        </option>
-        <option value="Long Term (12+ months)">Long Term (12+ months)</option>
+        <option value="ShortTerm">Short Term (0-12 months)</option>
+        <option value="LongTerm">Long Term (12+ months)</option>
       </select>
     </div>
   );

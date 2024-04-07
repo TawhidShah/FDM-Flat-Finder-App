@@ -74,7 +74,7 @@ const listingSchema = new Schema(
     periodAvailable: {
       type: String,
       required: true,
-      enum: ["Short Term (0-3 months)", "Medium Term (3-12 months)", "Long Term (12+ months)"],
+      enum: ["ShortTerm", "LongTerm"],
     },
 
     images: {
