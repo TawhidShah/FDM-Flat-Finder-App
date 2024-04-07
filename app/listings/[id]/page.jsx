@@ -6,27 +6,30 @@ import axios from "axios";
 import ImagesGallery from "@/components/internalListings/ImagesGallery";
 
 import "./page.css";
+import Link from "next/link";
 
 const Listing = ({ params }) => {
   const { id } = params;
   const [listing, setListing] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   const handleImageClick = () => {
     setIsModalOpen(true);
   };
 
-  
+  const openPopup = (url) => {
+    const width = 700; 
+    const height = 500; 
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+    window.open(url, 'Popup', `width=${width},height=${height},left=${left},top=${top}`);
+  };
 
   useEffect(() => {
     axios.get(`/api/listings/${id}`).then((response) => {
       setListing(response.data);
-      
     });
   }, [id]);
-
-  
 
   if (!listing) {
     return <div>Listing not found</div>;
@@ -104,13 +107,12 @@ const Listing = ({ params }) => {
             <span className="text-white font-bold">Area:</span>
             <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.area}</span>
           </div>
-          <div style={{ marginTop: '10px' }}>
-            <span className="text-white font-bold">Period Available:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.periodAvailable}</span>
-          </div>
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '10px', marginBottom: '20px' }}>
             <span className="text-white font-bold">Poseted by:</span>
-            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.owner.username}</span>
+            <span style={{ color: 'rgb(197, 225, 0)', marginRight: '10px' }}> {listing.owner.username}</span>
+            <button className="hover:bg-primary hover:text-black text-white font-bold py-2 px-4 rounded" onClick={() => openPopup(`/user/${listing.owner.username}`)}>
+              View Profile
+            </button>
           </div>
         </div>
       ) : (
