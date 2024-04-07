@@ -12,15 +12,21 @@ const Listing = ({ params }) => {
   const [listing, setListing] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   const handleImageClick = () => {
     setIsModalOpen(true);
   };
 
+  
+
   useEffect(() => {
     axios.get(`/api/listings/${id}`).then((response) => {
       setListing(response.data);
+      
     });
   }, [id]);
+
+  
 
   if (!listing) {
     return <div>Listing not found</div>;
@@ -30,7 +36,7 @@ const Listing = ({ params }) => {
     <>
       {!isModalOpen ? (
         <div className="mx-auto w-[60%] px-12 pt-6">
-          <h1 className="text-2xl font-semibold">{listing.title}</h1>
+          <h1 className="text-2xl font-semibold  text-primary">{listing.title}</h1>
           <div className="mt-4 grid grid-cols-4 grid-rows-2 gap-4">
             <img
               src={listing.images[0]}
@@ -54,6 +60,58 @@ const Listing = ({ params }) => {
               />
             ))}
           </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Description:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.description}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Price:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.price}$</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Property Type:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.propertyType}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Availability:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.availability}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Country:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.country}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">City:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.city}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Address:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.address}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Nearby Stations:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.nearbyStations.join(", ")}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Bedrooms:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.bedrooms}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Bathrooms:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.bathrooms}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Area:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.area}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Period Available:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.periodAvailable}</span>
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <span className="text-white font-bold">Poseted by:</span>
+            <span style={{ color: 'rgb(197, 225, 0)' }}>  {listing.owner.username}</span>
+          </div>
         </div>
       ) : (
         <ImagesGallery
@@ -67,3 +125,4 @@ const Listing = ({ params }) => {
 };
 
 export default Listing;
+
