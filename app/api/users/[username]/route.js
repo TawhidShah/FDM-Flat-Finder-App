@@ -18,7 +18,7 @@ export async function GET(request, context) {
 
   // get clerk id
   const { userId } = getAuth(request);
-  const user = await UserProfile.findOne({ username }).populate("listings").lean();
+  const user = await UserProfile.findOne({ username }).populate("listings").populate("bookmarks").lean();
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
