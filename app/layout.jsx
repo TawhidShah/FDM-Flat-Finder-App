@@ -2,6 +2,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ToastContainer } from "react-toastify";
+
 import { cn } from "@/lib/utils";
 
 import Header from "@/components/Header";
@@ -25,6 +27,7 @@ export default function RootLayout({ children }) {
         >
           <Header />
           {children}
+          <ToastContainer />
         </body>
       </html>
     </ClerkProvider>
