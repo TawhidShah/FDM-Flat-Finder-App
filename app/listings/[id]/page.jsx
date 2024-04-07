@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-import { GridLoader } from "react-spinners";
 
+import Link from "next/link";
+
+import Loading from "@/components/Loading";
 import ImagesGallery from "@/components/internalListings/ImagesGallery";
 
 import "./page.css";
-import Link from "next/link";
 
 const Listing = ({ params }) => {
   const { id } = params;
@@ -49,14 +50,10 @@ const Listing = ({ params }) => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="mt-[15vh] flex w-full flex-1 justify-center">
-        <GridLoader color="#C5FF00" />;
-      </div>
-    );
+    return <Loading />;
   }
 
-  if (!listing) {
+  if (!listing && !loading) {
     return (
       <div className="mt-[15vh] flex w-full flex-1 flex-col items-center">
         <h1 className="text-4xl font-semibold text-primary">
@@ -83,7 +80,7 @@ const Listing = ({ params }) => {
           <div className="mt-4 grid grid-cols-4 grid-rows-2 gap-4">
             <img
               src={listing.images[0]}
-              alt={`${listing.title} - image 1`}
+              alt={`${listing?.title} - image 1`}
               className="col-span-2 row-span-2 h-full w-full rounded-bl-lg rounded-tl-lg object-cover"
               onClick={handleImageClick}
             />
