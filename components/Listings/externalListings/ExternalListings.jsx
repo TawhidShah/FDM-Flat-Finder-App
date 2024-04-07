@@ -5,7 +5,7 @@ import { GridLoader } from "react-spinners";
 
 import { numInRange } from "@/lib/utils";
 
-import "@/styles/ExternalListings.css";
+import Filter from "../Filter";
 import ExternalListingsGrid from "./ExternalListingsGrid";
 
 const ExternalListings = () => {
@@ -20,10 +20,11 @@ const ExternalListings = () => {
   const [maxPrice, setMaxPrice] = useState(1500);
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
-  const [letType, setLetType] = useState("Don't Mind");
+  const [letType, setLetType] = useState("");
 
   const handleButtonClick = (event) => {
     event.preventDefault();
+    setProperties([]);
     if (
       searchLocation.trim() === "" ||
       !numInRange(minPrice, 0, 1500) ||
@@ -36,14 +37,7 @@ const ExternalListings = () => {
       setInvalidInputWarning(true);
     } else {
       setInvalidInputWarning(false);
-      fetchLocation(
-        searchLocation,
-        minPrice,
-        maxPrice,
-        minBedrooms,
-        maxBedrooms,
-        ...(letType !== "Don't mind" ? [letType] : []),
-      );
+      fetchLocation();
     }
   };
 
@@ -109,74 +103,24 @@ const ExternalListings = () => {
   };
 
   return (
-    <div id="mainContainer">
+    <div className="flex flex-col items-center justify-center">
       <>
-        <h1 id="infoText">Search for your dream property to rent</h1>
-        <form>
-          <div id="location">
-            <input
-              className="inputSearchLocation"
-              type="text"
-              placeholder="Enter a city/place name"
-              value={searchLocation}
-              onChange={(e) => setSearchLocation(e.target.value)}
-            ></input>
-            <button id="submitButton" onClick={handleButtonClick}>
-              Search
-            </button>
-          </div>
-          <div id="propertyPreferences">
-            <label htmlFor="minPrice">Min Price(PCM): </label>
-            <input
-              type="number"
-              step="50"
-              id="minPrice"
-              value={minPrice}
-              min="0"
-              max="5000"
-              onChange={(e) => setMinPrice(e.target.value)}
-            ></input>
-            <label htmlFor="maxPrice">Max Price(PCM): </label>
-            <input
-              type="number"
-              step="50"
-              id="maxPrice"
-              value={maxPrice}
-              min="0"
-              max="1500"
-              onChange={(e) => setMaxPrice(e.target.value)}
-            ></input>
-            <label htmlFor="minBeds">Min Bedrooms: </label>
-            <input
-              type="number"
-              id="minBeds"
-              value={minBedrooms}
-              min="1"
-              max="5"
-              onChange={(e) => setMinBedrooms(e.target.value)}
-            ></input>
-            <label htmlFor="maxBeds">Max Bedrooms: </label>
-            <input
-              type="number"
-              id="maxBeds"
-              value={maxBedrooms}
-              min="1"
-              max="5"
-              onChange={(e) => setMaxBedrooms(e.target.value)}
-            ></input>
-            <label htmlFor="longTermShortTerm">Long-Term/Short-Term?</label>
-            <select
-              name="letTypeDropdown"
-              id="longTermShortTerm"
-              value={letType}
-              onChange={(e) => setLetType(e.target.value)}
-            >
-              <option>Don't Mind</option>
-              <option>ShortTerm</option>
-              <option>LongTerm</option>
-            </select>
-          </div>
-        </form>
+        <Filter
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          minBedrooms={minBedrooms}
+          maxBedrooms={maxBedrooms}
+          searchQuery={searchLocation}
+          periodAvailableFilter={letType}
+          onMinPriceChange={setMinPrice}
+          onMaxPriceChange={setMaxPrice}
+          onMinBedroomsChange={setMinBedrooms}
+          onMaxBedroomsChange={setMaxBedrooms}
+          onSearchQueryChange={setSearchLocation}
+          onPeriodAvailableChange={setLetType}
+          showSearchButton={true}
+          onSearchButtonClick={handleButtonClick}
+        />
       </>
 
       {!loading && invalidInputWarning && (

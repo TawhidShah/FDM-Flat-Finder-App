@@ -18,7 +18,7 @@ import {
 } from "@/constants/employee";
 
 import "./profile.css";
-import InternalListingCard from "@/components/internalListings/InternalListingCard";
+import InternalListingCard from "@/components/Listings/internalListings/InternalListingCard";
 
 const User = ({ params }) => {
   const [refresh, setRefresh] = useState(false);

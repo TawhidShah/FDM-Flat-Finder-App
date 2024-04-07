@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 
-import Filter from "./InternalFilter";
+import Filter from "../Filter";
 import InternalListingsGrid from "./InternalListingsGrid";
 
 const InternalListings = () => {
@@ -12,7 +12,7 @@ const InternalListings = () => {
   const [maxPrice, setMaxPrice] = useState(5000);
   const [minBedrooms, setMinBedrooms] = useState(1);
   const [maxBedrooms, setMaxBedrooms] = useState(5);
-  const [cityFilter, setCityFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [periodAvailableFilter, setPeriodAvailableFilter] = useState("");
   const [listings, setListings] = useState([]);
 
@@ -43,9 +43,9 @@ const InternalListings = () => {
       listing.price <= maxPrice &&
       listing.bedrooms >= minBedrooms &&
       listing.bedrooms <= maxBedrooms &&
-      (listing.city.toLowerCase().includes(cityFilter.toLowerCase()) ||
-        listing.description.toLowerCase().includes(cityFilter.toLowerCase()) ||
-        listing.title.toLowerCase().includes(cityFilter.toLowerCase())) &&
+      (listing.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        listing.title.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (periodAvailableFilter === "" ||
         listing.periodAvailable === periodAvailableFilter)
     );
@@ -58,14 +58,15 @@ const InternalListings = () => {
         maxPrice={maxPrice}
         minBedrooms={minBedrooms}
         maxBedrooms={maxBedrooms}
-        cityFilter={cityFilter}
+        searchQuery={searchQuery}
         periodAvailableFilter={periodAvailableFilter}
         onMinPriceChange={setMinPrice}
         onMaxPriceChange={setMaxPrice}
         onMinBedroomsChange={setMinBedrooms}
         onMaxBedroomsChange={setMaxBedrooms}
-        onCityFilterChange={setCityFilter}
+        onSearchQueryChange={setSearchQuery}
         onPeriodAvailableChange={setPeriodAvailableFilter}
+        showSearchButton={false}
       />
 
       <InternalListingsGrid listings={filteredListings} />

@@ -6,7 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import Loading from "@/components/Loading";
-import ImagesGallery from "@/components/internalListings/ImagesGallery";
+import ImagesGallery from "@/components/Listings/internalListings/ImagesGallery";
 
 import "./page.css";
 
