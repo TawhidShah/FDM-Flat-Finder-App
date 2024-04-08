@@ -1,9 +1,17 @@
+"use client";
+
+import { useUser } from "@clerk/nextjs";
+
+import { useRouter } from "next/navigation";
+
 const Edit = () => {
-  return (
-    <div>
-      WE CAN SHOW ALL THE USERS LISTINGS HERE AND ONCLICK ROUTE TO edit/id
-    </div>
-  );
+  const { user } = useUser();
+  const router = useRouter();
+
+  if (user) {
+    router.replace(`/user/${user.username}`);
+    return null;
+  }
 };
 
 export default Edit;
