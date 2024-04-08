@@ -6,9 +6,8 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   propertyTypes,
@@ -84,31 +83,33 @@ const CreateListing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-     let requiredFields = Object.keys(formData);
+    let requiredFields = Object.keys(formData);
 
-     // remove optional fields
-     requiredFields = requiredFields.filter(
-       (key) =>
-         !locationInputFields.find((field) => field.name === key && field.optional)
-     );
- 
-     // if the chosen property type is not shared flat or shared house, remove roomsAvailable from required fields
-     if (
-       formData.propertyType !== "Shared Flat" &&
-       formData.propertyType !== "Shared House"
-     ) {
-       requiredFields = requiredFields.filter((field) => field !== "roomsAvailable");
-     }
- 
-     // normal case to handle if the form has any empty required fields
-     const emptyFields = requiredFields.filter((field) => !formData[field]);
- 
-     if (emptyFields.length > 0) {
-       alert("Please fill in all required fields");
-       return;
-     }
-     console.log("Form submitted successfully!");
- 
+    // remove optional fields
+    requiredFields = requiredFields.filter(
+      (key) =>
+        !locationInputFields.find(
+          (field) => field.name === key && field.optional,
+        ),
+    );
+
+    // if the chosen property type is not shared flat or shared house, remove roomsAvailable from required fields
+    if (
+      formData.propertyType !== "Shared Flat" &&
+      formData.propertyType !== "Shared House"
+    ) {
+      requiredFields = requiredFields.filter(
+        (field) => field !== "roomsAvailable",
+      );
+    }
+
+    // normal case to handle if the form has any empty required fields
+    const emptyFields = requiredFields.filter((field) => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      alert("Please fill in all required fields");
+      return;
+    }
 
     // Combining addressLine1, addressLine2, and postcode into one string
     const combinedAddress = [
@@ -149,10 +150,10 @@ const CreateListing = () => {
 
       axios.post("/api/listings", submissionData);
       setFormData(initialFormData);
-      toast.success('Listing created successfully!');
+      toast.success("Listing created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error('Error creating listing. Please try again later.');
+      toast.error("Error creating listing. Please try again later.");
     }
   };
 
@@ -347,7 +348,6 @@ const CreateListing = () => {
         </label>
         <button type="submit">Submit</button>
       </form>
-
     </div>
   );
 };

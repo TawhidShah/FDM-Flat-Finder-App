@@ -49,7 +49,6 @@ const CreateProfile = ({ params }) => {
       return;
     }
     e.preventDefault();
-    console.log(hobbies, languages, preferences, country, type, period);
     //Post to database
     try {
       const response = await axios.post("/api/users", {
@@ -68,9 +67,9 @@ const CreateProfile = ({ params }) => {
         periodType: period,
       });
       if (response.status === 201) {
-        console.log("User profile created successfully");
+        toast.success("Profile created successfully!");
       } else {
-        console.log("User profile creation failed");
+        toast.error("Error creating profile.");
       }
       setTimeout(() => {
         router.push("/listings");

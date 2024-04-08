@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 
 import { useStore } from "@/store/store";
@@ -23,9 +25,10 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
         code,
       });
       if (completeSignUp.status !== "complete") {
-        console.log(JSON.stringify(completeSignUp, null, 2));
+        toast.error("Sign up failed. Please try again.");
       }
       if (completeSignUp.status === "complete") {
+        toast.success("Sign up successful.");
         await setActive({ session: completeSignUp.createdSessionId });
         router.push(`/user/${username}/create`);
       }
