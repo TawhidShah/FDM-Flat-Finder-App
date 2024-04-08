@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 
 import axios from "axios";
 import Select from "react-select";
@@ -96,7 +96,15 @@ const CreateProfile = ({ params }) => {
     setLanguages(updatedLanguages);
   };
 
+  if (user?.username !== undefined && params.username !== user?.username) {
+    router.push(`/user/${params.username}/`);
+  }
+
   if (!user) {
+    return <Loading />;
+  }
+
+  if (user?.username !== params.username) {
     return <Loading />;
   }
 
