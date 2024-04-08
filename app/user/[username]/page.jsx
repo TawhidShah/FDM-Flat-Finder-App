@@ -355,21 +355,24 @@ const User = ({ params }) => {
                   listing={item}
                   className="border border-secondary"
                 />
-                <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
-                  <Link href={`/listings/edit/${item._id}`} target="_blank">
-                    <FiEdit className="h-5 w-5 text-black" />
-                  </Link>
 
-                  <button
-                    className="text-red-700"
-                    onClick={() => {
-                      setShowListingDeleteModal(true);
-                      setDeleteListingId(item._id);
-                    }}
-                  >
-                    <FiTrash2 className="h-5 w-5" />
-                  </button>
-                </div>
+                {params.username == user.username && (
+                  <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
+                    <Link href={`/listings/edit/${item._id}`} target="_blank">
+                      <FiEdit className="h-5 w-5 text-black" />
+                    </Link>
+
+                    <button
+                      className="text-red-700"
+                      onClick={() => {
+                        setShowListingDeleteModal(true);
+                        setDeleteListingId(item._id);
+                      }}
+                    >
+                      <FiTrash2 className="h-5 w-5" />
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
