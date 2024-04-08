@@ -56,6 +56,39 @@ const locationInputFields = [
   { label: "Postcode", type: "text", name: "postcode" },
 ];
 
+const selectStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    margin: "10px 0",
+    padding: "10px",
+    width: "calc(100% - 20px)",
+    border: "1px solid #232323",
+    borderRadius: "5px",
+    backgroundColor: "#202020",
+    boxShadow: state.isFocused ? "0 0 0 2px #c5ff00" : "none",
+    "&:hover": {
+      borderColor: "#c5ff00",
+    },
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? "#c5ff00" : "#202020",
+    color: state.isSelected ? "#000000" : "#ffffff",
+    "&:hover": {
+      backgroundColor: "#c5ff00",
+      color: "#000000",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+};
+
 const CreateListing = () => {
   const { user } = useUser();
   const username = user?.username;
@@ -229,6 +262,7 @@ const CreateListing = () => {
         <label>
           Property Type:
           <Select
+            styles={selectStyles}
             onChange={(selectedOption) =>
               setFormData({
                 ...formData,
@@ -244,6 +278,7 @@ const CreateListing = () => {
         <label>
           Availability:
           <Select
+            styles={selectStyles}
             onChange={(selectedOption) =>
               setFormData({
                 ...formData,
@@ -259,6 +294,7 @@ const CreateListing = () => {
         <label>
           Period Available:
           <Select
+            styles={selectStyles}
             onChange={(selectedOption) =>
               setFormData({
                 ...formData,
@@ -287,6 +323,7 @@ const CreateListing = () => {
         <label>
           Nearby Stations:
           <CreatableSelect
+            styles={selectStyles}
             components={{ DropdownIndicator: null }}
             inputValue={nearbyStationsInputValue}
             isClearable
