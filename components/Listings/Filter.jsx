@@ -1,4 +1,4 @@
-const InternalFilter = ({
+const Filter = ({
   minPrice,
   maxPrice,
   minBedrooms,
@@ -15,7 +15,7 @@ const InternalFilter = ({
   onSearchButtonClick,
 }) => {
   return (
-    <div className="fle mx-auto flex-col p-2">
+    <div className="flex mx-auto flex-col p-2">
       <h1 className="text-4xl font-semibold text-primary">
         Search for your dream property to rent
       </h1>
@@ -107,4 +107,4 @@ const InternalFilter = ({
   );
 };
 
-export default InternalFilter;
+export default Filter;

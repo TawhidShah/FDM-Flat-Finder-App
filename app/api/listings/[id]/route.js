@@ -12,7 +12,12 @@ export async function GET(request, context) {
   const { id } = context.params;
 
   try {
-    const listing = await Listing.findById(id).lean().populate("owner");
+    const listing = await Listing.findById(id)
+      .lean()
+      .populate(
+        "owner",
+        "username firstName lastName email profilePicture -_id",
+      );
 
     if (!listing) {
       return NextResponse.json({ error: "Listing not found" }, { status: 404 });
