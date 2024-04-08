@@ -12,7 +12,7 @@ import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
 import {types, periods, hobbiesList, preferencesList} from "@/constants/employee"
 
-import Link from "next/link";
+
 
 import "./profile.css";
 import InternalListingCard from "@/components/internalListings/InternalListingCard";
@@ -37,7 +37,8 @@ const User = ({ params }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [pfpFile, setPfpFile] = useState(null);
+  
 
   const [editAccount, setEditAccount] = useState(false);
   const [editExtra, setEditExtra] = useState(false);
@@ -58,7 +59,6 @@ const User = ({ params }) => {
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
         setUsername(response.data.username);
-        setEmail(response.data.email);
         console.log("Custom" , response.data);
         console.log("Clerk:", user)
       } catch (error) {
@@ -66,7 +66,7 @@ const User = ({ params }) => {
       }
     };
     fetchData();
-  }, [refresh]);
+  },[]);
 
   console.log("Clerk:", user)
 
@@ -75,19 +75,25 @@ const User = ({ params }) => {
       alert("Please fill in all fields");
       e.preventDefault();
       return;
+    } 
+
+    let data = {firstName: firstName, lastName: lastName}
+    if(pfpFile) {
+      await user.setProfileImage({file :pfpFile});
+      const profilePicture = user?.imageUrl;
+
+      data = {...data, profilePicture: profilePicture } 
+      console.log("chgcking url",data)
     }
     try {
-      const response = await axios.put(`/api/users/${params.username}`, {
-        firstName: firstName,
-        lastName: lastName,
-      });
+      const response = await axios.put(`/api/users/${params.username}`, data);
       user.update({firstName: firstName, lastName:lastName})
       console.log("Updated Account", response.data, user);
-      
       setTimeout(() => {
         setEditAccount(!editAccount);
+        setRefresh(!refresh);
       },500);
-      router.push("/user");
+      router.push("/user")
     } catch (error) {
       console.log("Error updating account", error);
     }
@@ -146,7 +152,7 @@ const User = ({ params }) => {
   }
 
   console.log("checking states", firstName,lastName,username);
-
+  
   return (
     <div className="profile">
       <h1>Profile</h1>
@@ -154,13 +160,16 @@ const User = ({ params }) => {
         <>
           <p>Edit ACCOUTN!!!!!</p>
           <label >
-            <span>First name</span>
+            <span>First name:</span>
             <input type="text" placeholder="Enter your first name" onChange={(e) => setFirstName(e.target.value)} defaultValue={currUser?.firstName} />
           </label>
           <label >
-            <span>Last name</span>
+            <span>Last name:</span>
             <input type="text" placeholder="Enter your last name" onChange={(e) => setLastName(e.target.value)} defaultValue={currUser?.lastName} />
           </label>
+          <span>Add a profile picutre:</span>
+          <input type="file" accept="image/*" onChange={(e) => setPfpFile(e.target.files?.[0])}/>
+          <img src={(pfpFile ? URL.createObjectURL(pfpFile) : user?.imageUrl)} width="500px" height="500px" />
           <button onClick={() => setEditAccount(!editAccount)}>Cancel</button>
           <button onClick={handleSaveAccount}>Save</button>
         </>
@@ -183,7 +192,7 @@ const User = ({ params }) => {
             <h2>Email Address</h2>
             <p>{currUser?.email}</p>
           </div>
-          {(params.username == currUser?.username == user.username) ? (
+          {(params.username == user?.username) ? (
           <button onClick={() => setEditAccount(!editAccount)}>Edit account information</button>
           ) : (
             null
@@ -264,7 +273,7 @@ const User = ({ params }) => {
             <InternalListingCard key={item._id} listing={item} />
           ))}
         </div>
-        {(params.username == currUser?.username == user.username) ? (
+        {(params.username == user?.username) ? (
           <button onClick={() => setEditExtra(!editExtra)}>Edit additional information</button>
         ) : (
           null
