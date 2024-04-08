@@ -17,7 +17,7 @@ const Favoruites = () => {
         const res = await axios.get(
           `/api/users/${user?.username}/bookmarks?populate=1`,
         );
-        setFavourites(res.data.bookmarks);
+        setFavourites(res.data.bookmarks || []);
       } catch (error) {
         console.error(error);
       }
@@ -35,11 +35,12 @@ const Favoruites = () => {
       </h1>
 
       {favourites.length === 0 && (
-        <div className="text-center text-lg mt-8 text-primary">
+        <div className="mt-8 text-center text-lg text-primary">
           You have no favourites yet
         </div>
       )}
-      <InternalListingsGrid listings={favourites} />
+
+      {favourites.length > 0 && <InternalListingsGrid listings={favourites} />}
     </div>
   );
 };
