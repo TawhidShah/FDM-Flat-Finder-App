@@ -17,10 +17,9 @@ const Favoruites = () => {
         const res = await axios.get(
           `/api/users/${user?.username}/bookmarks?populate=1`,
         );
-        console.log(res);
         setFavourites(res.data.bookmarks);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 

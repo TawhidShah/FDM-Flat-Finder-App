@@ -11,7 +11,6 @@ export async function GET(request, context) {
   await mongooseConnect();
 
   const { username } = context.params;
-  console.log("params", context.params);
   const { userId } = getAuth(request);
 
   if (!username) {
