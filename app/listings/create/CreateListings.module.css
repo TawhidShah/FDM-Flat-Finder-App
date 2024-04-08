@@ -1,45 +1,34 @@
 .container {
-    margin: 100px;
-    padding: 60px;
-    border: 1px solid #2d2d2d;
-    border-radius: 5px;
-    background-color: #292929;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 100px auto;
+  padding: 60px;
+  width: 65%;
+  border: 1px solid #2d2d2d;
+  border-radius: 5px;
+  background-color: #292929;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .container input,
-.container select,
-.container button {
-    margin: 10px 0;
-    padding: 10px;
-    width: calc(100% - 20px);
-    border: 1px solid #232323;
-    border-radius: 5px;
-    background-color: #202020;
-    box-sizing: border-box;
+.container select {
+  margin: 10px 0;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border: 1px solid #232323;
+  border-radius: 5px;
+  background-color: #202020;
+  box-sizing: border-box;
 }
 
 .container h1 {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #c5ff00;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #c5ff00;
 }
 
 .container label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.container button {
-    background-color: #c5ff00;
-    color: #000000;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.container button:hover {
-    background-color: #678600;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ffffff;
 }

@@ -7,7 +7,8 @@ import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { MdOutlineFileUpload } from "react-icons/md";
+import { FiTrash2 } from "react-icons/fi";
 
 import {
   propertyTypes,
@@ -15,6 +16,7 @@ import {
   availabilityPeriods,
 } from "@/constants/createListing";
 
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./CreateListings.module.css";
 
 const initialFormData = {
@@ -72,8 +74,16 @@ const selectStyles = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected ? "#c5ff00" : "#202020",
-    color: state.isSelected ? "#000000" : "#ffffff",
+    backgroundColor: state.isSelected
+      ? "#c5ff00"
+      : state.isFocused
+        ? "#A2D004"
+        : "#202020",
+    color: state.isSelected
+      ? "#000000"
+      : state.isFocused
+        ? "#000000"
+        : "#ffffff",
     "&:hover": {
       backgroundColor: "#c5ff00",
       color: "#000000",
@@ -98,9 +108,10 @@ const CreateListing = () => {
   const [nearbyStationsInputValue, setNearbyStationsInputValue] = useState("");
 
   const handleChange = (e) => {
+    console.log(e.target.name);
     if (e.target.name === "image") {
       // seperately handle the image upload action
-      const files = e.target.files;
+      const files = Array.from([...e.target.files, ...formData.images]);
       setFormData({
         ...formData,
         images: files,
@@ -240,16 +251,43 @@ const CreateListing = () => {
             onChange={handleChange}
           />
         </label>
-        <label>
-          Images:
+
+        <label>Images:</label>
+        <div className="relative flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-sm border border-[#4a4a4a]">
           <input
             name="image"
             type="file"
             accept="image/*"
             onChange={handleChange}
+            className="absolute left-1/2 top-1/2 h-[200%] w-[200%] -translate-x-1/2 -translate-y-1/2 transform cursor-pointer opacity-0"
             multiple
           />
-        </label>
+          <MdOutlineFileUpload className="text-4xl text-white" />
+        </div>
+
+        <div className="my-2 flex w-full flex-wrap items-center gap-4">
+          {formData.images?.map((image, index) => (
+            <div className="relative" key={index}>
+              <div
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    images: formData.images.filter((_, i) => i !== index),
+                  })
+                }
+                className="absolute right-1 top-1 cursor-pointer rounded-full bg-red-500 p-1"
+              >
+                <FiTrash2 />
+              </div>
+
+              <img
+                src={URL.createObjectURL(image)}
+                alt={`Image ${index + 1}`}
+                className="h-32 w-32 object-cover"
+              />
+            </div>
+          ))}
+        </div>
         <label>
           Price:
           <input
@@ -345,6 +383,7 @@ const CreateListing = () => {
           <input
             type="number"
             name="numberOfRooms"
+            min={1}
             value={formData.numberOfRooms}
             onChange={handleChange}
           />
@@ -356,6 +395,7 @@ const CreateListing = () => {
             <input
               type="number"
               name="roomsAvailable"
+              min={1}
               value={formData.roomsAvailable}
               onChange={handleChange}
             />
@@ -366,6 +406,7 @@ const CreateListing = () => {
           <input
             type="number"
             name="bathrooms"
+            min={1}
             value={formData.bathrooms}
             onChange={handleChange}
           />
@@ -383,7 +424,12 @@ const CreateListing = () => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="w-full rounded-md bg-primary py-2.5 hover:bg-white"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
