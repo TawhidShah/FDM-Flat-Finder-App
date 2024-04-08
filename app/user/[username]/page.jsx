@@ -10,6 +10,9 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import InternalListingCard from "@/components/Listings/internalListings/InternalListingCard";
+import ConfirmActionModal from "@/components/ConfirmActionModal";
+
 import countries from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
 import countryList from "@/constants/countryList";
@@ -21,7 +24,6 @@ import {
 } from "@/constants/employee";
 
 import "./profile.css";
-import InternalListingCard from "@/components/Listings/internalListings/InternalListingCard";
 
 const User = ({ params }) => {
   const [refresh, setRefresh] = useState(false);
@@ -33,6 +35,9 @@ const User = ({ params }) => {
 
   const [editAccount, setEditAccount] = useState(false);
   const [editExtra, setEditExtra] = useState(false);
+
+  const [showListingDeleteModal, setShowListingDeleteModal] = useState(false);
+  const [deleteListingId, setDeleteListingId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,9 +131,9 @@ const User = ({ params }) => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      const response = await axios.delete(`/api/listings/${id}`);
+      const response = await axios.delete(`/api/listings/${deleteListingId}`);
       console.log("Deleted listing", response.data);
       setRefresh(!refresh);
     } catch (error) {
@@ -304,14 +309,15 @@ const User = ({ params }) => {
                   className="border border-secondary"
                 />
                 <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
-                  <Link href={`/listings/edit/${item._id}`}>
+                  <Link href={`/listings/edit/${item._id}`} target="_blank">
                     <FiEdit className="h-5 w-5" />
                   </Link>
 
                   <button
                     className="text-red-700"
                     onClick={() => {
-                      handleDelete(item._id);
+                      setShowListingDeleteModal(true);
+                      setDeleteListingId(item._id);
                     }}
                   >
                     <FiTrash2 className="h-5 w-5" />
@@ -322,6 +328,19 @@ const User = ({ params }) => {
           </div>
         </div>
       )}
+
+      <ConfirmActionModal
+        showModal={showListingDeleteModal}
+        onClose={() => setShowListingDeleteModal(false)}
+        title="Confirm"
+        message={`Are you sure you want to delete this listing?`}
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+        onConfirm={() => {
+          handleDelete();
+        }}
+        onCancel={() => setShowListingDeleteModal(false)}
+      />
     </div>
   );
 };

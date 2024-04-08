@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import { GridLoader } from "react-spinners";
 
 import { numInRange } from "@/lib/utils";
 
 import Filter from "../Filter";
 import ExternalListingsGrid from "./ExternalListingsGrid";
 import Loading from "@/components/Loading";
-import { set } from "mongoose";
 
 const ExternalListings = () => {
   const [invalidInputWarning, setInvalidInputWarning] = useState(false);
@@ -98,7 +96,7 @@ const ExternalListings = () => {
         { headers, params },
       );
       setLoading(false);
-      setProperties(response.data.data);
+      setProperties(response.data.data || []);
     } catch {
       setLoading(false);
       window.alert(
@@ -150,7 +148,7 @@ const ExternalListings = () => {
           </div>
         )}
 
-      <ExternalListingsGrid listings={properties} />
+      {properties.length > 0 && <ExternalListingsGrid listings={properties} />}
     </div>
   );
 };
