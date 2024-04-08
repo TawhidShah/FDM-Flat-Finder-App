@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
+
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import countries from "@/constants/countries";
 import languagesList from "@/constants/languagesList";
@@ -38,13 +41,11 @@ const User = ({ params }) => {
         setCurrUser(response.data);
         setUpdateUser(response.data);
       } catch (error) {
-        console.log("Couldn't fetch user", error);
+        console.error("Couldn't fetch user", error);
       }
     };
     fetchData();
   }, [refresh]);
-
-  const handleSave = async (e) => {};
 
   const handleSaveAccount = async (e) => {
     if (!updateUser.firstName.trim() || !updateUser.lastName.trim()) {
@@ -61,14 +62,13 @@ const User = ({ params }) => {
         firstName: updateUser.firstName,
         lastName: updateUser.lastName,
       });
-      console.log("Updated Account", response.data, user);
 
       setTimeout(() => {
         setEditAccount(!editAccount);
       }, 500);
       router.push("/user");
     } catch (error) {
-      console.log("Error updating account", error);
+      console.error("Error updating account", error);
     }
   };
 
@@ -94,7 +94,6 @@ const User = ({ params }) => {
         employmentType: updateUser.employmentType,
         periodType: updateUser.periodType,
       });
-      console.log("Profile updated", response.data);
       setTimeout(() => {
         setEditExtra(!editExtra);
         setRefresh(!refresh);
@@ -124,6 +123,16 @@ const User = ({ params }) => {
       return input.map((str) => ({ value: str, label: str }));
     } else {
       throw new Error("Input must be a string or an array of strings.");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`/api/listings/${id}`);
+      console.log("Deleted listing", response.data);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error("Error deleting listing", error);
     }
   };
 
@@ -280,21 +289,37 @@ const User = ({ params }) => {
             </div>
           ))}
 
-          <h2>Listings</h2>
-          <div className=" grid-cols1 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {currUser?.listings?.map((item) => (
-              <InternalListingCard
-                key={item._id}
-                listing={item}
-                className="border border-secondary"
-              />
-            ))}
-          </div>
           {params.username == user.username && (
             <button onClick={() => setEditExtra(!editExtra)}>
               Edit additional information
             </button>
           )}
+
+          <h2>Listings</h2>
+          <div className=" grid-cols1 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {currUser?.listings?.map((item) => (
+              <div className="relative" key={item._id}>
+                <InternalListingCard
+                  listing={item}
+                  className="border border-secondary"
+                />
+                <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
+                  <Link href={`/listings/edit/${item._id}`}>
+                    <FiEdit className="h-5 w-5" />
+                  </Link>
+
+                  <button
+                    className="text-red-700"
+                    onClick={() => {
+                      handleDelete(item._id);
+                    }}
+                  >
+                    <FiTrash2 className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

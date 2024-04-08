@@ -32,7 +32,10 @@ const InternalListings = () => {
     const fetchBookmarks = async () => {
       try {
         const res = await axios.get(`/api/users/${user?.username}/bookmarks`);
-        localStorage.setItem("bookmarks", JSON.stringify(res.data.bookmarks));
+        localStorage.setItem(
+          "bookmarks",
+          JSON.stringify(res.data.bookmarks || []),
+        );
       } catch (error) {
         console.error(error);
       }
