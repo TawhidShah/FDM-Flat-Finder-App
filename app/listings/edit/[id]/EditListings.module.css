@@ -1,9 +1,9 @@
 .container {
-    margin: 100px;
-    padding: 60px;
-    border: 1px solid #2d2d2d;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #292929;
+    background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -13,9 +13,9 @@
     margin: 10px 0;
     padding: 10px;
     width: calc(100% - 20px);
-    border: 1px solid #232323;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #202020;
+    background-color: #fff;
     box-sizing: border-box;
 }
 
@@ -23,23 +23,23 @@
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #c5ff00;
+    color: #565656;
 }
 
 .container label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #ffffff;
+    color: #333;
 }
 
 .container button {
-    background-color: #c5ff00;
-    color: #000000;
+    background-color: #007bff;
+    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .container button:hover {
-    background-color: #678600;
+    background-color: #0056b3;
 }
