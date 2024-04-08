@@ -12,7 +12,7 @@ import {
 
 const InternalListingCard = ({ listing }) => {
   const title =
-    listing.title.length > 25
+    listing?.title?.length > 25
       ? listing.title.substring(0, 25) + "..."
       : listing.title;
 
@@ -28,7 +28,7 @@ const InternalListingCard = ({ listing }) => {
         }}
       >
         <CarouselContent>
-          {listing.images.map((picture) => (
+          {listing?.images?.map((picture) => (
             <CarouselItem>
               <img
                 className="h-56 w-full rounded-lg object-cover object-center "

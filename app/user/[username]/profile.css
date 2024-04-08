@@ -66,8 +66,18 @@ input {
 .list {
     display: flex;
     flex-direction: row;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
 .list li {
-    list-style: none
+    list-style: none;
+    padding:0.5rem;
+    border:2px solid rgba(243, 238, 238, 0.06) ;
+    border-radius: 0.5rem;
+    font-size: 14px;
+    
+    box-shadow: 3.0px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+    
 }
 
