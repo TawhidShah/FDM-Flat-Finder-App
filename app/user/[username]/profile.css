@@ -1,58 +1,75 @@
 h2 {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
-    font-size: 1.4rem ;
+  border-bottom: 2px solid rgba(243, 238, 238, 0.06);
+  font-size: 1.4rem;
 }
 
 .profile {
-    display: flex;
-    flex-direction: column;
-    justify-items: start;
-    gap: 1rem;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 65%;
-    background-color: rgb(248, 245, 241);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 3.0px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  gap: 1rem;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+  background-color: rgb(39, 39, 39);
 }
 
 .profile h1 {
-    font-size: 2rem;
-    text-align: center;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 2px solid rgba(243, 238, 238, 0.06);
 }
 
 .main {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .info {
-    margin-right: auto;
-    font-size: 1.8rem;
+  margin-right: auto;
+  font-size: 1.8rem;
 }
 
 .info h2 {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .info p {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 .edit {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 input {
-    display: block;
+  display: block;
+  background-color: none;
+  border: 2px solid rgba(243, 238, 238, 0.06);
+  color: black;
 }
-button {
-    
+
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.list li {
+  list-style: none;
+  padding: 0.5rem;
+  border: 2px solid rgba(243, 238, 238, 0.06);
+  border-radius: 0.5rem;
+  font-size: 14px;
+  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
 }

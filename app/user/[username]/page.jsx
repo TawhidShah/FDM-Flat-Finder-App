@@ -5,6 +5,8 @@ import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "react-toastify";
+import { CiEdit } from "react-icons/ci";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 import { useRouter } from "next/navigation";
@@ -24,13 +26,13 @@ import {
 } from "@/constants/employee";
 
 import "./profile.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const User = ({ params }) => {
-  const [refresh, setRefresh] = useState(false);
-  const router = useRouter();
   const { user } = useUser();
+  const router = useRouter();
 
-  const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useState({});
   const [updateUser, setUpdateUser] = useState({});
 
   const [editAccount, setEditAccount] = useState(false);
@@ -39,6 +41,8 @@ const User = ({ params }) => {
   const [showListingDeleteModal, setShowListingDeleteModal] = useState(false);
   const [deleteListingId, setDeleteListingId] = useState(null);
 
+  const [pfp, setPfp] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,11 +50,28 @@ const User = ({ params }) => {
         setCurrUser(response.data);
         setUpdateUser(response.data);
       } catch (error) {
-        console.error("Couldn't fetch user", error);
+        if (error.response.status === 404) {
+          toast.error("User not found");
+          router.push("/");
+        } else {
+          console.error("Error fetching user data", error);
+          toast.error("Error fetching user data");
+        }
       }
     };
     fetchData();
-  }, [refresh]);
+  }, []);
+
+  const updateProfilePicture = async () => {
+    let newProfilePicture;
+
+    if (pfp) {
+      const res = await user.setProfileImage({ file: pfp });
+      newProfilePicture = res.publicUrl;
+    }
+
+    return newProfilePicture;
+  };
 
   const handleSaveAccount = async (e) => {
     if (!updateUser.firstName.trim() || !updateUser.lastName.trim()) {
@@ -58,22 +79,27 @@ const User = ({ params }) => {
       e.preventDefault();
       return;
     }
+
     try {
+      const newProfilePicture = await updateProfilePicture();
+
       const response = await axios.put(`/api/users/${params.username}`, {
         firstName: updateUser.firstName,
         lastName: updateUser.lastName,
+        profilePicture: newProfilePicture,
       });
+
       user.update({
         firstName: updateUser.firstName,
         lastName: updateUser.lastName,
       });
 
-      setTimeout(() => {
-        setEditAccount(!editAccount);
-      }, 500);
-      router.push("/user");
+      setEditAccount(!editAccount);
+      toast.success("Account updated successfully");
+      router.push(`/user`);
     } catch (error) {
       console.error("Error updating account", error);
+      toast.error("Error updating account");
     }
   };
 
@@ -99,12 +125,12 @@ const User = ({ params }) => {
         employmentType: updateUser.employmentType,
         periodType: updateUser.periodType,
       });
-      setTimeout(() => {
-        setEditExtra(!editExtra);
-        setRefresh(!refresh);
-      }, 500);
+      setEditExtra(!editExtra);
+      toast.success("Profile updated successfully");
+      router.push(`/user`);
     } catch (error) {
-      console.error("Error updating user profile", error);
+      console.error("Error updating profile", error);
+      toast.error("Error updating profile");
       return;
     }
   };
@@ -134,10 +160,10 @@ const User = ({ params }) => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`/api/listings/${deleteListingId}`);
-      console.log("Deleted listing", response.data);
-      setRefresh(!refresh);
+      toast.success("Listing deleted successfully");
     } catch (error) {
       console.error("Error deleting listing", error);
+      toast.error("Error deleting listing");
     }
   };
 
@@ -169,6 +195,21 @@ const User = ({ params }) => {
               defaultValue={currUser?.lastName}
             />
           </label>
+          <div className="relative h-24 w-24 cursor-pointer overflow-hidden rounded-sm bg-gray-200">
+            <img
+              src={pfp ? URL.createObjectURL(pfp) : currUser?.profilePicture}
+              className="h-full w-full object-cover"
+            />
+            <CiEdit className="absolute bottom-0 right-0 h-6 w-6 cursor-pointer rounded-bl-sm bg-black bg-opacity-50 text-white" />
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setPfp(e.target.files[0] || null)}
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            />
+          </div>
+
           <button
             onClick={() => {
               setEditAccount(!editAccount);
@@ -183,14 +224,20 @@ const User = ({ params }) => {
         <>
           <div className="main">
             <div className="info">
-              <h2>{currUser?.firstName + " " + currUser?.lastName}</h2>
+              <h2>
+                {currUser?.firstName} {currUser?.lastName}
+              </h2>
               <p>{currUser?.age}</p>
               <p>{currUser?.employmentType}</p>
               <p>Contract Type: {currUser?.periodType}</p>
               <p>Country: {currUser?.country}</p>
               <p></p>
             </div>
-            <img src={currUser?.profilePicture} alt="" />
+            <img
+              src={currUser?.profilePicture}
+              className="h-[150px] w-[150px]"
+              alt="profile picture"
+            />
           </div>
           <div className="extra">
             <h2>Username</h2>
@@ -301,7 +348,7 @@ const User = ({ params }) => {
           )}
 
           <h2>Listings</h2>
-          <div className=" grid-cols1 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-4 text-black md:grid-cols-2 xl:grid-cols-3">
             {currUser?.listings?.map((item) => (
               <div className="relative" key={item._id}>
                 <InternalListingCard
@@ -310,7 +357,7 @@ const User = ({ params }) => {
                 />
                 <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
                   <Link href={`/listings/edit/${item._id}`} target="_blank">
-                    <FiEdit className="h-5 w-5" />
+                    <FiEdit className="h-5 w-5 text-black" />
                   </Link>
 
                   <button
