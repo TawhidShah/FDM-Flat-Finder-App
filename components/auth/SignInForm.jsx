@@ -123,7 +123,7 @@ const SignInForm = () => {
         </button>
       </form>
       <p className="mt-4 text-center text-primary">
-        Don't have an account? &nbsp;
+        Don&apos;t have an account? &nbsp;
         <Link href="/sign-up" className="text-blue-600 hover:underline">
           Sign Up
         </Link>

@@ -37,7 +37,7 @@ const ExternalListingCard = ({ listing }) => {
       >
         <CarouselContent>
           {listing.propertyImages.images.map((picture) => (
-            <CarouselItem>
+            <CarouselItem key={picture.srcUrl}>
               <img
                 className="h-[250px] w-full rounded-lg object-cover object-center"
                 src={picture.srcUrl}
