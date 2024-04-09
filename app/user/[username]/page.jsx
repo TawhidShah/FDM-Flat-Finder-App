@@ -28,6 +28,47 @@ import {
 import "./profile.css";
 import "react-toastify/dist/ReactToastify.css";
 
+const selectStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    margin: "10px 0",
+    padding: "10px",
+    width: "calc(100% - 20px)",
+    border: "1px solid #232323",
+    borderRadius: "5px",
+    backgroundColor: "#202020",
+    boxShadow: state.isFocused ? "0 0 0 2px #c5ff00" : "none",
+    "&:hover": {
+      borderColor: "#c5ff00",
+    },
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? "#c5ff00"
+      : state.isFocused
+        ? "#A2D004"
+        : "#202020",
+    color: state.isSelected
+      ? "#000000"
+      : state.isFocused
+        ? "#000000"
+        : "#ffffff",
+    "&:hover": {
+      backgroundColor: "#c5ff00",
+      color: "#000000",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+};
+
 const User = ({ params }) => {
   const { user } = useUser();
   const router = useRouter();
@@ -209,16 +250,19 @@ const User = ({ params }) => {
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
           </div>
+          <div className="buttons">
+            <button
+              id="cancel"
+              onClick={() => {
+                setEditAccount(!editAccount);
+                setUpdateUser(currUser);
+              }}
+            >
+              Cancel
+            </button>
+            <button onClick={handleSaveAccount}>Save</button>
+          </div>
 
-          <button
-            onClick={() => {
-              setEditAccount(!editAccount);
-              setUpdateUser(currUser);
-            }}
-          >
-            Cancel
-          </button>
-          <button onClick={handleSaveAccount}>Save</button>
         </>
       ) : (
         <>
@@ -246,9 +290,11 @@ const User = ({ params }) => {
             <p>{currUser?.email}</p>
           </div>
           {params.username == user.username && (
-            <button onClick={() => setEditAccount(!editAccount)}>
-              Edit account information
-            </button>
+            <div className="buttons">
+              <button onClick={() => setEditAccount(!editAccount)}>
+                Edit account information
+              </button>
+            </div>
           )}
         </>
       )}
@@ -269,6 +315,7 @@ const User = ({ params }) => {
           <label>
             <span>Where are you from?</span>
             <Select
+              styles={selectStyles}
               onChange={(e) => handleChange("country")(countries[e.value])}
               options={countryList}
               defaultValue={makeSelect(updateUser.country)}
@@ -277,6 +324,7 @@ const User = ({ params }) => {
           <label>
             <span>What type of employee are you?</span>
             <Select
+              styles={selectStyles}
               onChange={(e) => handleChange("employmentType")(e.value)}
               options={types}
               defaultValue={makeSelect(updateUser.employmentType)}
@@ -285,6 +333,7 @@ const User = ({ params }) => {
           <label>
             <span>What is you contract period?</span>
             <Select
+              styles={selectStyles}
               onChange={(e) => handleChange("periodType")(e.value)}
               options={periods}
               defaultValue={makeSelect(updateUser.periodType)}
@@ -293,6 +342,7 @@ const User = ({ params }) => {
           <label>
             <span>What languages do you speak?</span>
             <Select
+              styles={selectStyles}
               isMulti
               onChange={(selected) => handleChange("languages")(selected)}
               options={languagesList}
@@ -302,6 +352,7 @@ const User = ({ params }) => {
           <label>
             <span>What are your hobbies?</span>
             <CreatableSelect
+              styles={selectStyles}
               placeholder="Select or type to create..."
               isMulti
               onChange={(selected) => handleChange("hobbies")(selected)}
@@ -312,6 +363,7 @@ const User = ({ params }) => {
           <label>
             <span>What prefrences do you have?</span>
             <CreatableSelect
+              styles={selectStyles}
               placeholder="Select or type to create..."
               isMulti
               onChange={(selected) => handleChange("preferences")(selected)}
@@ -319,8 +371,11 @@ const User = ({ params }) => {
               defaultValue={makeSelect(updateUser.preferences)}
             />
           </label>
-          <button onClick={() => setEditExtra(!editExtra)}>Cancel</button>
-          <button onClick={handleSaveExtra}>Save</button>
+          <div className="buttons">
+            <button id="cancel" onClick={() => setEditExtra(!editExtra)}>Cancel</button>
+            <button onClick={handleSaveExtra}>Save</button>
+          </div>
+
         </div>
       ) : (
         <div className="personal">
@@ -342,9 +397,11 @@ const User = ({ params }) => {
           ))}
 
           {params.username == user.username && (
-            <button onClick={() => setEditExtra(!editExtra)}>
-              Edit additional information
-            </button>
+            <div className="buttons">
+              <button onClick={() => setEditExtra(!editExtra)}>
+                Edit additional information
+              </button>
+            </div>
           )}
 
           <h2>Listings</h2>

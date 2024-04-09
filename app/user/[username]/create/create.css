@@ -1,3 +1,9 @@
+h1 {
+  font-size:  2rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
 .createProfile {
   display: flex;
   flex-direction: column;
@@ -12,6 +18,39 @@
   box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
   background-color: rgb(39, 39, 39);
   color: white;
+}
+
+.createProfile input, select {
+  margin: 10px 0;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border: 1px solid #232323;
+  border-radius: 5px;
+  background-color: #202020;
+  box-sizing: border-box;
+}
+input:hover {
+  border-color: #c5ff00;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.createProfile button {
+  background-color: rgb(197 255 0);
+  color: black;
+  padding: 0.625rem;
+  border-radius: calc(var(--radius) - 2px);
+  width: fit-content;
+  text-align: center;
+}
+
+button:hover {
+  background-color: white;
 }
 
 form {

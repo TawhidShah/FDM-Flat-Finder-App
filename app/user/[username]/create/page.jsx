@@ -21,6 +21,47 @@ import {
   preferencesList,
 } from "@/constants/employee";
 
+const selectStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    margin: "10px 0",
+    padding: "10px",
+    width: "calc(100% - 20px)",
+    border: "1px solid #232323",
+    borderRadius: "5px",
+    backgroundColor: "#202020",
+    boxShadow: state.isFocused ? "0 0 0 2px #c5ff00" : "none",
+    "&:hover": {
+      borderColor: "#c5ff00",
+    },
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? "#c5ff00"
+      : state.isFocused
+        ? "#A2D004"
+        : "#202020",
+    color: state.isSelected
+      ? "#000000"
+      : state.isFocused
+        ? "#000000"
+        : "#ffffff",
+    "&:hover": {
+      backgroundColor: "#c5ff00",
+      color: "#000000",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+};
+
 import "./create.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -143,17 +184,19 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>Where are you from?</span>
           <Select
+            styles={selectStyles}
             onChange={(e) => setCountry(countries[e.value])}
             options={countryList}
           ></Select>
         </label>
         <label>
           <span>What type of employee are you?</span>
-          <Select onChange={(e) => setType(e.value)} options={types}></Select>
+          <Select styles={selectStyles} onChange={(e) => setType(e.value)} options={types}></Select>
         </label>
         <label>
           <span>What is you contract period?</span>
           <Select
+            styles={selectStyles}
             onChange={(e) => setPeriod(e.value)}
             options={periods}
           ></Select>
@@ -161,6 +204,7 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>What languages do you speak?</span>
           <Select
+            styles={selectStyles}
             isMulti
             onChange={handleChangeLanguages}
             options={languagesList}
@@ -170,6 +214,7 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>What are your hobbies?</span>
           <CreatableSelect
+            styles={selectStyles}
             placeholder="Select or type to create..."
             isMulti
             onChange={handleChangeHobbies}
@@ -179,13 +224,17 @@ const CreateProfile = ({ params }) => {
         <label>
           <span>What prefrences do you have?</span>
           <CreatableSelect
+            styles={selectStyles}
             placeholder="Select or type to create..."
             isMulti
             onChange={handleChangePreferences}
             options={preferencesList}
           />
         </label>
-        <button onClick={handleSubmit}>Submit</button>
+        <div className="button">
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+
       </form>
     </div>
   );
