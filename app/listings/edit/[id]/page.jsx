@@ -150,7 +150,12 @@ const EditListing = ({ params }) => {
 
     const newImageLinks = await uploadImages(newImages);
 
+    const nearbyStations = formData.nearbyStations.map(
+      (station) => station.value,
+    );
+
     formData.images = [...existingImages, ...newImageLinks];
+    formData.nearbyStations = nearbyStations;
 
     try {
       // Update listing data
