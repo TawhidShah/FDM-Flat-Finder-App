@@ -15,7 +15,7 @@ const Filter = ({
   onSearchButtonClick,
 }) => {
   return (
-    <div className="flex mx-auto flex-col p-2">
+    <div className="flex mx-auto flex-col p-2 w-full">
       <h1 className="text-4xl font-semibold text-primary">
         Search for your dream property to rent
       </h1>
