@@ -120,10 +120,10 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
                 username: error.message,
               }));
               break;
-            case "emailAddress":
+            case "email_address":
               setErrors((prev) => ({
                 ...prev,
-                email: error.message,
+                emailAddress: error.message,
               }));
               break;
           }
