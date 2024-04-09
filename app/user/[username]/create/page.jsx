@@ -5,6 +5,7 @@ import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,6 +21,9 @@ import {
   hobbiesList,
   preferencesList,
 } from "@/constants/employee";
+
+import "./create.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const selectStyles = {
   control: (provided, state) => ({
@@ -48,7 +52,7 @@ const selectStyles = {
         ? "#000000"
         : "#ffffff",
     "&:hover": {
-      backgroundColor: "#c5ff00",
+      backgroundColor: "#A2D004",
       color: "#000000",
     },
   }),
@@ -61,9 +65,6 @@ const selectStyles = {
     color: "#ffffff",
   }),
 };
-
-import "./create.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const CreateProfile = ({ params }) => {
   const [age, setAge] = useState(18);
@@ -191,7 +192,11 @@ const CreateProfile = ({ params }) => {
         </label>
         <label>
           <span>What type of employee are you?</span>
-          <Select styles={selectStyles} onChange={(e) => setType(e.value)} options={types}></Select>
+          <Select
+            styles={selectStyles}
+            onChange={(e) => setType(e.value)}
+            options={types}
+          ></Select>
         </label>
         <label>
           <span>What is you contract period?</span>
@@ -234,7 +239,6 @@ const CreateProfile = ({ params }) => {
         <div className="button">
           <button onClick={handleSubmit}>Submit</button>
         </div>
-
       </form>
     </div>
   );
