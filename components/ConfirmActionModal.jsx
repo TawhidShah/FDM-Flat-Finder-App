@@ -49,7 +49,7 @@ const ConfirmActionModal = ({
 
         <div className="m-2 flex gap-2 place-self-end">
           <button
-            className="mr-2 rounded-md bg-primary px-4 py-2 hover:bg-[#A2D004]"
+            className="mr-2 rounded-md bg-primary text-black px-4 py-2 hover:bg-[#A2D004]"
             onClick={() => {
               onConfirm();
               onClose();
