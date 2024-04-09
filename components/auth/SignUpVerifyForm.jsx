@@ -32,7 +32,7 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
       if (completeSignUp.status === "complete") {
         toast.success("Sign up successful.");
         await setActive({ session: completeSignUp.createdSessionId });
-        router.push(`/user/${username}/create`);
+        router.push(`/createProfile`);
       }
     } catch (err) {
       console.error(err);
