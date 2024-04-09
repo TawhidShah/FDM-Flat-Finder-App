@@ -1,5 +1,5 @@
 h1 {
-  font-size:  2rem;
+  font-size: 2rem;
   text-align: center;
   text-transform: capitalize;
 }
@@ -8,10 +8,8 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 10%;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto auto;
+  min-width: 500px;
   width: 50%;
   border-radius: 1rem;
   padding: 1rem;
@@ -20,7 +18,8 @@ h1 {
   color: white;
 }
 
-.createProfile input, select {
+.createProfile input,
+select {
   margin: 10px 0;
   padding: 10px;
   width: calc(100% - 20px);
