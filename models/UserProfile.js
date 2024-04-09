@@ -1,5 +1,4 @@
 import { Schema, model, models } from "mongoose";
-import { unique } from "next/dist/build/utils";
 
 const userProfileSchema = new Schema(
   {
