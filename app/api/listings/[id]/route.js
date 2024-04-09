@@ -93,6 +93,7 @@ export async function PATCH(request, context) {
   }
 
   const {
+    _id,
     title,
     description,
     price,
@@ -109,7 +110,7 @@ export async function PATCH(request, context) {
 
   try {
     await Listing.updateOne(
-      { _id: id },
+      { _id: _id },
       {
         title,
         description,

@@ -111,7 +111,6 @@ const CreateListing = () => {
   const [nearbyStationsInputValue, setNearbyStationsInputValue] = useState("");
 
   const handleChange = (e) => {
-    console.log(e.target.name);
     if (e.target.name === "image") {
       // seperately handle the image upload action
       const files = Array.from([...e.target.files, ...formData.images]);
