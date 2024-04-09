@@ -72,7 +72,10 @@ const Listing = ({ params }) => {
       <div>
         {activeTab === "tab1" && <PropertyDetailsTab listing={listing} />}
         {activeTab === "tab2" && (
-          <PropertyMessageTab listingOwner={listing.owner} />
+          <PropertyMessageTab
+            listingOwner={listing.owner}
+            listingTitle={listing.title}
+          />
         )}
       </div>
     </div>
