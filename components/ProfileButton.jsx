@@ -43,7 +43,7 @@ const ProfileButton = ({ user }) => {
             <img
               src={user?.imageUrl}
               alt="profile"
-              className="w-12 rounded-full"
+              className="h-16 w-16 rounded-full"
             />
             <div className="ml-4">
               <p>{user.fullName}</p>

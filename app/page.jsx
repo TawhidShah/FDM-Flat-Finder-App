@@ -1,11 +1,18 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center">
       <div className="mt-20 text-center">
-        <img src="/images/FDMLogo.png" alt="FDM logo" className="mx-auto" />
+        <Image
+          src="/images/FDMLogo.png"
+          alt="FDM logo"
+          className="mx-auto"
+          width={200}
+          height={200}
+        />
 
         <h1 className="mb-4 text-6xl font-bold text-white">
           Welcome to FDM Flat Finder
