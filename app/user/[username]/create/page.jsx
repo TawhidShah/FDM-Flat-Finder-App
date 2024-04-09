@@ -22,6 +22,7 @@ import {
 } from "@/constants/employee";
 
 import "./create.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateProfile = ({ params }) => {
   const [age, setAge] = useState(18);

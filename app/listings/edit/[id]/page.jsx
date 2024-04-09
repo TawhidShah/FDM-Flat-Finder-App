@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -14,6 +14,7 @@ import {
 } from "@/constants/createListing";
 
 import styles from "./EditListings.module.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const locationInputFields = [
   { label: "Country", type: "text", name: "country" },
@@ -60,26 +61,28 @@ const EditListing = ({ params }) => {
         const listingData = response.data;
         console.log("Fetched listing data:", listingData);
 
-        const imageFiles = listingData.images.map(imageUrl => {
-          return new File([], imageUrl.split('/').pop());
+        const imageFiles = listingData.images.map((imageUrl) => {
+          return new File([], imageUrl.split("/").pop());
         });
 
         // extract the nearby stations to initialise the form data
-        const nearbyStationsOptions = listingData.nearbyStations.map(station => {
+        const nearbyStationsOptions = listingData.nearbyStations.map(
+          (station) => {
             return { value: station, label: station };
-        });
+          },
+        );
         const addressComponents = listingData.address.split("|");
         setFormData({
           ...listingData,
           images: imageFiles,
-          
+
           // put the corresponding address components into the forms address fields
           addressLine1: addressComponents[0] || "",
           addressLine2: addressComponents[1] || "",
           postcode: addressComponents[2] || "",
 
           // nearby stations set as options
-          nearbyStations: nearbyStationsOptions
+          nearbyStations: nearbyStationsOptions,
         });
       } catch (error) {
         console.error("Error fetching listing data:", error);
@@ -144,11 +147,7 @@ const EditListing = ({ params }) => {
       >
         <label>
           Title:
-          <input
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-          />
+          <input name="title" value={formData.title} onChange={handleChange} />
         </label>
         <label>
           Description:
@@ -192,7 +191,7 @@ const EditListing = ({ params }) => {
             name="propertyType"
             options={propertyTypes}
             value={propertyTypes.find(
-              (option) => option.value === formData.propertyType
+              (option) => option.value === formData.propertyType,
             )}
           />
         </label>
@@ -210,7 +209,7 @@ const EditListing = ({ params }) => {
             name="availability"
             options={availabilityOptions}
             value={availabilityOptions.find(
-              (option) => option.value === formData.availability
+              (option) => option.value === formData.availability,
             )}
           />
         </label>
@@ -228,7 +227,7 @@ const EditListing = ({ params }) => {
             name="periodAvailable"
             options={availabilityPeriods}
             value={availabilityPeriods.find(
-              (option) => option.value === formData.periodAvailable
+              (option) => option.value === formData.periodAvailable,
             )}
           />
         </label>
@@ -284,11 +283,7 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Area:
-          <input
-            name="area"
-            value={formData.area}
-            onChange={handleChange}
-          />
+          <input name="area" value={formData.area} onChange={handleChange} />
         </label>
         <label>
           Tenants:
