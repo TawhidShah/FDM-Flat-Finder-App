@@ -1,15 +1,30 @@
 "use client";
 import { useState } from "react";
 
+import { useUser } from "@clerk/nextjs";
+
+import { useRouter } from "next/navigation";
+
+import Loading from "@/components/Loading";
 import InternalListings from "@/components/Listings/internalListings/InternalListings";
 import ExternalListings from "@/components/Listings/externalListings/ExternalListings";
 
 const ListingsPage = () => {
+  const router = useRouter();
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState("tab1");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+
+  if (user && !user.publicMetadata?.profileCreated) {
+    router.push("/createProfile");
+  }
+
+  if (!user) {
+    return <Loading />;
+  }
 
   return (
     <div>

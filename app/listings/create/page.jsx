@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FiTrash2 } from "react-icons/fi";
 
+import { useRouter } from "next/navigation";
+
 import {
   propertyTypes,
   availabilityOptions,
@@ -18,6 +20,7 @@ import {
 
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./CreateListings.module.css";
+import Loading from "@/components/Loading";
 
 const initialFormData = {
   title: "",
@@ -100,6 +103,7 @@ const selectStyles = {
 };
 
 const CreateListing = () => {
+  const router = useRouter();
   const { user } = useUser();
   const username = user?.username;
 
@@ -230,6 +234,14 @@ const CreateListing = () => {
         e.preventDefault();
     }
   };
+
+  if (!user) {
+    return <Loading />;
+  }
+
+  if (user && !user.publicMetadata?.profileCreated) {
+    router.push("/createProfile");
+  }
 
   return (
     <div className={styles.container}>

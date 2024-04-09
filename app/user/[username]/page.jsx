@@ -27,6 +27,7 @@ import {
 
 import "./profile.css";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "@/components/Loading";
 
 const selectStyles = {
   control: (provided, state) => ({
@@ -101,7 +102,12 @@ const User = ({ params }) => {
         }
       }
     };
-    fetchData();
+
+    if (user && user.publicMetadata?.profileCreated) {
+      fetchData();
+    } else if (user) {
+      router.push("/createProfile");
+    }
   }, []);
 
   const updateProfilePicture = async () => {
@@ -210,7 +216,7 @@ const User = ({ params }) => {
   };
 
   if (!currUser || !user) {
-    return <></>;
+    return <Loading />;
   }
 
   return (

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -31,6 +33,8 @@ const locationInputFields = [
 
 const EditListing = ({ params }) => {
   const id = params.id; // Use params.id to get the listing's id
+
+  const { user } = useUser();
 
   const [nearbyStationsInputValue, setNearbyStationsInputValue] = useState("");
 
@@ -89,8 +93,10 @@ const EditListing = ({ params }) => {
       }
     };
 
-    if (id) {
-      fetchListing();
+    if (user && user.publicMetadata?.profileCreated && id) {
+      fetchFavourites();
+    } else if (user) {
+      router.push("/createProfile");
     }
   }, [id]);
 

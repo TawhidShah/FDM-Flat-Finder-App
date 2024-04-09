@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import InternalListingCard from "@/components/Listings/internalListings/InternalListingCard";
+import { useRouter } from "next/navigation";
+
 import InternalListingsGrid from "@/components/Listings/internalListings/InternalListingsGrid";
 
 const Favoruites = () => {
   const { user } = useUser();
+  const router = useRouter();
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
@@ -23,8 +25,10 @@ const Favoruites = () => {
       }
     };
 
-    if (user) {
+    if (user && user.publicMetadata?.profileCreated) {
       fetchFavourites();
+    } else if (user) {
+      router.push("/createProfile");
     }
   }, [user]);
 

@@ -11,6 +11,7 @@ import PropertyMessageTab from "@/components/propertyDetails/PropertyMessageTab"
 
 const Listing = ({ params }) => {
   const { id } = params;
+  const { user } = useUser();
 
   const [activeTab, setActiveTab] = useState("tab1");
   const [listing, setListing] = useState();
@@ -29,10 +30,14 @@ const Listing = ({ params }) => {
       }
     };
 
-    fetchListing();
-  }, [id]);
+    if (user && user.publicMetadata?.profileCreated) {
+      fetchListing();
+    } else if (user) {
+      router.push("/createProfile");
+    }
+  }, [id, user]);
 
-  if (loading) {
+  if (loading || !user) {
     return <Loading />;
   }
 
