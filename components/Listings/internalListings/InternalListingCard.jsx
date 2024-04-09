@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import { LuBed, LuBath } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 import {
   Carousel,
@@ -36,8 +37,16 @@ const InternalListingCard = ({ listing, className }) => {
       });
       setBookmarked(!bookmarked);
       localStorage.setItem("bookmarks", JSON.stringify(res.data.bookmarks));
+      
+      if (!bookmarked) {
+        toast.success("Listing added to favourites");
+      } else {
+        toast.success("Listing removed from favourites");
+      }
+      
     } catch (error) {
       console.log(error);
+      toast.error("ERROR! There was an issue adding this listing to favourites");
     }
   };
 
