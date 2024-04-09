@@ -3,6 +3,10 @@ h2 {
   font-size: 1.4rem;
 }
 
+img {
+  border-radius: 1rem;
+}
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -26,6 +30,7 @@ h2 {
   border-bottom: 2px solid rgba(243, 238, 238, 0.06);
 }
 
+
 .main {
   display: flex;
   flex-direction: row;
@@ -36,6 +41,9 @@ h2 {
 .info {
   margin-right: auto;
   font-size: 1.8rem;
+  padding: 0.5rem;
+  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+  border-radius: 0.5rem;
 }
 
 .info h2 {
@@ -46,16 +54,61 @@ h2 {
   font-size: 1.1rem;
 }
 
+.extra p {
+  
+    padding: 0.5rem;
+    border: 2px solid rgba(243, 238, 238, 0.06);
+    box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+    border-radius: 0.5rem;
+    width: fit-content;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+ 
+  
+}
+
 .edit {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-input {
-  display: block;
-  background-color: none;
-  border: 2px solid rgba(243, 238, 238, 0.06);
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.profile input, select {
+  margin: 10px 0;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border: 1px solid #232323;
+  border-radius: 5px;
+  background-color: #202020;
+  box-sizing: border-box;
+}
+
+input:hover {
+  border-color: #c5ff00;
+}
+
+.profile button {
+  background-color: rgb(197 255 0);
   color: black;
+  padding: 0.625rem;
+  border-radius: calc(var(--radius) - 2px);
+  width: fit-content;
+  text-align: center;
+}
+
+button:hover, #cancel:hover {
+  background-color: white;
+}
+#cancel {
+  background-color: red;
 }
 
 .list {
@@ -69,7 +122,8 @@ input {
   list-style: none;
   padding: 0.5rem;
   border: 2px solid rgba(243, 238, 238, 0.06);
+  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
   border-radius: 0.5rem;
   font-size: 14px;
-  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+  
 }
