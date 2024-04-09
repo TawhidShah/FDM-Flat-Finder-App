@@ -112,7 +112,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
           }));
         }
 
-        if (error.code === "form_identifier_taken") {
+        if (error.code === "form_identifier_exists") {
           switch (error.meta.paramName) {
             case "username":
               setErrors((prev) => ({
