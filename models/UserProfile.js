@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const userProfileSchema = new Schema(
   {
@@ -13,21 +14,22 @@ const userProfileSchema = new Schema(
 
     firstName: {
       type: String,
-      required: true
+      required: true,
     },
     lastName: {
       type: String,
-      required: true
+      required: true,
     },
 
     email: {
       type: String,
-      required: true
+      required: true,
+      unique: true,
     },
 
     profilePicture: {
       type: String,
-      required: true
+      required: true,
     },
 
     clerkId: {
@@ -44,13 +46,13 @@ const userProfileSchema = new Schema(
     //Employee info
     employmentType: {
       type: String,
-      required: true
+      required: true,
     },
 
     periodType: {
       type: String,
-      required: true
-    }, 
+      required: true,
+    },
 
     languages: {
       type: [String],
@@ -62,7 +64,7 @@ const userProfileSchema = new Schema(
       type: [String],
       default: [],
     },
-    
+
     preferences: {
       type: [String],
       default: [],
