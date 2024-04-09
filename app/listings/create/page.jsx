@@ -85,7 +85,7 @@ const selectStyles = {
         ? "#000000"
         : "#ffffff",
     "&:hover": {
-      backgroundColor: "#c5ff00",
+      backgroundColor: "#A2D004",
       color: "#000000",
     },
   }),
