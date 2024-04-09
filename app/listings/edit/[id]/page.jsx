@@ -7,7 +7,6 @@ import axios from "axios";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import {
   propertyTypes,
@@ -16,7 +15,6 @@ import {
 } from "@/constants/createListing";
 
 import styles from "./EditListings.module.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const locationInputFields = [
   { label: "Country", type: "text", name: "country" },
@@ -102,7 +100,7 @@ const EditListing = ({ params }) => {
     // } else if (user) {
     //   router.push("/createProfile");
     // }
-  }, [id]);
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -18,7 +18,6 @@ import {
   availabilityPeriods,
 } from "@/constants/createListing";
 
-import "react-toastify/dist/ReactToastify.css";
 import styles from "./CreateListings.module.css";
 import Loading from "@/components/Loading";
 

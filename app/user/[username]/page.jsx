@@ -26,7 +26,6 @@ import {
 } from "@/constants/employee";
 
 import "./profile.css";
-import "react-toastify/dist/ReactToastify.css";
 import Loading from "@/components/Loading";
 
 const selectStyles = {

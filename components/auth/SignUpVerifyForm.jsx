@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
   const [code, setCode] = useState("");
   const router = useRouter();

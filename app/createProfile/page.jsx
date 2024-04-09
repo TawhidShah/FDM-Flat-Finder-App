@@ -23,7 +23,6 @@ import {
 } from "@/constants/employee";
 
 import "./create.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const selectStyles = {
   control: (provided, state) => ({

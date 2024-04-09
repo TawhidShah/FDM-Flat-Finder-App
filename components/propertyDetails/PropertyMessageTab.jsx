@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 
 import Loading from "../Loading";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const PropertyMessageTab = ({ listingOwner, listingTitle }) => {
   const { user } = useUser();
 
