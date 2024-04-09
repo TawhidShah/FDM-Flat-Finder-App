@@ -66,7 +66,7 @@ const selectStyles = {
   }),
 };
 
-const CreateProfile = ({ params }) => {
+const CreateProfile = () => {
   const [age, setAge] = useState(18);
   const [languages, setLanguages] = useState(["English"]);
   const [hobbies, setHobbies] = useState([]);
@@ -109,14 +109,13 @@ const CreateProfile = ({ params }) => {
         employmentType: type,
         periodType: period,
       });
+
       if (response.status === 201) {
         toast.success("Profile created successfully!");
       } else {
         toast.error("Error creating profile.");
       }
-      setTimeout(() => {
-        router.push("/listings");
-      }, 1500);
+      router.push("/listings");
     } catch (error) {
       console.error("Error creating user profile", error);
       return;
@@ -139,15 +138,7 @@ const CreateProfile = ({ params }) => {
     setLanguages(updatedLanguages);
   };
 
-  if (user?.username !== undefined && params.username !== user?.username) {
-    router.push(`/user/${params.username}/`);
-  }
-
   if (!user) {
-    return <Loading />;
-  }
-
-  if (user?.username !== params.username) {
     return <Loading />;
   }
 
