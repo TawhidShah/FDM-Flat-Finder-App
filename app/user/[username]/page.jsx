@@ -391,22 +391,19 @@ const User = ({ params }) => {
           )}
 
           <h2>Listings</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 text-black md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-4 text-black md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {currUser?.listings?.map((item) => (
               <div className="relative" key={item._id}>
-                <InternalListingCard
-                  listing={item}
-                  className="border border-secondary"
-                />
+                <InternalListingCard listing={item} />
 
                 {params.username == user.username && (
                   <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
                     <Link href={`/listings/edit/${item._id}`} target="_blank">
-                      <FiEdit className="h-5 w-5 text-black" />
+                      <FiEdit className="h-5 w-5 text-white hover:text-[#AAA]" />
                     </Link>
 
                     <button
-                      className="text-red-700"
+                      className="text-red-500 hover:text-red-700"
                       onClick={() => {
                         setShowListingDeleteModal(true);
                         setDeleteListingId(item._id);

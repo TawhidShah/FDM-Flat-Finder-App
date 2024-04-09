@@ -25,9 +25,14 @@ const InternalListingCard = ({ listing, className }) => {
   );
 
   const title =
-    listing && listing.title && listing.title.length > 25
-      ? listing.title.substring(0, 25) + "..."
+    listing && listing.title && listing.title.length > 28
+      ? `${listing.title.substring(0, 28)}...`
       : listing && listing.title;
+
+  const description =
+    listing.description && listing.description.length > 150
+      ? `${listing.description.substring(0, 160)}...`
+      : listing.description;
 
   const handleBookmarked = async () => {
     try {
@@ -37,16 +42,17 @@ const InternalListingCard = ({ listing, className }) => {
       });
       setBookmarked(!bookmarked);
       localStorage.setItem("bookmarks", JSON.stringify(res.data.bookmarks));
-      
+
       if (!bookmarked) {
         toast.success("Listing added to favourites");
       } else {
         toast.success("Listing removed from favourites");
       }
-      
     } catch (error) {
       console.log(error);
-      toast.error("ERROR! There was an issue adding this listing to favourites");
+      toast.error(
+        "ERROR! There was an issue adding this listing to favourites",
+      );
     }
   };
 
@@ -54,7 +60,7 @@ const InternalListingCard = ({ listing, className }) => {
     <div
       key={listing.id}
       className={cn(
-        "relative flex h-[500px] max-h-[500px] flex-col justify-between gap-3 overflow-hidden rounded-lg bg-white shadow-lg",
+        "shadow-custom relative flex h-[500px] max-h-[500px] flex-col gap-3 overflow-hidden rounded-lg",
         className,
       )}
     >
@@ -82,40 +88,40 @@ const InternalListingCard = ({ listing, className }) => {
           {listing.images.map((picture) => (
             <CarouselItem key={picture}>
               <img
-                className="h-[250px] w-full object-cover object-center"
+                className="h-[250px] w-full rounded-lg object-cover object-center"
                 src={picture}
                 alt={`Image ${picture}`}
               />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-1 border-none bg-transparent hover:bg-white focus:bg-white focus:outline-none" />
-        <CarouselNext className="right-1 border-none bg-transparent hover:bg-white focus:bg-white focus:outline-none" />
+        <CarouselPrevious className="left-1 border-none bg-transparent hover:bg-white focus:outline-none" />
+        <CarouselNext className="right-1 border-none bg-transparent hover:bg-white focus:outline-none" />
       </Carousel>
       <Link
-        className="flex flex-1 flex-col justify-around gap-2 px-2"
+        className="flex h-[250px] max-h-[250px] flex-1 flex-col justify-between gap-2 p-2 text-white"
         href={`/listings/${listing._id}`}
       >
-        <h1 className="text-center text-xl font-bold text-gray-900">{title}</h1>
+        <h1 className="text-center text-xl font-bold">{title}</h1>
         <div className="mx-auto flex items-center gap-3">
           <span className="text-sm">{listing.propertyType}</span>
           {listing.bedrooms && (
             <>
               <LuBed />
-              <span className="text-sm text-gray-600">{listing.bedrooms}</span>
+              <span className="text-sm">{listing.bedrooms}</span>
             </>
           )}
           {listing.bathrooms && (
             <>
               <LuBath />
-              <span className="text-sm text-gray-600">{listing.bathrooms}</span>
+              <span className="text-sm">{listing.bathrooms}</span>
             </>
           )}
         </div>
-        <p className="mt-2 text-sm text-gray-600">{listing.description}</p>
-        <div className="mt-3 flex justify-between p-1">
-          <span className="text-sm text-gray-600">{listing.city}</span>
-          <span className="text-md text-gray-600">£{listing.price}</span>
+        <p className="min-h[80px] h-[80px] text-sm">{description}</p>
+        <div className="flex justify-between p-1">
+          <span className="text-sm">{listing.city}</span>
+          <span className="text-md">£{listing.price}</span>
         </div>
       </Link>
     </div>

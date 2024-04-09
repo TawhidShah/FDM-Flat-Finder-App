@@ -17,6 +17,7 @@ img {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+  min-width: 350px;
   color: white;
   border-radius: 1rem;
   padding: 1rem;
