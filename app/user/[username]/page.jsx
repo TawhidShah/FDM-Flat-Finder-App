@@ -74,6 +74,8 @@ const User = ({ params }) => {
   const { user } = useUser();
   const router = useRouter();
 
+  const [loading, setLoading] = useState(true);
+
   const [currUser, setCurrUser] = useState({});
   const [updateUser, setUpdateUser] = useState({});
 
@@ -90,6 +92,7 @@ const User = ({ params }) => {
         const response = await axios.get(`/api/users/${params.username}`);
         setCurrUser(response.data);
         setUpdateUser(response.data);
+        setLoading(false);
       } catch (error) {
         if (error.response.status === 404) {
           toast.error("User not found");
@@ -200,7 +203,7 @@ const User = ({ params }) => {
     }
   };
 
-  if (!currUser || !user) {
+  if (loading || !user) {
     return <Loading />;
   }
 
