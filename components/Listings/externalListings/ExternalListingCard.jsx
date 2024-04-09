@@ -18,10 +18,15 @@ const ExternalListingCard = ({ listing }) => {
       ? listing.displayAddress.substring(0, 25) + "..."
       : listing.displayAddress;
 
+  const description =
+    listing.summary && listing.summary.length > 150
+      ? `${listing.summary.substring(0, 160)}...`
+      : listing.summary;
+
   return (
     <div
       key={listing.id}
-      className="flex h-[500px] min-h-[500px] flex-col gap-3 overflow-hidden rounded-lg bg-white shadow-lg"
+      className="shadow-custom relative flex h-[500px] max-h-[500px] flex-col gap-3 overflow-hidden rounded-lg"
     >
       <Carousel
         className="h-[250px] w-full"
@@ -34,7 +39,7 @@ const ExternalListingCard = ({ listing }) => {
           {listing.propertyImages.images.map((picture) => (
             <CarouselItem>
               <img
-                className="h-[250px] w-full object-cover object-center"
+                className="h-[250px] w-full rounded-lg object-cover object-center"
                 src={picture.srcUrl}
                 alt="Property Image"
               ></img>
@@ -45,30 +50,30 @@ const ExternalListingCard = ({ listing }) => {
         <CarouselNext className="right-0 border-none bg-transparent hover:bg-white" />
       </Carousel>
       <Link
-        className="flex h-[250px] flex-1 flex-col justify-between"
+        className="flex h-[250px] max-h-[250px] flex-1 flex-col justify-between gap-2 p-2 text-white"
         href={rightmoveUrl + listing.propertyUrl}
         target="_blank"
       >
-        <h1 className="text-xl font-semibold text-gray-900">{title}</h1>
+        <h1 className="text-2xl font-bold">{title}</h1>
         <div className="mx-auto flex items-center gap-3">
-          <span className="text-sm text-gray-600">{listing.propertyType}</span>
+          <span className="text-sm">{listing.propertyType}</span>
           {listing.bedrooms && (
             <>
               <LuBed />
-              <span className="text-sm text-gray-600">{listing.bedrooms}</span>
+              <span className="text-sm">{listing.bedrooms}</span>
             </>
           )}
           {listing.bathrooms && (
             <>
               <LuBath />
-              <span className="text-sm text-gray-600">{listing.bathrooms}</span>
+              <span className="text-sm">{listing.bathrooms}</span>
             </>
           )}
         </div>
-        <p className="mt-2 text-sm text-gray-600">{listing.summary}</p>
-        <div className="mt-3 flex justify-between p-1">
-          <span className="text-sm text-gray-600">{listing.countryCode}</span>
-          <span className="text-md text-gray-600">
+        <p className="min-h[80px] h-[80px] text-sm">{description}</p>
+        <div className="flex justify-between p-1">
+          <span className="text-sm">{listing.countryCode}</span>
+          <span className="text-md">
             {listing.price.displayPrices[0].displayPrice}
           </span>
         </div>
