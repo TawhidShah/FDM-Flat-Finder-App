@@ -97,6 +97,7 @@ const User = ({ params }) => {
         } else {
           console.error("Error fetching user data", error);
           toast.error("Error fetching user data");
+          router.push("/");
         }
       }
     };
@@ -262,7 +263,6 @@ const User = ({ params }) => {
             </button>
             <button onClick={handleSaveAccount}>Save</button>
           </div>
-
         </>
       ) : (
         <>
@@ -372,10 +372,11 @@ const User = ({ params }) => {
             />
           </label>
           <div className="buttons">
-            <button id="cancel" onClick={() => setEditExtra(!editExtra)}>Cancel</button>
+            <button id="cancel" onClick={() => setEditExtra(!editExtra)}>
+              Cancel
+            </button>
             <button onClick={handleSaveExtra}>Save</button>
           </div>
-
         </div>
       ) : (
         <div className="personal">
