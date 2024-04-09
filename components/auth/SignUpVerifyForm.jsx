@@ -12,6 +12,8 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
   const [code, setCode] = useState("");
   const router = useRouter();
 
+  const [error, setError] = useState("");
+
   // Verify User Email Code
   const onPressVerify = async (e) => {
     e.preventDefault();
@@ -27,13 +29,13 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
         toast.error("Sign up failed. Please try again.");
       }
       if (completeSignUp.status === "complete") {
+        setError("");
         toast.success("Sign up successful.");
         await setActive({ session: completeSignUp.createdSessionId });
         router.push(`/createProfile`);
       }
     } catch (err) {
-      console.error(err);
-      console.error(JSON.stringify(err, null, 2));
+      setError(err.errors[0].longMessage);
     }
   };
 
@@ -41,10 +43,15 @@ const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
     <form className="space-y-4 md:space-y-6">
       <input
         value={code}
-        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+        className="block w-full rounded-lg bg-gray-50 p-2.5 text-gray-900 focus:outline-none sm:text-sm"
         placeholder="Enter Verification Code..."
         onChange={(e) => setCode(e.target.value)}
       />
+      {error && (
+        <div className="!mt-2 ml-1 text-sm font-medium text-red-500">
+          {error}
+        </div>
+      )}
       <button
         type="submit"
         onClick={onPressVerify}
