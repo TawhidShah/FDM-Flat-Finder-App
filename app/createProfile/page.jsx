@@ -117,6 +117,7 @@ const CreateProfile = () => {
       }
       router.push("/listings");
     } catch (error) {
+      toast.error("Error creating profile.");
       console.error("Error creating user profile", error);
       return;
     }

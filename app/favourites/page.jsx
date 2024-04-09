@@ -25,11 +25,15 @@ const Favoruites = () => {
       }
     };
 
-    if (user && user.publicMetadata?.profileCreated) {
+    if (user) {
       fetchFavourites();
-    } else if (user) {
-      router.push("/createProfile");
     }
+
+    // if (user && user.publicMetadata?.profileCreated) {
+    //   fetchFavourites();
+    // } else if (user) {
+    //   router.push("/createProfile");
+    // }
   }, [user]);
 
   return (

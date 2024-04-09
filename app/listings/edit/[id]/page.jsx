@@ -93,11 +93,15 @@ const EditListing = ({ params }) => {
       }
     };
 
-    if (user && user.publicMetadata?.profileCreated && id) {
-      fetchFavourites();
-    } else if (user) {
-      router.push("/createProfile");
+    if (user) {
+      fetchListing();
     }
+
+    // if (user && user.publicMetadata?.profileCreated && id) {
+    //   fetchFavourites();
+    // } else if (user) {
+    //   router.push("/createProfile");
+    // }
   }, [id]);
 
   const handleChange = (e) => {

@@ -31,11 +31,15 @@ const Listing = ({ params }) => {
       }
     };
 
-    if (user && user.publicMetadata?.profileCreated) {
+    if (user) {
       fetchListing();
-    } else if (user) {
-      router.push("/createProfile");
     }
+
+    // if (user && user.publicMetadata?.profileCreated) {
+    //   fetchListing();
+    // } else if (user) {
+    //   router.push("/createProfile");
+    // }
   }, [id, user]);
 
   if (loading || !user) {

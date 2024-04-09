@@ -239,9 +239,9 @@ const CreateListing = () => {
     return <Loading />;
   }
 
-  if (user && !user.publicMetadata?.profileCreated) {
-    router.push("/createProfile");
-  }
+  // if (user && !user.publicMetadata?.profileCreated) {
+  //   router.push("/createProfile");
+  // }
 
   return (
     <div className={styles.container}>

@@ -105,11 +105,15 @@ const User = ({ params }) => {
       }
     };
 
-    if (user && user.publicMetadata?.profileCreated) {
+    if (user) {
       fetchData();
-    } else if (user) {
-      router.push("/createProfile");
     }
+
+    // if (user && user.publicMetadata?.profileCreated) {
+    //   fetchData();
+    // } else if (user) {
+    //   router.push("/createProfile");
+    // }
   }, [user]);
 
   const updateProfilePicture = async () => {
