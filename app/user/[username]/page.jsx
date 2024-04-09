@@ -107,7 +107,7 @@ const User = ({ params }) => {
     } else if (user) {
       router.push("/createProfile");
     }
-  }, []);
+  }, [user]);
 
   const updateProfilePicture = async () => {
     let newProfilePicture;
@@ -152,7 +152,6 @@ const User = ({ params }) => {
         country: updateUser.country,
         employmentType: updateUser.employmentType,
         periodType: updateUser.periodType,
-
       });
 
       user.update({
@@ -168,38 +167,6 @@ const User = ({ params }) => {
       toast.error("Error updating account");
     }
   };
-
-  // const handleSaveExtra = async (e) => {
-  //   if (
-  //     updateUser.hobbies.length < 1 ||
-  //     updateUser.preferences.length < 1 ||
-  //     !updateUser.employmentType ||
-  //     !updateUser.periodType ||
-  //     !updateUser.age
-  //   ) {
-  //     alert("Please fill in all fields");
-  //     e.preventDefault();
-  //     return;
-  //   }
-  //   try {
-  //     const response = await axios.put(`/api/users/${params.username}`, {
-  //       age: updateUser.age,
-  //       hobbies: updateUser.hobbies,
-  //       languages: updateUser.languages,
-  //       preferences: updateUser.preferences,
-  //       country: updateUser.country,
-  //       employmentType: updateUser.employmentType,
-  //       periodType: updateUser.periodType,
-  //     });
-  //     setEditExtra(!editExtra);
-  //     toast.success("Profile updated successfully");
-  //     router.push(`/user`);
-  //   } catch (error) {
-  //     console.error("Error updating profile", error);
-  //     toast.error("Error updating profile");
-  //     return;
-  //   }
-  // };
 
   const handleChange = (field) => (value) => {
     if (
@@ -381,10 +348,16 @@ const User = ({ params }) => {
                 setEditAccount(!editAccount);
                 setUpdateUser(currUser);
               }}
+              className="min-w-24 rounded-md bg-destructive p-2.5 text-center font-semibold text-black hover:bg-red-600"
             >
               Cancel
             </button>
-            <button onClick={handleSaveAccount}>Save</button>
+            <button
+              onClick={handleSaveAccount}
+              className="min-w-24 rounded-md bg-primary p-2.5 text-center font-semibold text-black hover:bg-[#A2D004]"
+            >
+              Save
+            </button>
           </div>
         </div>
       ) : (
@@ -408,7 +381,10 @@ const User = ({ params }) => {
 
           {params.username == user.username && (
             <div className="buttons">
-              <button onClick={() => setEditAccount(!editAccount)}>
+              <button
+                onClick={() => setEditAccount(!editAccount)}
+                className="min-w-24 rounded-md bg-primary p-2.5 text-center font-semibold text-black hover:bg-[#A2D004]"
+              >
                 Edit account information
               </button>
             </div>
@@ -445,7 +421,6 @@ const User = ({ params }) => {
           </div>
         </div>
       )}
-
       <ConfirmActionModal
         showModal={showListingDeleteModal}
         onClose={() => setShowListingDeleteModal(false)}

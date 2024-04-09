@@ -16,7 +16,7 @@ img {
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
-  width: 65%;
+  width: 80%;
   color: white;
   border-radius: 1rem;
   padding: 1rem;
@@ -29,7 +29,6 @@ img {
   text-align: center;
   border-bottom: 2px solid rgba(243, 238, 238, 0.06);
 }
-
 
 .main {
   display: flex;
@@ -55,16 +54,13 @@ img {
 }
 
 .extra p {
-  
-    padding: 0.5rem;
-    border: 2px solid rgba(243, 238, 238, 0.06);
-    box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
-    border-radius: 0.5rem;
-    width: fit-content;
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
- 
-  
+  padding: 0.5rem;
+  border: 2px solid rgba(243, 238, 238, 0.06);
+  box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
+  border-radius: 0.5rem;
+  width: fit-content;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .edit {
@@ -81,7 +77,8 @@ img {
   gap: 1rem;
 }
 
-.profile input, select {
+.profile input,
+select {
   margin: 10px 0;
   padding: 10px;
   width: calc(100% - 20px);
@@ -93,22 +90,6 @@ img {
 
 input:hover {
   border-color: #c5ff00;
-}
-
-.profile button {
-  background-color: rgb(197 255 0);
-  color: black;
-  padding: 0.625rem;
-  border-radius: calc(var(--radius) - 2px);
-  width: fit-content;
-  text-align: center;
-}
-
-button:hover, #cancel:hover {
-  background-color: white;
-}
-#cancel {
-  background-color: red;
 }
 
 .list {
@@ -125,7 +106,6 @@ button:hover, #cancel:hover {
   box-shadow: 3px 5.9px 5.9px hsl(0deg 0% 0% / 0.41);
   border-radius: 0.5rem;
   font-size: 14px;
-  
 }
 
 #editTitle {
