@@ -6,13 +6,10 @@ import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 
-import { useStore } from "@/store/store";
-
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUpVerifyForm = ({ isLoaded, setActive, signUp }) => {
   const [code, setCode] = useState("");
-  const username = useStore((state) => state.username);
   const router = useRouter();
 
   // Verify User Email Code

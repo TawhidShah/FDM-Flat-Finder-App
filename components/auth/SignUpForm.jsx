@@ -4,16 +4,12 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import { useStore } from "@/store/store";
-
 const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const username = useStore((state) => state.username);
-  const setUsername = useStore((state) => state.setUsername);
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -94,7 +90,7 @@ const SignUpForm = ({ setVerifying, isLoaded, signUp }) => {
       await signUp.create({
         firstName,
         lastName,
-        username: username,
+        username,
         emailAddress,
         password,
       });
