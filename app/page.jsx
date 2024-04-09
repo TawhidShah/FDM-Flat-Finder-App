@@ -7,7 +7,7 @@ export default function Home() {
     <main className="flex flex-1 flex-col items-center">
       <div className="mt-20 text-center">
         <Image
-          src="/images/FDMLogo.png"
+          src="https://swepffa.s3.eu-west-2.amazonaws.com/FDMLOGO-43b41d19-e893-4a28-9579-8d410f0e5263.png"
           alt="FDM logo"
           className="mx-auto"
           width={200}
