@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import Filter from "../Filter";
 import InternalListingsGrid from "./InternalListingsGrid";
-import { set } from "mongoose";
 import Loading from "@/components/Loading";
 
 const InternalListings = () => {
@@ -21,11 +21,19 @@ const InternalListings = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    axios.get("/api/listings").then((response) => {
-      setListings(response.data);
-    });
-    setLoading(false);
+    const fetchListings = async () => {
+      try {
+        const res = await axios.get("/api/listings");
+        setListings(res.data);
+      } catch (error) {
+        toast.error("Failed to fetch listings, please refresh");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
   }, []);
 
   useEffect(() => {
