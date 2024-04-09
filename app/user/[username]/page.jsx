@@ -78,7 +78,6 @@ const User = ({ params }) => {
   const [updateUser, setUpdateUser] = useState({});
 
   const [editAccount, setEditAccount] = useState(false);
-  const [editExtra, setEditExtra] = useState(false);
 
   const [showListingDeleteModal, setShowListingDeleteModal] = useState(false);
   const [deleteListingId, setDeleteListingId] = useState(null);
@@ -127,6 +126,17 @@ const User = ({ params }) => {
       e.preventDefault();
       return;
     }
+    if (
+      updateUser.hobbies.length < 1 ||
+      updateUser.preferences.length < 1 ||
+      !updateUser.employmentType ||
+      !updateUser.periodType ||
+      !updateUser.age
+    ) {
+      alert("Please fill in all fields");
+      e.preventDefault();
+      return;
+    }
 
     try {
       const newProfilePicture = await updateProfilePicture();
@@ -135,6 +145,14 @@ const User = ({ params }) => {
         firstName: updateUser.firstName,
         lastName: updateUser.lastName,
         profilePicture: newProfilePicture,
+        age: updateUser.age,
+        hobbies: updateUser.hobbies,
+        languages: updateUser.languages,
+        preferences: updateUser.preferences,
+        country: updateUser.country,
+        employmentType: updateUser.employmentType,
+        periodType: updateUser.periodType,
+
       });
 
       user.update({
@@ -151,37 +169,37 @@ const User = ({ params }) => {
     }
   };
 
-  const handleSaveExtra = async (e) => {
-    if (
-      updateUser.hobbies.length < 1 ||
-      updateUser.preferences.length < 1 ||
-      !updateUser.employmentType ||
-      !updateUser.periodType ||
-      !updateUser.age
-    ) {
-      alert("Please fill in all fields");
-      e.preventDefault();
-      return;
-    }
-    try {
-      const response = await axios.put(`/api/users/${params.username}`, {
-        age: updateUser.age,
-        hobbies: updateUser.hobbies,
-        languages: updateUser.languages,
-        preferences: updateUser.preferences,
-        country: updateUser.country,
-        employmentType: updateUser.employmentType,
-        periodType: updateUser.periodType,
-      });
-      setEditExtra(!editExtra);
-      toast.success("Profile updated successfully");
-      router.push(`/user`);
-    } catch (error) {
-      console.error("Error updating profile", error);
-      toast.error("Error updating profile");
-      return;
-    }
-  };
+  // const handleSaveExtra = async (e) => {
+  //   if (
+  //     updateUser.hobbies.length < 1 ||
+  //     updateUser.preferences.length < 1 ||
+  //     !updateUser.employmentType ||
+  //     !updateUser.periodType ||
+  //     !updateUser.age
+  //   ) {
+  //     alert("Please fill in all fields");
+  //     e.preventDefault();
+  //     return;
+  //   }
+  //   try {
+  //     const response = await axios.put(`/api/users/${params.username}`, {
+  //       age: updateUser.age,
+  //       hobbies: updateUser.hobbies,
+  //       languages: updateUser.languages,
+  //       preferences: updateUser.preferences,
+  //       country: updateUser.country,
+  //       employmentType: updateUser.employmentType,
+  //       periodType: updateUser.periodType,
+  //     });
+  //     setEditExtra(!editExtra);
+  //     toast.success("Profile updated successfully");
+  //     router.push(`/user`);
+  //   } catch (error) {
+  //     console.error("Error updating profile", error);
+  //     toast.error("Error updating profile");
+  //     return;
+  //   }
+  // };
 
   const handleChange = (field) => (value) => {
     if (
@@ -224,7 +242,7 @@ const User = ({ params }) => {
       <h1>Profile</h1>
       {editAccount ? (
         <>
-          <p>Edit Mode</p>
+          <h2 id="editTitle">Edit your details:</h2>
           <label>
             <span>First name</span>
             <input
@@ -257,18 +275,6 @@ const User = ({ params }) => {
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
           </div>
-          <div className="buttons">
-            <button
-              id="cancel"
-              onClick={() => {
-                setEditAccount(!editAccount);
-                setUpdateUser(currUser);
-              }}
-            >
-              Cancel
-            </button>
-            <button onClick={handleSaveAccount}>Save</button>
-          </div>
         </>
       ) : (
         <>
@@ -295,19 +301,10 @@ const User = ({ params }) => {
             <h2>Email Address</h2>
             <p>{currUser?.email}</p>
           </div>
-          {params.username == user.username && (
-            <div className="buttons">
-              <button onClick={() => setEditAccount(!editAccount)}>
-                Edit account information
-              </button>
-            </div>
-          )}
         </>
       )}
-
-      {editExtra ? (
+      {editAccount ? (
         <div className="edit">
-          <p>Edit Mode</p>
           <label>
             <span>How old are you?</span>
             <input
@@ -378,10 +375,16 @@ const User = ({ params }) => {
             />
           </label>
           <div className="buttons">
-            <button id="cancel" onClick={() => setEditExtra(!editExtra)}>
+            <button
+              id="cancel"
+              onClick={() => {
+                setEditAccount(!editAccount);
+                setUpdateUser(currUser);
+              }}
+            >
               Cancel
             </button>
-            <button onClick={handleSaveExtra}>Save</button>
+            <button onClick={handleSaveAccount}>Save</button>
           </div>
         </div>
       ) : (
@@ -405,8 +408,8 @@ const User = ({ params }) => {
 
           {params.username == user.username && (
             <div className="buttons">
-              <button onClick={() => setEditExtra(!editExtra)}>
-                Edit additional information
+              <button onClick={() => setEditAccount(!editAccount)}>
+                Edit account information
               </button>
             </div>
           )}

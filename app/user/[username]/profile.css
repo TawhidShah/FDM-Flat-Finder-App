@@ -127,3 +127,7 @@ button:hover, #cancel:hover {
   font-size: 14px;
   
 }
+
+#editTitle {
+  border: none;
+}
