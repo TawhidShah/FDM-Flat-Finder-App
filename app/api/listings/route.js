@@ -7,7 +7,7 @@ import { UserProfile } from "@/models/UserProfile";
 
 export async function GET() {
   await mongooseConnect();
-  const listings = await Listing.find().populate("owner");
+  const listings = await Listing.find();
   return NextResponse.json(listings);
 }
 
