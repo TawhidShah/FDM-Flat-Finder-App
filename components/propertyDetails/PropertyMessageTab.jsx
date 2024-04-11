@@ -20,6 +20,11 @@ const PropertyMessageTab = ({ listingOwner, listingTitle }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (subject.trim() == "" || message.trim() == "") {
+      toast.error("Please fill out all fields");
+      return;
+    }
+
     try {
       const res = await axios.post("/api/sendEmail", {
         sender: {
