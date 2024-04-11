@@ -161,7 +161,6 @@ const CreateListing = () => {
 
     if (empty.length) {
       setMissingFields(empty);
-      console.log(empty);
       toast.error("Please fill in all required fields.");
       return;
     }

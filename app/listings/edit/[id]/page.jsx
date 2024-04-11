@@ -432,8 +432,8 @@ const EditListing = ({ params }) => {
           )}
           <input
             type="number"
-            name="bedrooms"
-            value={formData.bedrooms}
+            name="numberOfRooms"
+            value={formData.numberOfRooms}
             onChange={handleChange}
           />
         </label>
