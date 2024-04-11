@@ -370,6 +370,19 @@ const EditListing = ({ params }) => {
             onChange={handleChange}
           />
         </label>
+        {formData.propertyType === "Shared Flat" ||
+        formData.propertyType === "Shared House" ? (
+          <label>
+            Rooms Available:
+            <input
+              type="number"
+              name="roomsAvailable"
+              min={1}
+              value={formData.roomsAvailable}
+              onChange={handleChange}
+            />
+          </label>
+        ) : null}
         <label>
           Bathrooms:
           <input
@@ -383,15 +396,18 @@ const EditListing = ({ params }) => {
           Area:
           <input name="area" value={formData.area} onChange={handleChange} />
         </label>
-        <label>
-          Tenants:
-          <input
-            type="text"
-            name="tenants"
-            value={formData.tenants}
-            onChange={handleChange}
-          />
-        </label>
+        {formData.propertyType === "Shared Flat" ||
+        formData.propertyType === "Shared House" ? (
+          <label>
+            Tenants:
+            <input
+              type="text"
+              name="tenants"
+              value={formData.tenants}
+              onChange={handleChange}
+            />
+          </label>
+        ) : null}
         <button
           type="submit"
           className="w-full rounded-md bg-primary py-2.5 hover:bg-white"
