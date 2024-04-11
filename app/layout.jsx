@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         >
           <Header />
           {children}
-          <ToastContainer position="bottom-right" />
+          <ToastContainer autoClose={1200} position="bottom-right" />
         </body>
       </html>
     </ClerkProvider>
