@@ -200,6 +200,7 @@ const User = ({ params }) => {
     try {
       const response = await axios.delete(`/api/listings/${deleteListingId}`);
       toast.success("Listing deleted successfully");
+      router.push("/user")
     } catch (error) {
       console.error("Error deleting listing", error);
       toast.error("Error deleting listing");
