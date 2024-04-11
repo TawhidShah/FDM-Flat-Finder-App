@@ -87,6 +87,8 @@ const EditListing = ({ params }) => {
 
   const [loading, setLoading] = useState(true);
 
+  const [missingFields, setMissingFields] = useState([]);
+
   useEffect(() => {
     // Fetch listing data when component mounts
     const fetchListing = async () => {
@@ -108,6 +110,8 @@ const EditListing = ({ params }) => {
           addressLine1: addressComponents[0] || "",
           addressLine2: addressComponents[1] || "",
           postcode: addressComponents[2] || "",
+
+          numberOfRooms: listingData.bedrooms,
 
           // nearby stations set as options
           nearbyStations: nearbyStationsOptions,
@@ -142,6 +146,40 @@ const EditListing = ({ params }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setMissingFields([]);
+
+    const requiredFields = [
+      "title",
+      "description",
+      "images",
+      "price",
+      "propertyType",
+      "availability",
+      "periodAvailable",
+      "country",
+      "city",
+      "addressLine1",
+      "postcode",
+      "numberOfRooms",
+      "bathrooms",
+      "area",
+    ];
+
+    if (
+      formData.propertyType === "Shared Flat" ||
+      formData.propertyType === "Shared House"
+    ) {
+      requiredFields.push("roomsAvailable", "tenants");
+    }
+
+    const empty = requiredFields.filter((field) => !formData[field]);
+
+    if (empty.length) {
+      setMissingFields(empty);
+      toast.error("Please fill in all required fields.");
+      return;
+    }
 
     const newImages = formData.images.filter((image) => image instanceof File);
     const existingImages = formData.images.filter(
@@ -213,10 +251,16 @@ const EditListing = ({ params }) => {
       >
         <label>
           Title:
+          {missingFields.includes("title") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input name="title" value={formData.title} onChange={handleChange} />
         </label>
         <label>
           Description:
+          {missingFields.includes("description") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="text"
             name="description"
@@ -224,7 +268,12 @@ const EditListing = ({ params }) => {
             onChange={handleChange}
           />
         </label>
-        <label>Images:</label>
+        <label>
+          Images:
+          {missingFields.includes("images") && (
+            <span className="text-destructive">*Required</span>
+          )}
+        </label>
         <div className="relative flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-sm border border-[#4a4a4a]">
           <input
             name="image"
@@ -263,7 +312,10 @@ const EditListing = ({ params }) => {
           ))}
         </div>
         <label>
-          Price:
+          Price:{" "}
+          {missingFields.includes("price") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="price"
@@ -273,6 +325,9 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Property Type:
+          {missingFields.includes("propertyType") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -292,6 +347,9 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Availability:
+          {missingFields.includes("availability") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -311,6 +369,9 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Period Available:
+          {missingFields.includes("periodAvailable") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -331,7 +392,10 @@ const EditListing = ({ params }) => {
 
         {locationInputFields.map(({ label, type, name, optional }) => (
           <label key={name}>
-            {label}:
+            {label}:{" "}
+            {missingFields.includes(name) && (
+              <span className="text-destructive">*Required</span>
+            )}
             <input
               type={type}
               name={name}
@@ -363,6 +427,9 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Number of Rooms:
+          {missingFields.includes("numberOfRooms") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="bedrooms"
@@ -374,6 +441,9 @@ const EditListing = ({ params }) => {
         formData.propertyType === "Shared House" ? (
           <label>
             Rooms Available:
+            {missingFields.includes("roomsAvailable") && (
+              <span className="text-destructive">*Required</span>
+            )}
             <input
               type="number"
               name="roomsAvailable"
@@ -385,6 +455,9 @@ const EditListing = ({ params }) => {
         ) : null}
         <label>
           Bathrooms:
+          {missingFields.includes("bathrooms") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="bathrooms"
@@ -394,6 +467,9 @@ const EditListing = ({ params }) => {
         </label>
         <label>
           Area:
+          {missingFields.includes("area") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input name="area" value={formData.area} onChange={handleChange} />
         </label>
         {formData.propertyType === "Shared Flat" ||

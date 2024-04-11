@@ -110,6 +110,8 @@ const CreateListing = () => {
 
   const [nearbyStationsInputValue, setNearbyStationsInputValue] = useState("");
 
+  const [missingFields, setMissingFields] = useState([]);
+
   const handleChange = (e) => {
     if (e.target.name === "image") {
       // seperately handle the image upload action
@@ -129,31 +131,38 @@ const CreateListing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let requiredFields = Object.keys(formData);
+    setMissingFields([]);
 
-    // remove optional fields
-    requiredFields = requiredFields.filter(
-      (key) =>
-        !locationInputFields.find(
-          (field) => field.name === key && field.optional,
-        ),
-    );
+    const requiredFields = [
+      "title",
+      "description",
+      "images",
+      "price",
+      "propertyType",
+      "availability",
+      "periodAvailable",
+      "country",
+      "city",
+      "addressLine1",
+      "postcode",
+      "numberOfRooms",
+      "bathrooms",
+      "area",
+    ];
 
-    // if the chosen property type is not shared flat or shared house, remove roomsAvailable from required fields
     if (
-      formData.propertyType !== "Shared Flat" &&
-      formData.propertyType !== "Shared House"
+      formData.propertyType === "Shared Flat" ||
+      formData.propertyType === "Shared House"
     ) {
-      requiredFields = requiredFields.filter(
-        (field) => field !== "roomsAvailable",
-      );
+      requiredFields.push("roomsAvailable", "tenants");
     }
 
-    // normal case to handle if the form has any empty required fields
-    const emptyFields = requiredFields.filter((field) => !formData[field]);
+    const empty = requiredFields.filter((field) => !formData[field]);
 
-    if (emptyFields.length > 0) {
-      alert("Please fill in all required fields");
+    if (empty.length) {
+      setMissingFields(empty);
+      console.log(empty);
+      toast.error("Please fill in all required fields.");
       return;
     }
 
@@ -175,7 +184,7 @@ const CreateListing = () => {
       country: formData.country,
       city: formData.city,
       address: combinedAddress,
-      nearbyStations: formData.nearbyStations.map((station) => station.value),
+      nearbyStations: formData.nearbyStations?.map((station) => station.value),
 
       bedrooms: formData.numberOfRooms,
       bedroomsAvailable: formData.roomsAvailable,
@@ -196,6 +205,7 @@ const CreateListing = () => {
 
       axios.post("/api/listings", submissionData);
       setFormData(initialFormData);
+      router.push("/listings");
       toast.success("Listing created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -250,10 +260,16 @@ const CreateListing = () => {
       >
         <label>
           Title:
+          {missingFields.includes("title") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input name="title" value={formData.title} onChange={handleChange} />
         </label>
         <label>
           Description:
+          {missingFields.includes("description") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="text"
             name="description"
@@ -262,7 +278,12 @@ const CreateListing = () => {
           />
         </label>
 
-        <label>Images:</label>
+        <label>
+          Images:
+          {missingFields.includes("images") && (
+            <span className="text-destructive">*Required</span>
+          )}
+        </label>
         <div className="relative flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-sm border border-[#4a4a4a]">
           <input
             name="image"
@@ -300,6 +321,9 @@ const CreateListing = () => {
         </div>
         <label>
           Price (£ PCM):
+          {missingFields.includes("price") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="price"
@@ -309,6 +333,9 @@ const CreateListing = () => {
         </label>
         <label>
           Property Type:
+          {missingFields.includes("propertyType") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -325,6 +352,9 @@ const CreateListing = () => {
         </label>
         <label>
           Availability:
+          {missingFields.includes("availability") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -341,6 +371,9 @@ const CreateListing = () => {
         </label>
         <label>
           Period Available:
+          {missingFields.includes("periodAvailable") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <Select
             styles={selectStyles}
             onChange={(selectedOption) =>
@@ -358,7 +391,10 @@ const CreateListing = () => {
 
         {locationInputFields.map(({ label, type, name, optional }) => (
           <label key={name}>
-            {label}:
+            {label}:{" "}
+            {missingFields.includes(name) && (
+              <span className="text-destructive">*Required</span>
+            )}
             <input
               type={type}
               name={name}
@@ -390,6 +426,9 @@ const CreateListing = () => {
         </label>
         <label>
           Number of Rooms:
+          {missingFields.includes("numberOfRooms") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="numberOfRooms"
@@ -402,6 +441,9 @@ const CreateListing = () => {
         formData.propertyType === "Shared House" ? (
           <label>
             Rooms Available:
+            {missingFields.includes("roomsAvailable") && (
+              <span className="text-destructive">*Required</span>
+            )}
             <input
               type="number"
               name="roomsAvailable"
@@ -413,6 +455,9 @@ const CreateListing = () => {
         ) : null}
         <label>
           Bathrooms:
+          {missingFields.includes("bathrooms") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input
             type="number"
             name="bathrooms"
@@ -423,6 +468,9 @@ const CreateListing = () => {
         </label>
         <label>
           Area:
+          {missingFields.includes("area") && (
+            <span className="text-destructive">*Required</span>
+          )}
           <input name="area" value={formData.area} onChange={handleChange} />
         </label>
         {formData.propertyType === "Shared Flat" ||
