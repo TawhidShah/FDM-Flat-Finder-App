@@ -200,7 +200,7 @@ const User = ({ params }) => {
     try {
       const response = await axios.delete(`/api/listings/${deleteListingId}`);
       toast.success("Listing deleted successfully");
-      router.push("/user")
+      router.push("/user");
     } catch (error) {
       console.error("Error deleting listing", error);
       toast.error("Error deleting listing");
@@ -405,7 +405,7 @@ const User = ({ params }) => {
 
                 {params.username == user.username && (
                   <div className="absolute bottom-4 right-[calc(50%-20px)] flex gap-2">
-                    <Link href={`/listings/edit/${item._id}`} target="_blank">
+                    <Link href={`/listings/edit/${item._id}`}>
                       <FiEdit className="h-5 w-5 text-white hover:text-[#AAA]" />
                     </Link>
 

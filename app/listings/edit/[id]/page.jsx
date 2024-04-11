@@ -188,16 +188,41 @@ const EditListing = ({ params }) => {
 
     const newImageLinks = await uploadImages(newImages);
 
-    const nearbyStations = formData.nearbyStations.map(
-      (station) => station.value,
-    );
-
     formData.images = [...existingImages, ...newImageLinks];
-    formData.nearbyStations = nearbyStations;
 
+    const combinedAddress = [
+      formData.addressLine1,
+      formData.addressLine2,
+      formData.postcode,
+    ].join("|");
+
+    const submissionData = {
+      _id: formData._id,
+      title: formData.title,
+      description: formData.description,
+      price: formData.price,
+      propertyType: formData.propertyType,
+      availability: formData.availability,
+      periodAvailable: formData.periodAvailable,
+
+      country: formData.country,
+      city: formData.city,
+      address: combinedAddress,
+      nearbyStations: formData.nearbyStations?.map((station) => station.value),
+
+      bedrooms: formData.numberOfRooms,
+      bedroomsAvailable: formData.roomsAvailable,
+      bathrooms: formData.bathrooms,
+      area: formData.area,
+      amenities: formData.amenities,
+
+      tenants: formData.tenants || "",
+    };
+
+    console.log("Submission data:", submissionData);
     try {
       // Update listing data
-      await axios.patch(`/api/listings/${id}`, { ...formData, bedrooms: formData.numberOfRooms });
+      await axios.patch(`/api/listings/${id}`, submissionData);
       toast.success("Listing updated successfully!");
       router.push(`/listings/${id}`);
     } catch (error) {
