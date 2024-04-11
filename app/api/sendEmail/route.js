@@ -8,6 +8,13 @@ export async function POST(request) {
 
   const { sender, recipient, listingTitle, subject, message } = body;
 
+  if (!sender || !recipient || !listingTitle || !subject || !message) {
+    return NextResponse.json(
+      { message: "Please provide all required fields" },
+      { status: 400 },
+    );
+  }
+
   const transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
