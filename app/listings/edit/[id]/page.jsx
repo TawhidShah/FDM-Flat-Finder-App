@@ -197,7 +197,7 @@ const EditListing = ({ params }) => {
 
     try {
       // Update listing data
-      await axios.patch(`/api/listings/${id}`, formData);
+      await axios.patch(`/api/listings/${id}`, { ...formData, bedrooms: formData.numberOfRooms });
       toast.success("Listing updated successfully!");
       router.push(`/listings/${id}`);
     } catch (error) {
