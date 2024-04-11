@@ -7,13 +7,11 @@ const listingSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 4,
     },
     description: {
       type: String,
       required: true,
       trim: true,
-      minlength: 4,
     },
     price: {
       type: Number,
