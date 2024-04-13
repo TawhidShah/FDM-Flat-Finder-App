@@ -46,7 +46,7 @@ const ExternalListings = () => {
 
   const fetchLocation = async () => {
     const headers = {
-      "X-RapidAPI-Key": "",
+      "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
       "X-RapidAPI-Host": "rightmove4.p.rapidapi.com",
     };
     const params = {
@@ -76,7 +76,7 @@ const ExternalListings = () => {
 
   const fetchProperties = async (locationIdentifier) => {
     const headers = {
-      "X-RapidAPI-Key": "",
+      "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
       "X-RapidAPI-Host": "uk-real-estate-rightmove.p.rapidapi.com",
     };
     const params = {
